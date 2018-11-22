@@ -7,7 +7,7 @@ public class Joven {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
 
-    private String dni;
+    private String id;
     private String nombre;
     private String apellidos;
     private Date fechaNacimiento;
@@ -22,11 +22,11 @@ public class Joven {
     private String centro;
     private String beca;
 
-    public Joven(String dni){
+    public Joven(String id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
 
-        Object[] tuples = db.select("SELECT * FROM Jovenes WHERE DNI = '" + dni + "';").get(0);
-        this.dni = (String)tuples[0];
+        Object[] tuples = db.select("SELECT * FROM Jovenes WHERE id = '" + id + "';").get(0);
+        this.id = (String)tuples[0];
         this.nombre = (String)tuples[1];
         this.apellidos = (String)tuples[2];
         this.fechaNacimiento = (Date)tuples[3];
@@ -42,7 +42,7 @@ public class Joven {
         this.beca = (String)tuples[13];
     }
 
-    public Joven(String dni, String nombre, String apellidos, Date fechaNacimiento,
+    public Joven(String id, String nombre, String apellidos, Date fechaNacimiento,
                  String nombreMadre, String nombrePadre, String historial, String datosComunidad,
                  String genero, String observaciones, Date fechaEntrada, Date fechaBaja,
                  String centro, String beca){
@@ -52,11 +52,11 @@ public class Joven {
         String bajaToStr = format.format(fechaBaja);
 
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
-        db.execute("INSERT INTO Jovenes VALUES('" + dni + "','" + nombre + "','" + apellidos + "','"
+        db.execute("INSERT INTO Jovenes VALUES('" + id + "','" + nombre + "','" + apellidos + "','"
                 + nacimientoToStr + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
                 + datosComunidad + "','" + genero + "','" + observaciones + "','" + entradaToStr + "','"
                 + bajaToStr + "','" + centro + "','" + beca + ");");
-        this.dni = dni;
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -72,21 +72,21 @@ public class Joven {
         this.beca = beca;
     }
 
-    public void setDni(String dni) {
+    public void setId(String id) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET dni = '" + dni + "' WHERE dni = '" + this.dni + "';");
-        this.dni = dni;
+        db.execute("UPDATE Joven SET id = '" + id + "' WHERE id = '" + this.id + "';");
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET nombre = '" + nombre + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET nombre = '" + nombre + "' WHERE id = '" + this.id + "';");
         this.nombre = nombre;
     }
 
     public void setApellidos(String apellidos) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET apellidos = '" + apellidos + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET apellidos = '" + apellidos + "' WHERE id = '" + this.id + "';");
         this.apellidos = apellidos;
     }
 
@@ -95,43 +95,43 @@ public class Joven {
         String nacimientoToStr = format.format(fechaNacimiento);
 
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET FechaNacimiento = '" + nacimientoToStr + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET FechaNacimiento = '" + nacimientoToStr + "' WHERE id = '" + this.id + "';");
         this.fechaNacimiento = fechaNacimiento;
     }
 
     public void setNombreMadre(String nombreMadre) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET nombreMadre = '" + nombreMadre + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET nombreMadre = '" + nombreMadre + "' WHERE id = '" + this.id + "';");
         this.nombreMadre = nombreMadre;
     }
 
     public void setNombrePadre(String nombrePadre) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET nombrePadre = '" + nombrePadre + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET nombrePadre = '" + nombrePadre + "' WHERE id = '" + this.id + "';");
         this.nombrePadre = nombrePadre;
     }
 
     public void setHistorial(String historial) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET historial = '" + historial + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET historial = '" + historial + "' WHERE id = '" + this.id + "';");
         this.historial = historial;
     }
 
     public void setDatosComunidad(String datosComunidad) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET datosComunidad = '" + datosComunidad + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET datosComunidad = '" + datosComunidad + "' WHERE id = '" + this.id + "';");
         this.datosComunidad = datosComunidad;
     }
 
     public void setGenero(String genero) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET genero = '" + genero + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET genero = '" + genero + "' WHERE id = '" + this.id + "';");
         this.genero = genero;
     }
 
     public void setObservaciones(String observaciones) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET observaciones = '" + observaciones + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET observaciones = '" + observaciones + "' WHERE id = '" + this.id + "';");
         this.observaciones = observaciones;
     }
 
@@ -139,7 +139,7 @@ public class Joven {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String entradaToStr = format.format(fechaEntrada);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET fechaEntrada = '" + entradaToStr + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET fechaEntrada = '" + entradaToStr + "' WHERE id = '" + this.id + "';");
         this.fechaEntrada = fechaEntrada;
     }
 
@@ -147,24 +147,24 @@ public class Joven {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String bajaToStr = format.format(fechaBaja);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET fechaBaja = '" + bajaToStr + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET fechaBaja = '" + bajaToStr + "' WHERE id = '" + this.id + "';");
         this.fechaBaja = fechaBaja;
     }
 
     public void setCentro(String centro) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET centro = '" + centro + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET centro = '" + centro + "' WHERE id = '" + this.id + "';");
         this.centro = centro;
     }
 
     public void setBeca(String beca) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET beca = '" + beca + "' WHERE dni = '" + this.dni + "';");
+        db.execute("UPDATE Joven SET beca = '" + beca + "' WHERE id = '" + this.id + "';");
         this.beca = beca;
     }
 
-    public String getDni() {
-        return dni;
+    public String getId() {
+        return id;
     }
 
     public String getNombre() {

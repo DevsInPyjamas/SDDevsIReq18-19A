@@ -30,7 +30,7 @@ create table [dbo].[Rol](
 go
 
 create table [dbo].[Jovenes](
-  dni varchar(50) not null,
+  id varchar(50) not null,
   nombre varchar(50) not null,
   nombreMadre varchar(50),
   nombrePadre varchar(50),
@@ -43,7 +43,7 @@ create table [dbo].[Jovenes](
   fechaBaja datetime,
   beca varchar(50),
   fechaNacimiento datetime not null,
-  constraint pk_jovenes primary key clustered (dni ASC)
+  constraint pk_jovenes primary key clustered (id ASC)
 ) on [Primary];
 go
 
