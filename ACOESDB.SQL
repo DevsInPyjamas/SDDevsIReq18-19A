@@ -1,5 +1,5 @@
--- create database [ACOES]
--- GO
+create database [ACOES]
+GO
 use [ACOES]
 go
 -- tables
