@@ -21,6 +21,7 @@ public class Joven {
     private Date fechaBaja;
     private String centro;
     private String beca;
+    private Double notaMedia;
 
     public Joven(String id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
@@ -40,12 +41,13 @@ public class Joven {
         this.fechaBaja = (Date)tuples[11];
         this.centro = (String)tuples[12];
         this.beca = (String)tuples[13];
+        this.notaMedia = (Double) tuples[14];
     }
 
     public Joven(String id, String nombre, String apellidos, Date fechaNacimiento,
                  String nombreMadre, String nombrePadre, String historial, String datosComunidad,
                  String genero, String observaciones, Date fechaEntrada, Date fechaBaja,
-                 String centro, String beca){
+                 String centro, String beca, Double notaMedia){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String nacimientoToStr = format.format(fechaNacimiento);
         String entradaToStr = format.format(fechaEntrada);
@@ -55,7 +57,7 @@ public class Joven {
         db.execute("INSERT INTO Jovenes VALUES('" + id + "','" + nombre + "','" + apellidos + "','"
                 + nacimientoToStr + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
                 + datosComunidad + "','" + genero + "','" + observaciones + "','" + entradaToStr + "','"
-                + bajaToStr + "','" + centro + "','" + beca + ");");
+                + bajaToStr + "','" + centro + "','" + beca + "', '" + notaMedia + ");");
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -70,6 +72,7 @@ public class Joven {
         this.fechaBaja = fechaBaja;
         this.centro = centro;
         this.beca = beca;
+        this.notaMedia = notaMedia;
     }
 
     public void setId(String id) {
@@ -163,6 +166,12 @@ public class Joven {
         this.beca = beca;
     }
 
+    public void setNotaMedia(Double notaMedia) {
+        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        db.execute("UPDATE Joven SET notaMedia = '" + notaMedia + "' WHERE id = '" + this.id + "';");
+        this.notaMedia = notaMedia;
+    }
+
     public String getId() {
         return id;
     }
@@ -218,4 +227,6 @@ public class Joven {
     public String getBeca() {
         return beca;
     }
+
+    public Double getNotaMedia() { return notaMedia; }
 }
