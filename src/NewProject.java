@@ -1,4 +1,4 @@
-import java.swing.*;
+import javax.swing.*;
 
 public class NewProject extends JPanel{
     private JButton backButton;
@@ -10,7 +10,7 @@ public class NewProject extends JPanel{
     private JLabel ubicacionLabel;
     private JTextField ubicacionField;
     private JLabel coordinadorLabel;
-    private JTextField coordinadorLabel;
+    private JTextField coordinadorTextField;
     private JLabel economicoLabel;
     private JTextField economicoField;
     private JLabel poblacionLabel;
