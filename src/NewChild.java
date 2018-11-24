@@ -5,10 +5,17 @@ public class NewChild {
     private JTextArea cambiarTextArea;
     private JButton subirFotoButton;
     private JButton añadirButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField cambiarAlsoTextField;
-    private JEditorPane editorPane1;
+    private JTextField nombreField;
+    private JTextField apellidosField;
+    private JTextField nombreMadreField;
+    private JTextField nombrePadreField;
+    private JTextField fechaNacimientoFIeld;
+    private JEditorPane historialPane;
+    private JLabel nuevoNiño;
+    private JLabel nombreLabel;
+    private JLabel apellidosLabel;
+    private JLabel fechaNacimientoLabel;
+    private JLabel nombreMadreLabel;
+    private JLabel nombrePadreLabel;
+    private JLabel historialLabel;
 }

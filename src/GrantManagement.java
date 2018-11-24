@@ -6,4 +6,5 @@ public class GrantManagement {
     private JButton añadirNuevoSocioButton;
     private JButton buscarNiñoButton;
     private JButton buscarSocioButton;
+    private JLabel gestionBecasLabel;
 }

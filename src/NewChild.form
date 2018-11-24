@@ -47,7 +47,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="65b92" class="javax.swing.JLabel">
+          <component id="65b92" class="javax.swing.JLabel" binding="nombreLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -55,7 +55,7 @@
               <text value="Nombre"/>
             </properties>
           </component>
-          <component id="2e59c" class="javax.swing.JLabel">
+          <component id="2e59c" class="javax.swing.JLabel" binding="apellidosLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -63,7 +63,7 @@
               <text value="Apellidos"/>
             </properties>
           </component>
-          <component id="35a79" class="javax.swing.JLabel">
+          <component id="35a79" class="javax.swing.JLabel" binding="fechaNacimientoLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -71,7 +71,7 @@
               <text value="Fecha de Nacimiento"/>
             </properties>
           </component>
-          <component id="5815b" class="javax.swing.JLabel">
+          <component id="5815b" class="javax.swing.JLabel" binding="nombreMadreLabel">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -79,7 +79,7 @@
               <text value="Nombre de la Madre"/>
             </properties>
           </component>
-          <component id="85c06" class="javax.swing.JLabel">
+          <component id="85c06" class="javax.swing.JLabel" binding="historialLabel">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -87,7 +87,7 @@
               <text value="Historial"/>
             </properties>
           </component>
-          <component id="76879" class="javax.swing.JLabel">
+          <component id="76879" class="javax.swing.JLabel" binding="nombrePadreLabel">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -95,7 +95,7 @@
               <text value="Nombre del Padre"/>
             </properties>
           </component>
-          <component id="468a0" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="468a0" class="javax.swing.JTextField" binding="nombreField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -103,7 +103,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="9eed6" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="9eed6" class="javax.swing.JTextField" binding="apellidosField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -111,7 +111,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="256e1" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+          <component id="256e1" class="javax.swing.JTextField" binding="nombreMadreField">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -119,7 +119,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="fcd4f" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+          <component id="fcd4f" class="javax.swing.JTextField" binding="nombrePadreField">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -129,7 +129,7 @@
               <text value=""/>
             </properties>
           </component>
-          <component id="9680" class="javax.swing.JTextField" binding="cambiarAlsoTextField" default-binding="true">
+          <component id="9680" class="javax.swing.JTextField" binding="fechaNacimientoFIeld">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -139,7 +139,7 @@
               <text value="Cambiar also"/>
             </properties>
           </component>
-          <component id="26b78" class="javax.swing.JEditorPane" binding="editorPane1" default-binding="true">
+          <component id="26b78" class="javax.swing.JEditorPane" binding="historialPane">
             <constraints>
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -149,7 +149,7 @@
           </component>
         </children>
       </grid>
-      <component id="539ee" class="javax.swing.JLabel">
+      <component id="539ee" class="javax.swing.JLabel" binding="nuevoNiño">
         <constraints>
           <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
