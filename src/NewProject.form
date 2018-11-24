@@ -26,7 +26,7 @@
           <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="20dcd" class="javax.swing.JLabel">
+      <component id="20dcd" class="javax.swing.JLabel" binding="nuevoProyectoLabel">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -34,7 +34,7 @@
           <text value="Nuevo Proyecto"/>
         </properties>
       </component>
-      <component id="7eeff" class="javax.swing.JLabel">
+      <component id="7eeff" class="javax.swing.JLabel" binding="nombreLabel">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -48,9 +48,11 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value=""/>
+        </properties>
       </component>
-      <component id="80f62" class="javax.swing.JLabel">
+      <component id="80f62" class="javax.swing.JLabel" binding="tipoProyectoLabel">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -64,7 +66,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="ef19c" class="javax.swing.JLabel">
+      <component id="ef19c" class="javax.swing.JLabel" binding="ubicacionLabel">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -80,7 +82,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="59e3d" class="javax.swing.JLabel">
+      <component id="59e3d" class="javax.swing.JLabel" binding="coordinadorLabel">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -96,7 +98,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="bd034" class="javax.swing.JLabel">
+      <component id="bd034" class="javax.swing.JLabel" binding="economicoLabel">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -104,7 +106,7 @@
           <text value="Responsable Económico"/>
         </properties>
       </component>
-      <component id="d2893" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="d2893" class="javax.swing.JTextField" binding="economicoField">
         <constraints>
           <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -112,7 +114,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="7e1f5" class="javax.swing.JLabel">
+      <component id="7e1f5" class="javax.swing.JLabel" binding="poblacionLabel">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -120,7 +122,7 @@
           <text value="Población"/>
         </properties>
       </component>
-      <component id="29122" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="29122" class="javax.swing.JTextField" binding="poblacionField">
         <constraints>
           <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -128,7 +130,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="3a52c" class="javax.swing.JLabel">
+      <component id="3a52c" class="javax.swing.JLabel" binding="departamentoLabel">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -136,7 +138,7 @@
           <text value="Departamento"/>
         </properties>
       </component>
-      <component id="ee2fe" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="ee2fe" class="javax.swing.JTextField" binding="departamentoField">
         <constraints>
           <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
