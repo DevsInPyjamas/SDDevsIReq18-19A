@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class GestionBecas {
+public class GrantManagement {
     private JButton atrasButton;
     private JButton añadirNuevoNiñoButton;
     private JButton añadirNuevoSocioButton;
