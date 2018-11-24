@@ -3,7 +3,7 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="8" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="469" height="337"/>
+      <xy x="20" y="20" width="531" height="337"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -42,7 +42,7 @@
           <text value="Becas"/>
         </properties>
       </component>
-      <component id="a0c7e" class="javax.swing.JButton" binding="button4" default-binding="true">
+      <component id="a0c7e" class="javax.swing.JButton" binding="zonaAdminButton">
         <constraints>
           <grid row="5" column="1" row-span="3" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
