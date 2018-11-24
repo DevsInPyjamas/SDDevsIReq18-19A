@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="9aaa1" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="9aaa1" class="javax.swing.JButton" binding="cerrarSesionButton">
         <constraints>
           <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -26,7 +26,7 @@
           <grid row="3" column="3" row-span="4" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="16645" class="javax.swing.JButton" binding="button3" default-binding="true">
+      <component id="16645" class="javax.swing.JButton" binding="becasButton">
         <constraints>
           <grid row="3" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -34,7 +34,7 @@
           <text value="Becas"/>
         </properties>
       </component>
-      <component id="a0c7e" class="javax.swing.JButton" binding="button4" default-binding="true">
+      <component id="a0c7e" class="javax.swing.JButton" binding="adminButton">
         <constraints>
           <grid row="4" column="1" row-span="3" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -70,7 +70,7 @@
           <text value="  Bienvenido !"/>
         </properties>
       </component>
-      <component id="c04fa" class="javax.swing.JButton" binding="button2" default-binding="true">
+      <component id="c04fa" class="javax.swing.JButton" binding="economicoButton">
         <constraints>
           <grid row="3" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
