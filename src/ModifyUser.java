@@ -3,6 +3,7 @@ import javax.swing.*;
 public class ModifyUser {
     private JPanel modificarUsuarioPanel;
     private JButton backButton;
+    private JButton borrarUsuarioButton;
     private JLabel modificarUsuarioLabel;
     private JLabel emailLabel;
     private JTextField emailField;
