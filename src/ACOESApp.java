@@ -12,16 +12,16 @@ public class ACOESApp{
     private JButton entrarButton;
     private DBManager dbManager = new DBManager("localhost", "ACOES");
     private WelcomeForm welcomeForm;
+    private static JFrame frame;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("ACOES App");
+        frame = new JFrame("ACOES App");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(550, 250));
         frame.setContentPane(new ACOESApp().loginWindow);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 
     private ACOESApp() {
         loginWindow.setSize(550, 250);
@@ -31,13 +31,8 @@ public class ACOESApp{
                         select("select * from Usuario where email = '" + textField1.getText() + "';");
                 try {
                     if ((queryTuples.get(0))[2].equals(passwordField1.getText())) {
-                        /*new Thread(() -> {
-                            SwingUtilities.invokeLater(() -> {
-                                        welcomeForm = new WelcomeForm();
-                                    }
-                            );
-                        }
-                        );*/
+                        new WelcomeForm();
+                        frame.dispose();
                     } else {
                         wrongLogInDialog();
                     }

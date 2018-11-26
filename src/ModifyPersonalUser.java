@@ -11,4 +11,5 @@ public class ModifyPersonalUser {
     private JTextField nombreField;
     private JLabel apellidosLabel;
     private JTextField apellidosField;
+    private JButton modificarButton;
 }
