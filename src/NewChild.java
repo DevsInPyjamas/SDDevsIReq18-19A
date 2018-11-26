@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class NewChild {
+    private JPanel nuevoNinoPanel;
     private JButton atrásButton;
     private JButton subirFotoButton;
     private JButton añadirButton;

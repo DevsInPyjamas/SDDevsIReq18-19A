@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class NewMember {
+    private JPanel nuevoMiembroPanel;
     private JButton backButton;
     private JLabel nuevoSocioLabel;
     private JLabel nombreLabel;

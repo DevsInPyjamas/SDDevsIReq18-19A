@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class ModifyPersonalUser {
+    private JPanel modificarUsuarioPersonalPanel;
     private JButton backButton;
     private JLabel modificarUsuarioLabel;
     private JLabel emailLabel;
