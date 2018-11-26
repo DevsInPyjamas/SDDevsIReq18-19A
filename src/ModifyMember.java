@@ -3,6 +3,7 @@ import javax.swing.*;
 public class ModifyMember {
     private JPanel modificarSocioPanel;
     private JButton backButton;
+    private JButton borrarSocioButton;
     private JLabel modificarSocioLabel;
     private JLabel nombreLabel;
     private JTextField nombreField;
