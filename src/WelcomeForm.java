@@ -18,7 +18,7 @@ public class WelcomeForm {
         buttonVisibility();
         this.loggedUser = loggedUser;
         welcomePanel.setSize(700, 250);
-        JFrame frame = new JFrame("ACOES App");
+        JFrame frame = new JFrame("ACOES App Welcome Section!");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(700, 250));
         frame.setContentPane(welcomePanel);
