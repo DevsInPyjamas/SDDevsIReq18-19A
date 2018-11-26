@@ -76,6 +76,8 @@ alter table Accion with check add constraint [FK_Action_Joven] foreign key([id_j
 alter table Accion with check add constraint [FK_Action_Project] foreign key([id_proyecto]) references Proyecto;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Jovenes] foreign key ([id_jovenes]) references Jovenes;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Rol] foreign key ([id_rol]) references Rol;
+alter table Usuario add pertenece_proyecto int;
+alter table Usuario with check add constraint [FK_User_Project] foreign key([pertenece_proyecto]) references Proyecto;
 
 
 -- data set
@@ -83,5 +85,25 @@ insert into Rol values('Coordinador General', 1);
 insert into Rol values('Usuario raso', 2)
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
+insert into Rol values('Coordinador Proyecto', 3);
+insert into Rol values('Responsable Proyecto', 4);
+insert into Rol values('Responsable General Proyectos', 5);
 insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('pito@gmail.com', 'pito', '1234', 'Manolo', '2');
+values ('c@c.com', 'crdn', '1234', 'Coordinador Pr Hombre', 3)
+       insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('d@d.com', 'resp', '1234', 'Responsable Pr Hombre', 4)
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('b@b.com', 'wan72', '1234', 'Wan', 5)
+insert into Proyecto (nombre, ubicacion, tipoProyecto,
+                      project_coordinator, project_responsable, general_project_coordinator,
+                      general_project_responsable)
+values ('Hombre', 'Tegulzpaga', 'CCJ', 'c@c.com', 'd@d.com', 'a@a.com', 'b@b.com')
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('pito@gmail.com', 'pito', '1234', 'Manolo', '2', 2);
+
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia)
+values ('alejandro', 'Paca', 'Paco', 'Menendez', '17-09-09', '17-09-00', '0.0');
+insert into accion (id_proyecto, id_joven, fecha_entrada) values (2, 5000, '17-09-09');
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia)
+values ('Pepe', 'Juan', 'Jefe', 'Jalter', '01-12-10', '17-09-98', '0.0');
+insert into accion (id_proyecto, id_joven, fecha_entrada) values (2, 5001, '01-12-10');

@@ -45,7 +45,7 @@ public class Rol {
     }
 
     public boolean isSuperAdmin() {
-        return this.nombre.contains("Coodrinador General");
+        return this.nombre.contains("Coordinador General");
     }
 
     public boolean hasAccessEconomic() {

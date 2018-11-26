@@ -24,6 +24,22 @@ public class DBManager {
         }
     }
 
+    public DBManager() {
+        // default connection to the ACOES DATABASe. it is not required to connect to any other
+        // database so, that's why I'm using this s.
+        try {
+            dataSource = new SQLServerDataSource();
+            dataSource.setUser("alkesst");
+            dataSource.setPassword("1234");
+            dataSource.setServerName("localhost");
+            dataSource.setPortNumber(1433);
+            dataSource.setDatabaseName("ACOES");
+            connection = dataSource.getConnection();
+        } catch (SQLException ex) {
+            throw new Error("Error al Conectar con la base de datos." + ex.getMessage());
+        }
+    }
+
     protected void finalize() {
         try {
             if (connection != null)
