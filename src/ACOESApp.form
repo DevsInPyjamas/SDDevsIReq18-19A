@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="loginWindow" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="450"/>
+      <xy x="20" y="20" width="253" height="232"/>
     </constraints>
     <properties>
       <preferredSize width="500" height="200"/>
@@ -61,19 +61,13 @@
         </constraints>
         <properties/>
       </component>
-      <component id="eec88" class="javax.swing.JCheckBox" binding="recordarCheckBox" default-binding="true">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Recordar"/>
-        </properties>
-      </component>
       <component id="952a3" class="javax.swing.JButton" binding="entrarButton" default-binding="true">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <inheritsPopupMenu value="false"/>
+          <name value="entrar"/>
           <text value="Entrar"/>
         </properties>
       </component>

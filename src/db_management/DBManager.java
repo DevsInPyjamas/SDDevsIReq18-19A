@@ -13,7 +13,8 @@ public class DBManager {
     public DBManager(String server, String databaseName) {
         try {
             dataSource = new SQLServerDataSource();
-            dataSource.setIntegratedSecurity(true);
+            dataSource.setUser("alkesst");
+            dataSource.setPassword("1234");
             dataSource.setServerName(server);
             dataSource.setPortNumber(1433);
             dataSource.setDatabaseName(databaseName);
