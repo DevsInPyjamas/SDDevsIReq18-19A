@@ -2,7 +2,6 @@ import javax.swing.*;
 
 public class NewChild {
     private JButton atrásButton;
-    private JTextArea cambiarTextArea;
     private JButton subirFotoButton;
     private JButton añadirButton;
     private JTextField nombreField;
