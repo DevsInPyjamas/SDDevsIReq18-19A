@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GrantManagement {
     private JPanel gestionBecasPanel;
-    private JButton atrasButton;
+    private JButton backButton;
     private JLabel gestionBecasLabel;
     private JButton añadirNuevoNiñoButton;
     private JButton buscarNiñoButton;
@@ -23,5 +23,11 @@ public class GrantManagement {
         frame.setContentPane(gestionBecasPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        backButton.addActionListener((e) -> {
+            if(e.getActionCommand().equals("Atrás")) {
+                new WelcomeForm(loggedUser);
+                frame.dispose();
+            }
+        });
     }
 }

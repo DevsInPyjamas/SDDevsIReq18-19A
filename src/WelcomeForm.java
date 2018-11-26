@@ -16,7 +16,7 @@ public class WelcomeForm {
 
     WelcomeForm(Usuario loggedUser) {
         this.loggedUser = loggedUser;
-        buttonVisibility();
+        displayButtons();
         welcomePanel.setSize(700, 250);
         JFrame frame = new JFrame("ACOES App Welcome Section!");
         frame.setBounds(400, 400, 300, 200);
@@ -27,20 +27,40 @@ public class WelcomeForm {
         becasButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Becas")) {
                 new GrantManagement(loggedUser);
+                frame.dispose();
             }
         });
+        adminButton.addActionListener((e) -> {
+            if(e.getActionCommand().equals("Zona Admin")) {
+                new AdminArea(loggedUser);
+                frame.dispose();
+            }
+        });
+        cerrarSesionButton.addActionListener((e -> {
+            if(e.getActionCommand().equals("Cerrar Sesión")) {
+                new ACOESApp();
+                frame.dispose();
+            }
+        }));
     }
 
-    private void buttonVisibility(){
+    private void displayButtons(){
         if(loggedUser.getRol().isAdmin()) {
             adminButton.setVisible(true);
-            becasButton.setVisible(true);
-            economicoButton.setVisible(true);
         } else {
             adminButton.setVisible(false);
+        }
+        if(loggedUser.getRol().hasAccessGrants()) {
+            becasButton.setVisible(true);
+        } else {
+            becasButton.setVisible(false);
+        }
+        if(loggedUser.getRol().hasAccessEconomic()) {
+            economicoButton.setVisible(true);
+        } else {
+            economicoButton.setVisible(false);
         }
         modificarPerfilPropioButton.setVisible(true);
         cerrarSesionButton.setVisible(true);
     }
-
 }

@@ -41,7 +41,18 @@ public class Rol {
     }
 
     public boolean isAdmin() {
-        /* TODO Por favor no lo dejéis así gracias.*/
-        return this.nombre.contains("Coordinador");
+        return this.nombre.contains("Coordinador") || this.nombre.contains("Responsable");
+    }
+
+    public boolean isSuperAdmin() {
+        return this.nombre.contains("Coodrinador General");
+    }
+
+    public boolean hasAccessEconomic() {
+        return this.isAdmin() || nombre.contains("Economico");
+    }
+
+    public boolean hasAccessGrants() {
+        return this.isAdmin() || nombre.contains("Becas");
     }
 }

@@ -15,15 +15,16 @@ public class ACOESApp{
     private static JFrame frame;
 
     public static void main(String[] args) {
+        new ACOESApp();
+    }
+
+    ACOESApp() {
         frame = new JFrame("ACOES App");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(550, 250));
-        frame.setContentPane(new ACOESApp().loginWindow);
+        frame.setContentPane(loginWindow);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-    }
-
-    private ACOESApp() {
         loginWindow.setSize(550, 250);
         entrarButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Entrar")) {
