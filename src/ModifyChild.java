@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class ModifyChild {
+    private JPanel modificarNinoPanel;
     private JButton modificarButton;
     private JButton subirFotoButton;
     private JTextField nombreTextField;

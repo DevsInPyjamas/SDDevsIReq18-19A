@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class GrantManagement {
+    private JPanel gestionBecasPanel;
     private JButton atrasButton;
     private JLabel gestionBecasLabel;
     private JButton añadirNuevoNiñoButton;

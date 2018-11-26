@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class NewProject extends JPanel{
+    private JPanle nuevoProyectoPanel;
     private JButton backButton;
     private JLabel nuevoProyectoLabel;
     private JLabel nombreLabel;

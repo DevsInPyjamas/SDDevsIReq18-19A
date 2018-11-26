@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class ModifyProject {
+    private JPanel modificarProyectoPanel;
     private JButton atrasButton;
     private JButton modificarButton;
     private JTextField textField1;

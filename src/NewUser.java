@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 public class NewUser {
+    private JPanel nuevoUsuarioPanel;
     private JButton atrásButton;
     private JTextField textField1;
     private JTextField textField2;
