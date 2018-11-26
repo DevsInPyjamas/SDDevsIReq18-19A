@@ -33,6 +33,7 @@ create table [dbo].[Jovenes](
   fechaBaja datetime,
   beca varchar(50),
   fechaNacimiento datetime not null,
+  notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
   ) on [Primary];
 
