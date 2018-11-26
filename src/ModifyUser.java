@@ -8,11 +8,11 @@ public class ModifyUser {
     private JTextField emailField;
     private JPanel permisosPanel;
     private JRadioButton coordGeneralRadio;
-    private JRadioButton respEcoGeneralRadio;
+    private JRadioButton respEcoGenProRadio;
     private JRadioButton coorGenProRadio;
     private JRadioButton respEcoGenRadio;
     private JRadioButton coorProRadio;
     private JRadioButton resEcoProRadio;
     private JButton modificarButton;
-    private JRadioButton usuarioNormal;
+    private JRadioButton usuarioNormalRadio;
 }

@@ -20,4 +20,5 @@ public class ModifyMember {
     private JLabel emailLabel;
     private JTextField emailField;
     private JButton modificarButton;
+    private JTextField fechaNacimientoField;
 }
