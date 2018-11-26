@@ -5,5 +5,6 @@ public class WelcomeForm {
     private JButton economicoButton;
     private JButton becasButton;
     private JButton adminButton;
-    private JLabel bienvenidoLabel;
+    private JLabel acoesappLabel;
+    private JButton modificarPerfilPropioButton;
 }
