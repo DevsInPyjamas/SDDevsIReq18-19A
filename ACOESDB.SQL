@@ -15,7 +15,7 @@ create table [dbo].[Usuario](
 create table [dbo].[Rol](
   nombre varchar(50) not null,
   id int not null
-  constraint pk_rol primary key clustered ([nombre] ASC)
+  constraint pk_rol primary key clustered ([id] ASC)
 ) on [Primary]
 
 
@@ -55,14 +55,14 @@ create table [dbo].[Accion](
 ) on [Primary];
 
 create table [dbo].[RolJovenesRelation](
-  id_rol varchar(50) not null,
+  id_rol int not null,
   id_jovenes int not null,
   constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
 ) on [Primary];
 
 -- relations
 
-alter table Usuario add rol_id varchar(50) not null;
+alter table Usuario add rol_id int not null;
 ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Role_User] FOREIGN KEY([rol_id]) references Rol ON UPDATE CASCADE ON DELETE CASCADE;
 alter table Usuario add general_project_coordinator int unique;
 alter table Usuario with check add constraint [FK_User_ProjectGeneralCoordination] foreign key([general_project_coordinator]) references Proyecto;
@@ -81,4 +81,4 @@ alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_
 -- data set
 insert into Rol values('Coordinador General', 1);
 insert into Usuario (email, usuario, password, nombre, rol_id)
-values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 'Coordinador General');
+values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');

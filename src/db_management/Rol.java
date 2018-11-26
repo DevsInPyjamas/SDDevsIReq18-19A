@@ -9,8 +9,8 @@ public class Rol {
     public Rol(int id) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         Object[] tuples = db.select("SELECT * FROM Rol WHERE id = '" + id + "';").get(0);
-        this.id = (int) tuples[0];
-        this.nombre = (String) tuples[1];
+        this.nombre = (String) tuples[0];
+        this.id = (int) tuples[1];
     }
 
     public Rol(int id, String nombre) {

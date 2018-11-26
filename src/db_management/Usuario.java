@@ -46,7 +46,7 @@ public class Usuario {
     public Rol getRol() {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
-        return new Rol((int) queryTuple[4]);
+        return new Rol((int) queryTuple[0]);
     }
 
     public void setPassword(String password) {
