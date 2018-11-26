@@ -1,5 +1,6 @@
 import javax.swing.*;
 import db_management.DBManager;
+import db_management.Usuario;
 
 import java.awt.Dimension;
 import java.util.List;
@@ -11,7 +12,6 @@ public class ACOESApp{
     private JPasswordField passwordField1;
     private JButton entrarButton;
     private DBManager dbManager = new DBManager("localhost", "ACOES");
-    private WelcomeForm welcomeForm;
     private static JFrame frame;
 
     public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class ACOESApp{
                         select("select * from Usuario where email = '" + textField1.getText() + "';");
                 try {
                     if ((queryTuples.get(0))[2].equals(passwordField1.getText())) {
-                        new WelcomeForm();
+                        new WelcomeForm(new Usuario((String) queryTuples.get(0)[0]));
                         frame.dispose();
                     } else {
                         wrongLogInDialog();

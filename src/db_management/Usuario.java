@@ -43,6 +43,12 @@ public class Usuario {
         return password;
     }
 
+    public Rol getRol() {
+        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
+        return new Rol((int) queryTuple[4]);
+    }
+
     public void setPassword(String password) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("UPDATE Usuario SET password = '" + password + "' WHERE email = '" + this.email + "';");

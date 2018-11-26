@@ -39,4 +39,9 @@ public class Rol {
         db.execute("UPDATE Rol SET nombre = '" + nombre + "' WHERE id = '" + this.id + "';");
         this.nombre = nombre;
     }
+
+    public boolean isAdmin() {
+        /* TODO Por favor no lo dejéis así gracias.*/
+        return this.nombre.contains("Coordinador");
+    }
 }
