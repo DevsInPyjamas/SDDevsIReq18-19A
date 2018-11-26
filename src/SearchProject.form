@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SearchChild">
-  <grid id="27dc6" binding="searchChildPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="SearchProject">
+  <grid id="27dc6" binding="searchProjectPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="c9a95" class="javax.swing.JButton" binding="atrásButton" default-binding="true">
+      <component id="ea1ff" class="javax.swing.JButton" binding="atrásButton" default-binding="true">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -16,20 +16,25 @@
           <text value="Atrás"/>
         </properties>
       </component>
-      <hspacer id="8d27b">
+      <hspacer id="d3ac6">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="e8a64" class="javax.swing.JLabel">
+      <vspacer id="18e2c">
+        <constraints>
+          <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="aad6c" class="javax.swing.JLabel">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Búsqueda de Niños"/>
+          <text value="Búsqueda de Proyectos"/>
         </properties>
       </component>
-      <component id="f5a19" class="javax.swing.JTextField" binding="searchChildTextField">
+      <component id="c2ca9" class="javax.swing.JTextField" binding="searchProjectTextField">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -37,12 +42,7 @@
         </constraints>
         <properties/>
       </component>
-      <vspacer id="801ae">
-        <constraints>
-          <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
-      <component id="d0a0" class="javax.swing.JTable" binding="searchChildTable">
+      <component id="be4d4" class="javax.swing.JTable" binding="seachProjectTable">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -50,7 +50,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="6d9c5" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
+      <component id="176b9" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
