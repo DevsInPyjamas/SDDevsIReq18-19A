@@ -64,14 +64,14 @@ create table [dbo].[RolJovenesRelation](
 
 alter table Usuario add rol_id int not null;
 ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Role_User] FOREIGN KEY([rol_id]) references Rol ON UPDATE CASCADE ON DELETE CASCADE;
-alter table Usuario add general_project_coordinator int unique;
-alter table Usuario with check add constraint [FK_User_ProjectGeneralCoordination] foreign key([general_project_coordinator]) references Proyecto;
-alter table Usuario add project_responsable int unique;
-alter table Usuario with check add constraint [FK_User_ProjectGeneralResponsable] foreign key([project_responsable]) references Proyecto;
-alter table Proyecto add project_coordinator varchar(50) not null;
+alter table Proyecto add project_coordinator varchar(50) not null unique;
 alter table Proyecto with check add constraint [FK_Project_Coordinator] foreign key([project_coordinator]) references Usuario;
 alter table Proyecto add project_responsable varchar(50) not null;
 alter table Proyecto with check add constraint [FK_Project_Responsable] foreign key([project_responsable]) references Usuario;
+alter table Proyecto add general_project_coordinator varchar(50) not null unique;
+alter table Proyecto with check add constraint [FK_GeneralProject_Coordinator] foreign key([general_project_coordinator]) references Usuario;
+alter table Proyecto add general_project_responsable varchar(50) not null;
+alter table Proyecto with check add constraint [FK_GeneralProject_Responsable] foreign key([general_project_responsable]) references Usuario;
 alter table Accion with check add constraint [FK_Action_Joven] foreign key([id_joven]) references Jovenes;
 alter table Accion with check add constraint [FK_Action_Project] foreign key([id_proyecto]) references Proyecto;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Jovenes] foreign key ([id_jovenes]) references Jovenes;
@@ -80,5 +80,8 @@ alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_
 
 -- data set
 insert into Rol values('Coordinador General', 1);
+insert into Rol values('Usuario raso', 2)
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('pito@gmail.com', 'pito', '1234', 'Manolo', '2');
