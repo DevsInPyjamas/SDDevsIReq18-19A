@@ -18,7 +18,7 @@ public class SearchChild {
     SearchChild(Usuario loggedUser) {
         this.loggedUser = loggedUser;
         searchChildPanel.setSize(700, 250);
-        JFrame frame = new JFrame("Gestión de Becas");
+        JFrame frame = new JFrame("Buscar niño");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(700, 250));
         frame.setContentPane(searchChildPanel);

@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="6cd2e" class="javax.swing.JButton" binding="atrásButton" default-binding="true">
+      <component id="6cd2e" class="javax.swing.JButton" binding="backButton">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -36,7 +36,7 @@
           <text value="Datos del niño"/>
         </properties>
       </component>
-      <component id="b55f" class="javax.swing.JButton" binding="modificarNiñoButton" default-binding="true">
+      <component id="b55f" class="javax.swing.JButton" binding="modifyKidButton">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -44,7 +44,7 @@
           <text value="Modificar Niño"/>
         </properties>
       </component>
-      <component id="fc4ee" class="javax.swing.JButton" binding="generarFichaButton" default-binding="true">
+      <component id="fc4ee" class="javax.swing.JButton" binding="generateFichaKidButton">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -52,7 +52,7 @@
           <text value="Generar Ficha"/>
         </properties>
       </component>
-      <component id="468c9" class="javax.swing.JButton" binding="borrarNiñoButton" default-binding="true">
+      <component id="468c9" class="javax.swing.JButton" binding="deleteKidButton">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
