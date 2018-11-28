@@ -1,9 +1,12 @@
+import db_management.DBManager;
+import db_management.Proyectos;
 import db_management.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class NewProject extends JPanel{
     private JPanel nuevoProyectoPanel;
@@ -19,13 +22,10 @@ public class NewProject extends JPanel{
     private JTextField coordinadorTextField;
     private JLabel economicoLabel;
     private JTextField economicoField;
-    private JLabel poblacionLabel;
-    private JTextField poblacionField;
-    private JLabel departamentoLabel;
-    private JTextField departamentoField;
     private JButton anadirButton;
     private Usuario loggedUser;
     private JPanel adminWindow;
+    private Proyectos proyecto;
 
 
     public NewProject(Usuario loggedUser) {
@@ -51,7 +51,16 @@ public class NewProject extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("Añadir")) {
-                    // TODO añadir niño al sistema.
+                    DBManager bd = new DBManager();
+                    proyecto.setNombre(nombreField.getText());
+                    proyecto.setUbicacion(ubicacionField.getText());
+                    String queryGeneral = (String) bd.select("SELECT email FROM Usuario WHERE nombre = '" +
+                            coordinadorTextField.getText() + "';").get(0)[0];
+                    proyecto.setCoordinadorAsignado(new Usuario(queryGeneral));
+                    String queryEconomico = (String) bd.select("SELECT email FROM Usuario WHERE nombre = '" +
+                            economicoField.getText() + "';").get(0)[0];
+                    proyecto.setResponsableEconomico(new Usuario(queryEconomico));
+                    proyecto.setTipoProyecto(Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString());
                 }
             }
         });
