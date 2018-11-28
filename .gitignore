@@ -6,6 +6,7 @@
 # Compiled class file
 *.class
 out/
+sqljdbc_auth.dll
 
 # Log file
 *.log

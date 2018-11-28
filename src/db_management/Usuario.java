@@ -11,7 +11,7 @@ public class Usuario {
     public Usuario(String email) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
 
-        Object[] tuples = db.select("SELECT * FROM Usuario WHERE email = '" + email + "';").get(0);
+        Object[] tuples = db.select("SELECT email, usuario, password, nombre FROM Usuario WHERE email = '" + email + "';").get(0);
         this.email = (String) tuples[0];
         this.usuario = (String) tuples[1];
         this.password = (String) tuples[2];

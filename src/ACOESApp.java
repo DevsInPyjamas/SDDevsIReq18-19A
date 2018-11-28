@@ -11,7 +11,7 @@ public class ACOESApp{
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton entrarButton;
-    private DBManager dbManager = new DBManager("localhost", "ACOES");
+    private DBManager dbManager = new DBManager();
     private static JFrame frame;
 
     public static void main(String[] args) {

@@ -38,7 +38,7 @@ public class AdminArea {
             }
         });
         projectHistoricButton.addActionListener(e -> {
-            if(e.getActionCommand().equals("Historial de Proyectos")){
+            if(e.getActionCommand().equals("Historial de Proyecto")){
                 new SearchProject(loggedUser);
                 frame.dispose();
             }
