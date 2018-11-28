@@ -1,38 +1,47 @@
+import db_management.Joven;
 import db_management.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ChildData {
-    private JPanel childDataPanel;
-    private JButton backButton;
+    private JPanel modificarNinoPanel;
     private JButton modifyKidButton;
-    private JButton generateFichaKidButton;
-    private JButton deleteKidButton;
-    private JTextField nombreField;
-    private JTextField apellidosField;
-    private JTextField fechaNacimientoField;
-    private JTextField nombreMadreField;
-    private JTextField nombrePadreField;
-    private JEditorPane historialPane;
-    private JPanel textFieldsPanel;
+    private JButton subirFotoButton;
+    private JTextField nombreTextField;
+    private JTextField apellidoTextField;
+    private JTextField fechaNacimientoTextField;
+    private JTextField nombreMadreTextField;
+    private JTextField nombrePadreTextField;
+    private JEditorPane historialEditorPane;
+    private JButton backButton;
     private Usuario loggedUser;
 
-    ChildData(Usuario loggedUser) {
-        generateFichaKidButton.setVisible(false);
+
+    ChildData(Usuario loggedUser, int idChild) {
         this.loggedUser = loggedUser;
-        childDataPanel.setSize(700, 250);
+        modificarNinoPanel.setSize(700, 400);
         JFrame frame = new JFrame("Información Niño");
         frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 250));
-        frame.setContentPane(childDataPanel);
+        frame.setMinimumSize(new Dimension(700, 400));
+        frame.setContentPane(modificarNinoPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        Joven child = new Joven(Integer.toString(idChild));
+        nombreTextField.setText(child.getNombre());
+        fechaNacimientoTextField.setText(child.getFechaNacimiento().toString());
+        apellidoTextField.setText(child.getApellidos());
+        nombreMadreTextField.setText(child.getNombreMadre());
+        nombrePadreTextField.setText(child.getNombrePadre());
+        historialEditorPane.setText(child.getHistorial());
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
                 new GrantManagement(loggedUser);
                 frame.dispose();
             }
+        });
+        modifyKidButton.addActionListener((e) -> {
+
         });
     }
 }

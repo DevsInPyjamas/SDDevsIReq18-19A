@@ -2,8 +2,6 @@ import db_management.DBManager;
 import db_management.Usuario;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -49,7 +47,10 @@ public class SearchChild {
             }
         });
         searchChildTable.getSelectionModel().addListSelectionListener(e -> {
-            System.out.println(searchChildTable.getValueAt(searchChildTable.getSelectedRow(), 0).toString());
+            int idChild = Integer.parseInt
+                    (searchChildTable.getValueAt(searchChildTable.getSelectedRow(), 0).toString());
+            new ChildData(loggedUser, idChild);
+            frame.dispose();
         });
     }
 
@@ -57,13 +58,13 @@ public class SearchChild {
         List<Object[]> query = dbManager.
                 select("select pertenece_proyecto from Usuario where email = '" +
                         loggedUser.getEmail() + "';");
-        int id_proyecto;
+        int idProyecto;
         List<Object[]> queryTuples;
         if (query.get(0)[0] != null) {
-             id_proyecto = (int) query.get(0)[0];
+             idProyecto = (int) query.get(0)[0];
              queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
                     "from proyecto p left outer join Accion A on " +
-                    "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + id_proyecto + "';");
+                    "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + idProyecto + "';");
         } else {
             queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
                     "from proyecto p left outer join Accion A on " +
@@ -73,13 +74,23 @@ public class SearchChild {
     }
 
     private List<Object[]> normalSearchProcess() {
-        int id_proyecto = (int) dbManager.
+        List<Object[]> query = dbManager.
                 select("select pertenece_proyecto from Usuario where email = '" +
-                        loggedUser.getEmail() + "';").get(0)[0];
-        List<Object[]> queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
-                "from proyecto p left outer join Accion A on " +
-                "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + id_proyecto + "' " +
-                "and J.nombre like '%" + searchChildTextField.getText() + "%';");
+                        loggedUser.getEmail() + "';");
+        List<Object[]> queryTuples;
+        int idProyecto;
+        if (query.get(0)[0] != null) {
+            idProyecto = (int) query.get(0)[0];
+            queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+                    "from proyecto p left outer join Accion A on " +
+                    "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + idProyecto + "' " +
+                    "and concat(J.nombre, ' ',J.apellidos) like '%" + searchChildTextField.getText() + "%';");
+        } else {
+            queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+                            "from proyecto p left outer join Accion A on " +
+                            "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where " +
+                    "concat(J.nombre, ' ' ,J.apellidos) like '%" + searchChildTextField.getText() + "%';");
+        }
         return queryTuples;
     }
 }
