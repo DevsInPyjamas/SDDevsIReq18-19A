@@ -7,47 +7,44 @@ public class Joven {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
 
-    private String id;
+    private int id;
     private String nombre;
     private String apellidos;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     private String nombreMadre;
     private String nombrePadre;
     private String historial;
     private String datosComunidad;
     private String genero;
     private String observaciones;
-    private Date fechaEntrada;
-    private Date fechaBaja;
-    private String centro;
+    private String fechaEntrada;
+    private String fechaBaja;
     private String beca;
-    private Double notaMedia;
+    private float notaMedia;
 
     public Joven(String id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
 
         Object[] tuples = db.select("SELECT * FROM Jovenes WHERE id = '" + id + "';").get(0);
-        this.id = (String)tuples[0];
+        this.id = (int) tuples[0];
         this.nombre = (String)tuples[1];
-        this.apellidos = (String)tuples[2];
-        this.fechaNacimiento = (Date)tuples[3];
-        this.nombreMadre = (String)tuples[4];
-        this.nombrePadre = (String)tuples[5];
-        this.historial = (String)tuples[6];
-        this.datosComunidad = (String)tuples[7];
-        this.genero = (String)tuples[8];
-        this.observaciones = (String)tuples[9];
-        this.fechaEntrada = (Date)tuples[10];
-        this.fechaBaja = (Date)tuples[11];
-        this.centro = (String)tuples[12];
-        this.beca = (String)tuples[13];
-        this.notaMedia = (Double) tuples[14];
+        this.nombreMadre = (String)tuples[2];
+        this.nombrePadre = (String)tuples[3];
+        this.apellidos = (String)tuples[4];
+        this.historial = (String)tuples[5];
+        this.datosComunidad = (String)tuples[6];
+        this.genero = (String)tuples[7];
+        this.observaciones = (String) tuples[8];
+        this.fechaEntrada = tuples[9].toString();
+        this.beca = (String)tuples[11];
+        this.fechaNacimiento =  tuples[12].toString();
+        this.notaMedia = (float) tuples[13];
     }
 
-    public Joven(String id, String nombre, String apellidos, Date fechaNacimiento,
+    public Joven(int id, String nombre, String apellidos, String fechaNacimiento,
                  String nombreMadre, String nombrePadre, String historial, String datosComunidad,
-                 String genero, String observaciones, Date fechaEntrada, Date fechaBaja,
-                 String centro, String beca, Double notaMedia){
+                 String genero, String observaciones, String fechaEntrada
+                , String beca, float notaMedia){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String nacimientoToStr = format.format(fechaNacimiento);
         String entradaToStr = format.format(fechaEntrada);
@@ -57,7 +54,7 @@ public class Joven {
         db.execute("INSERT INTO Jovenes VALUES('" + id + "','" + nombre + "','" + apellidos + "','"
                 + nacimientoToStr + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
                 + datosComunidad + "','" + genero + "','" + observaciones + "','" + entradaToStr + "','"
-                + bajaToStr + "','" + centro + "','" + beca + "', '" + notaMedia + ");");
+                + beca + "', '" + notaMedia + ");");
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -69,13 +66,11 @@ public class Joven {
         this.genero = genero;
         this.observaciones = observaciones;
         this.fechaEntrada = fechaEntrada;
-        this.fechaBaja = fechaBaja;
-        this.centro = centro;
         this.beca = beca;
         this.notaMedia = notaMedia;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("UPDATE Joven SET id = '" + id + "' WHERE id = '" + this.id + "';");
         this.id = id;
@@ -93,7 +88,7 @@ public class Joven {
         this.apellidos = apellidos;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String nacimientoToStr = format.format(fechaNacimiento);
 
@@ -138,7 +133,7 @@ public class Joven {
         this.observaciones = observaciones;
     }
 
-    public void setFechaEntrada(Date fechaEntrada) {
+    public void setFechaEntrada(String fechaEntrada) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String entradaToStr = format.format(fechaEntrada);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -146,7 +141,7 @@ public class Joven {
         this.fechaEntrada = fechaEntrada;
     }
 
-    public void setFechaBaja(Date fechaBaja) {
+    public void setFechaBaja(String fechaBaja) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String bajaToStr = format.format(fechaBaja);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -154,11 +149,6 @@ public class Joven {
         this.fechaBaja = fechaBaja;
     }
 
-    public void setCentro(String centro) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET centro = '" + centro + "' WHERE id = '" + this.id + "';");
-        this.centro = centro;
-    }
 
     public void setBeca(String beca) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -166,13 +156,13 @@ public class Joven {
         this.beca = beca;
     }
 
-    public void setNotaMedia(Double notaMedia) {
+    public void setNotaMedia(float notaMedia) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("UPDATE Joven SET notaMedia = '" + notaMedia + "' WHERE id = '" + this.id + "';");
         this.notaMedia = notaMedia;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -184,7 +174,7 @@ public class Joven {
         return apellidos;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
@@ -212,21 +202,17 @@ public class Joven {
         return observaciones;
     }
 
-    public Date getFechaEntrada() {
+    public String getFechaEntrada() {
         return fechaEntrada;
     }
 
-    public Date getFechaBaja() {
+    public String getFechaBaja() {
         return fechaBaja;
-    }
-
-    public String getCentro() {
-        return centro;
     }
 
     public String getBeca() {
         return beca;
     }
 
-    public Double getNotaMedia() { return notaMedia; }
+    public float getNotaMedia() { return notaMedia; }
 }

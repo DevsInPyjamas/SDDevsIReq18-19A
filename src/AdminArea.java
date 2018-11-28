@@ -31,22 +31,16 @@ public class AdminArea {
                 frame.dispose();
             }
         });
-        newProjectButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getActionCommand().equals("Añadir nuevo proyecto")){
-                    new NewProject(loggedUser);
-                    frame.dispose();
-                }
+        newProjectButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Añadir nuevo proyecto")){
+                new NewProject(loggedUser);
+                frame.dispose();
             }
         });
-        projectHistoricButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getActionCommand().equals("Historial de Proyectos")){
-                    new SearchProject();
-                    frame.dispose();
-                }
+        projectHistoricButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Historial de Proyectos")){
+                new SearchProject(loggedUser);
+                frame.dispose();
             }
         });
     }

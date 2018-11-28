@@ -15,7 +15,6 @@ public class ChildData {
     private JTextField nombrePadreTextField;
     private JEditorPane historialEditorPane;
     private JButton backButton;
-    private JButton modificarNiñoButton;
     private JComboBox modificarProyectoComboBox;
     private JTextField modificarNombre;
     private JTextField modificarApellidos;
@@ -23,12 +22,15 @@ public class ChildData {
     private JTextField modificarNombreMadre;
     private JTextField modificarNombrePadre;
     private JEditorPane modificarHistorialPane;
-    private JTextField textField6;
+    private JTextField cambiarProyecto;
+    private JButton generateFichaButton;
     private Usuario loggedUser;
 
 
-    ChildData(Usuario loggedUser, int idChild) {
+    ChildData(Usuario loggedUser, String idChild) {
         this.loggedUser = loggedUser;
+        generateFichaButton.setVisible(false); // TODO algun dia lo quitaremos!!!!
+        displayButtons(false);
         childDataServer.setSize(700, 400);
         JFrame frame = new JFrame("Información Niño");
         frame.setBounds(400, 400, 300, 200);
@@ -36,9 +38,9 @@ public class ChildData {
         frame.setContentPane(childDataServer);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        Joven child = new Joven(Integer.toString(idChild));
+        Joven child = new Joven(idChild);
         nombreTextField.setText(child.getNombre());
-        fechaNacimientoTextField.setText(child.getFechaNacimiento().toString());
+        fechaNacimientoTextField.setText(child.getFechaNacimiento());
         apellidoTextField.setText(child.getApellidos());
         nombreMadreTextField.setText(child.getNombreMadre());
         nombrePadreTextField.setText(child.getNombrePadre());
@@ -50,7 +52,19 @@ public class ChildData {
             }
         });
         modifyKidButton.addActionListener((e) -> {
-
+            childDataServer.setSize(1400, 400);
+            frame.setMinimumSize(new Dimension(1200, 400));
+            displayButtons(true);
         });
+    }
+
+    private void displayButtons(boolean siONo){
+        //modificarProyectoComboBox.setVisible(siONo);
+        modificarNombre.setVisible(siONo);
+        modificarApellidos.setVisible(siONo);
+        modificarFechaNacimiento.setVisible(siONo);
+        modificarNombreMadre.setVisible(siONo);
+        modificarNombrePadre.setVisible(siONo);
+        modificarHistorialPane.setVisible(siONo);
     }
 }

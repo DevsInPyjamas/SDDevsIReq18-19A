@@ -47,8 +47,7 @@ public class SearchChild {
             }
         });
         searchChildTable.getSelectionModel().addListSelectionListener(e -> {
-            int idChild = Integer.parseInt
-                    (searchChildTable.getValueAt(searchChildTable.getSelectedRow(), 0).toString());
+            String idChild = searchChildTable.getValueAt(searchChildTable.getSelectedRow(), 0).toString();
             new ChildData(loggedUser, idChild);
             frame.dispose();
         });
