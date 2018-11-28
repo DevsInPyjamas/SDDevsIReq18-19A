@@ -1,8 +1,10 @@
+import db_management.DBManager;
 import db_management.Joven;
 import db_management.Usuario;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.util.List;
 
 public class ChildData {
     private JPanel childDataServer;
@@ -26,10 +28,21 @@ public class ChildData {
     private JButton generateFichaButton;
     private JButton actualizarButton;
     private Usuario loggedUser;
+    private DBManager dbManager = new DBManager();
 
 
     ChildData(Usuario loggedUser, String idChild) {
         this.loggedUser = loggedUser;
+        List<Object[]> queryTuples;
+        if(!loggedUser.getRol().isAdmin()) {
+            queryTuples = dbManager.select("select p.nombre from Proyecto p inner join " +
+                    "Usuario u on u.pertenece_proyecto = p.id and u.email = '" + loggedUser.getEmail() + "';");
+        } else {
+            queryTuples = dbManager.select("select nombre from Proyecto");
+        }
+        for(Object[] tuple : queryTuples) {
+            modificarProyectoComboBox.addItem(tuple[0]);
+        }
         generateFichaButton.setVisible(false); // TODO algun dia lo quitaremos!!!!
         displayButtons(false);
         childDataServer.setSize(700, 400);
@@ -48,24 +61,55 @@ public class ChildData {
         historialEditorPane.setText(child.getHistorial());
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
-                new GrantManagement(loggedUser);
+                new SearchChild(loggedUser);
                 frame.dispose();
             }
         });
         modifyKidButton.addActionListener((e) -> {
-            childDataServer.setSize(1400, 400);
-            frame.setMinimumSize(new Dimension(1200, 400));
+            frame.setMinimumSize(new Dimension(1000, 400));
             displayButtons(true);
+        });
+        actualizarButton.addActionListener((e) -> {
+            try {
+                this.modifyKidDB(child);
+            } catch (Exception p) {
+                putaMadreNene("Algo ha fallado al modificar los datos... " + p.getMessage());
+            }
+            putaMadreNene("Se ha modificado correctamente el niño...");
         });
     }
 
     private void displayButtons(boolean siONo){
-        //modificarProyectoComboBox.setVisible(siONo);
+        modificarProyectoComboBox.setVisible(siONo);
         modificarNombre.setVisible(siONo);
         modificarApellidos.setVisible(siONo);
+        actualizarButton.setVisible(siONo);
         modificarFechaNacimiento.setVisible(siONo);
         modificarNombreMadre.setVisible(siONo);
         modificarNombrePadre.setVisible(siONo);
         modificarHistorialPane.setVisible(siONo);
     }
-}
+
+    private void putaMadreNene(String message) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Información");
+        dialog.setBounds(400, 400, 300, 200);
+        dialog.setMinimumSize(new Dimension(550, 150));
+        dialog.setContentPane(new JLabel(message));
+        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        dialog.setVisible(true);
+    }
+
+    private void modifyKidDB(Joven kid) {
+        if(!modificarNombre.getText().isEmpty()) {
+            kid.setNombre(modificarNombre.getText());
+        }
+        if(!modificarApellidos.getText().isEmpty()) {
+            kid.setApellidos(modificarApellidos.getText());
+        }
+        if(!modificarNombrePadre.getText().isEmpty()) {
+            kid.setNombrePadre(modificarNombrePadre.getText());
+        }
+
+    }
+ }
