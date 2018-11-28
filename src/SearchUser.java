@@ -6,5 +6,5 @@ public class SearchUser {
     private JLabel busquedaUsuarioLabel;
     private JTextField buscadorField;
     private JButton buscadorButton;
-    private JTable usuariosTable;
+    private JTable searchUserTable;
 }

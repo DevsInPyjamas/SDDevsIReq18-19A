@@ -6,6 +6,7 @@ public class SearchProject {
     private JTextField searchProjectTextField;
     private JTable seachProjectTable;
     private JButton buscarButton;
+    private JTable searchProjectTable;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 

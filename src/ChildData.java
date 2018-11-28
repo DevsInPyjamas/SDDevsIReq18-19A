@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChildData {
-    private JPanel modificarNinoPanel;
+    private JPanel childDataServer;
     private JButton modifyKidButton;
     private JButton subirFotoButton;
     private JTextField nombreTextField;
@@ -15,16 +15,25 @@ public class ChildData {
     private JTextField nombrePadreTextField;
     private JEditorPane historialEditorPane;
     private JButton backButton;
+    private JButton modificarNiñoButton;
+    private JComboBox modificarProyectoComboBox;
+    private JTextField modificarNombre;
+    private JTextField modificarApellidos;
+    private JTextField modificarFechaNacimiento;
+    private JTextField modificarNombreMadre;
+    private JTextField modificarNombrePadre;
+    private JEditorPane modificarHistorialPane;
+    private JTextField textField6;
     private Usuario loggedUser;
 
 
     ChildData(Usuario loggedUser, int idChild) {
         this.loggedUser = loggedUser;
-        modificarNinoPanel.setSize(700, 400);
+        childDataServer.setSize(700, 400);
         JFrame frame = new JFrame("Información Niño");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(700, 400));
-        frame.setContentPane(modificarNinoPanel);
+        frame.setContentPane(childDataServer);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         Joven child = new Joven(Integer.toString(idChild));

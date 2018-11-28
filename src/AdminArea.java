@@ -2,6 +2,8 @@ import db_management.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminArea {
     private JButton backButton;
@@ -27,6 +29,24 @@ public class AdminArea {
             if(e.getActionCommand().equals("Atrás")) {
                 new WelcomeForm(loggedUser);
                 frame.dispose();
+            }
+        });
+        newProjectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getActionCommand().equals("Añadir nuevo proyecto")){
+                    new NewProject(loggedUser);
+                    frame.dispose();
+                }
+            }
+        });
+        projectHistoricButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getActionCommand().equals("Historial de Proyectos")){
+                    new SearchProject();
+                    frame.dispose();
+                }
             }
         });
     }

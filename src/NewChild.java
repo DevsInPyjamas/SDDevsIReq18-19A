@@ -21,6 +21,8 @@ public class NewChild {
     private JLabel nombreMadreLabel;
     private JLabel nombrePadreLabel;
     private JLabel historialLabel;
+    private JLabel anadirProyecoLabel;
+    private JComboBox proyectoComboBox;
     Usuario loggedUser;
 
     NewChild(Usuario loggedUser) {
