@@ -24,6 +24,7 @@ public class ChildData {
     private JEditorPane modificarHistorialPane;
     private JTextField cambiarProyecto;
     private JButton generateFichaButton;
+    private JButton actualizarButton;
     private Usuario loggedUser;
 
 
