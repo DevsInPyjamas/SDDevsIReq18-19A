@@ -89,22 +89,35 @@ insert into Rol values('Becas',5);
 insert into Rol values('Economico',6);
 insert into Rol values('Usuario Raso',7);
 
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('b@b.com', 'pito', '1234', 'Manolo', '2');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('c@c.com', 'rajoy', '1234', 'Mariano', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('d@d.com', 'albert', '1234', 'Albert', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
+
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('Pepe', 'Paco', 'Paca', 'Menendez', '17-09-09', '1-02-98', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('Pedro', 'Juana', 'Juan', 'Gonzales', '18-02-07', '20-01-98', 0.0);
-
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, historial, datosComunidad, genero, observaciones, fechaEntrada, fechaBaja, beca,fechaNacimiento ,notaMedia)
-values('Juan', 'Andrea','Paquito', 'Rivera Casado', 'Fue encontrado como tarzan','Pertenece a la comunidad de Honduras', 'Hombre', 'De vez en cuando le pica el culo', '26/11/2017', '12/12/2018' , 'Beca Normal','16/05/2005', '7.46' );
-
+values('Juan', 'Andrea','Paquito', 'Rivera Casado', 'Fue encontrado como tarzan','Pertenece a la comunidad de Honduras', 'Hombre', 'De vez en cuando le pica la cabeza', '26/11/2017', '12/12/2018' , 'Beca Normal','16/05/2005', '7.46' );
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, historial, datosComunidad, genero, observaciones, fechaEntrada, fechaBaja, beca,fechaNacimiento ,notaMedia)
 values('Pablo', 'Francisca','Felix', 'Stalin Muha', 'Venia de un cartel de drogas de la serie de narcos','Pertenece a la comunidad de Colombia', 'Hombre', 'Tiene aires de gallego', '10/1/2015', '1/12/2018' , 'Beca San Miguel','18/06/2007', '5.4' );
-
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, historial, datosComunidad, genero, observaciones, fechaEntrada, fechaBaja, beca,fechaNacimiento ,notaMedia)
 values('Kefla', 'Selena','Lonnely', 'Bush Obama', 'Encontrado en una universidad despues de un tiroteo','Pertenece a la comunidad de EEUU', 'Mujer', 'Naturaleza asustadiza', '14/09/2014', '1/7/2020', 'Beca Normal','1/01/2005', '9.6' );
-
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('Avelino', 'Maria', 'AvelinoP', 'Gomez', '21-02-2000', '3-01-98', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
@@ -135,6 +148,18 @@ insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, 
 ('Edgar', 'Mari', 'Roberto', 'Cansino', '04/06/2014', '06/08/2010', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('Pheteven', 'Samsa', 'Mariano', 'Stark', '06/05/2011', '15/10/2010', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
+('Dario', 'Artya', 'Gonzalo', 'Treck', '01/05/2005', '28/10/2000', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
+('Naruto', 'Sakura', 'Inoyi', 'Uzumaki', '26/10/2012', '06/10/2006', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
+('Luffy', 'Nami', 'Ace', 'Python', '25/04/2012', '01/07/2009', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
+('Midoriya', 'Julia', 'Al-Migth', 'Otaku', '06/06/2006', '20/05/2000', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
+('ElChavo', 'Juana', 'Mariano', 'Delocho', '08/08/2008', '07/12/2002', 0.0);
+
+
 
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
@@ -168,27 +193,25 @@ insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5016', '1
 insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5017', '03/04/2008')
 insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5018', '04/06/2014')
 insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5019', '06/05/2011')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5020', '01/05/2005')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5021', '26/10/2012')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5022', '25/04/2012')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5023', '06/06/2006')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5024', '08/08/2008')
 
 
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('b@b.com', 'pito', '1234', 'Manolo', '2');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('c@c.com', 'rajoy', '1234', 'Mariano', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('d@d.com', 'albert', '1234', 'Albert', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
+
 insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
 values ('pedro@uma.es', 'gatobetis', '1234', 'Pedro', '5', 1);
 insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6', 2);
+values ('hey@hey.com', 'uwu', '1234', 'Hyem', '5', 2);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('otaku@uma.es', 'LOlplayer', '1234', 'Reckles', '5', 3);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6', 1);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('pozo@pozo.com', 'pozo', '1234', 'Pozo', '6', 2);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('onichan@onichan.com', 'onix', '1234', 'Boruto', '6', 3);
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('av@a.es', 'av', '1234', 'Antonio', '7');
