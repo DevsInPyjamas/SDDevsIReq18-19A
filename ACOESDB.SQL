@@ -29,10 +29,10 @@ create table [dbo].[Jovenes](
   datosComunidad varchar(100),
   genero varchar(10),
   observaciones varchar(1000),
-  fechaEntrada datetime not null,
-  fechaBaja datetime,
+  fechaEntrada date not null,
+  fechaBaja date,
   beca varchar(50),
-  fechaNacimiento datetime not null,
+  fechaNacimiento date not null,
   notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
   ) on [Primary];
@@ -49,8 +49,8 @@ create table [dbo].[Proyecto](
 create table [dbo].[Accion](
                              id_proyecto int not null,
                              id_joven int not null,
-                             fecha_entrada datetime not null,
-                             fecha_salida datetime,
+                             fecha_entrada date not null,
+                             fecha_salida date,
                              constraint pk_Accion primary key clustered (id_proyecto, id_joven)
   ) on [Primary];
 
