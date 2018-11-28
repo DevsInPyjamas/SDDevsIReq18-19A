@@ -15,9 +15,11 @@ public class ChildData {
     private JTextField nombreMadreField;
     private JTextField nombrePadreField;
     private JEditorPane historialPane;
+    private JPanel textFieldsPanel;
     private Usuario loggedUser;
 
     ChildData(Usuario loggedUser) {
+        generateFichaKidButton.setVisible(false);
         this.loggedUser = loggedUser;
         childDataPanel.setSize(700, 250);
         JFrame frame = new JFrame("Información Niño");

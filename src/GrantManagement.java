@@ -31,7 +31,7 @@ public class GrantManagement {
         });
         addNewKidButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Añadir nuevo niño")) {
-                new NewChild();
+                new NewChild(loggedUser);
                 frame.dispose();
             }
         });
@@ -41,5 +41,6 @@ public class GrantManagement {
                 frame.dispose();
             }
         });
+
     }
 }

@@ -76,6 +76,8 @@ alter table Accion with check add constraint [FK_Action_Joven] foreign key([id_j
 alter table Accion with check add constraint [FK_Action_Project] foreign key([id_proyecto]) references Proyecto;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Jovenes] foreign key ([id_jovenes]) references Jovenes;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Rol] foreign key ([id_rol]) references Rol;
+alter table Usuario add pertenece_proyecto int;
+alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto;
 
 
 -- data set
@@ -86,30 +88,6 @@ insert into Rol values('Responsable Economico',4);
 insert into Rol values('Becas',5);
 insert into Rol values('Economico',6);
 insert into Rol values('Usuario Raso',7);
-
-
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('b@b.com', 'pito', '1234', 'Manolo', '2');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('c@c.com', 'rajoy', '1234', 'Mariano', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('d@d.com', 'albert', '1234', 'Albert', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('pedro@uma.es', 'gatobetis', '1234', 'Pedro', '5');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('av@a.es', 'av', '1234', 'Antonio', '7');
 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0);
@@ -192,7 +170,25 @@ insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5018', '0
 insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5019', '06/05/2011')
 
 
-                             
-                             
-
-
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('b@b.com', 'pito', '1234', 'Manolo', '2');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('c@c.com', 'rajoy', '1234', 'Mariano', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('d@d.com', 'albert', '1234', 'Albert', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('pedro@uma.es', 'gatobetis', '1234', 'Pedro', '5', 1);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
+values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6', 2);
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('av@a.es', 'av', '1234', 'Antonio', '7');
