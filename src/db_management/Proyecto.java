@@ -10,7 +10,7 @@ public class Proyecto {
     private Usuario responsableEconomico;
     private String tipoProyecto;
 
-    public Proyecto(int id) {
+    public Proyecto(int id) throws Exception {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         Object[] tuples = db.select("SELECT * FROM Proyecto WHERE id = '" + id + "';").get(0);
         this.id = (int) tuples[0];

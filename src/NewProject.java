@@ -44,15 +44,29 @@ public class NewProject extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("Añadir")) {
-                    String nombre = nombreField.getText();
-                    String ubicacion = ubicacionField.getText();
-                    Usuario coord = new Usuario(coordinadorTextField.getText());
-                    Usuario resp = new Usuario(economicoField.getText());
-                    String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
-                    proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
-
+                    try {
+                        String nombre = nombreField.getText();
+                        String ubicacion = ubicacionField.getText();
+                        Usuario coord = new Usuario(coordinadorTextField.getText());
+                        Usuario resp = new Usuario(economicoField.getText());
+                        String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
+                        proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
+                        putaMadreNene("Se ha añadido el proyecto correctamente");
+                    }catch (Exception ex) {
+                        putaMadreNene(ex.getMessage());
+                    }
                 }
             }
         });
+    }
+
+    private void putaMadreNene(String message) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Información");
+        dialog.setBounds(400, 400, 300, 200);
+        dialog.setMinimumSize(new Dimension(550, 150));
+        dialog.setContentPane(new JLabel(message));
+        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        dialog.setVisible(true);
     }
 }

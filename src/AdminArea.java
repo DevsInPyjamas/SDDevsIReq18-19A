@@ -10,7 +10,7 @@ public class AdminArea {
     private JButton newProjectButton;
     private JButton projectHistoricButton;
     private JButton listaDeUsuariosButton;
-    private JButton añadirNuevoUsuaroButton;
+    private JButton anadirNuevoUsuaroButton;
     private JPanel adminArea;
     private JPanel adminWindow;
     private Usuario loggedUser;
@@ -37,8 +37,9 @@ public class AdminArea {
                 frame.dispose();
             }
         });
+
         projectHistoricButton.addActionListener(e -> {
-            if(e.getActionCommand().equals("Historial de Proyecto")){
+            if (e.getActionCommand().equals("Historial de Proyectos")){
                 new SearchProject(loggedUser);
                 frame.dispose();
             }

@@ -1,5 +1,9 @@
 package db_management;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Usuario {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
@@ -8,14 +12,29 @@ public class Usuario {
     private String nombre;
     private String email;
 
-    public Usuario(String email) {
+    public List<Usuario> selectAllUsers() throws Exception {
+        DBManager dbManager = new DBManager();
+        List<Object[]> query = dbManager.select("select email from Usuario");
+        List<Usuario> list = new ArrayList<>();
+        for (Object[] obj : query) {
+            list.add(new Usuario((String) obj[0]));
+        }
+        return list;
+    }
+
+    public Usuario(String email) throws Exception {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
 
-        Object[] tuples = db.select("SELECT email, usuario, password, nombre FROM Usuario WHERE email = '" + email + "';").get(0);
-        this.email = (String) tuples[0];
-        this.usuario = (String) tuples[1];
-        this.password = (String) tuples[2];
-        this.nombre = (String) tuples[3];
+        List<Object[]> tuples = db.select("SELECT email, usuario, password, nombre FROM Usuario " +
+                "WHERE email = '" + email + "';");
+        if(tuples.isEmpty()) {
+            throw new Exception("Usuario no almacenado en la base de datos");
+        } else {
+            this.email = (String) tuples.get(0)[0];
+            this.usuario = (String) tuples.get(0)[1];
+            this.password = (String) tuples.get(0)[2];
+            this.nombre = (String) tuples.get(0)[3];
+        }
     }
 
     public Usuario(String usuario, String password, String nombre, String email) {
