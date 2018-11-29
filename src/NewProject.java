@@ -51,22 +51,14 @@ public class NewProject extends JPanel{
                         Usuario resp = new Usuario(economicoField.getText());
                         String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
                         proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
-                        putaMadreNene("Se ha añadido el proyecto correctamente");
+                        JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el proyecto correctamente");
+
                     }catch (Exception ex) {
-                        putaMadreNene(ex.getMessage());
+                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
+
                     }
                 }
             }
         });
-    }
-
-    private void putaMadreNene(String message) {
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Información");
-        dialog.setBounds(400, 400, 300, 200);
-        dialog.setMinimumSize(new Dimension(550, 150));
-        dialog.setContentPane(new JLabel(message));
-        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        dialog.setVisible(true);
     }
 }

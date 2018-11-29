@@ -72,10 +72,10 @@ public class ChildData {
         actualizarButton.addActionListener((e) -> {
             try {
                 this.modifyKidDB(child);
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el niño...");
             } catch (Exception p) {
-                putaMadreNene("Algo ha fallado al modificar los datos... " + p.getMessage());
+                JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " + p.getMessage());
             }
-            putaMadreNene("Se ha modificado correctamente el niño...");
         });
     }
 
@@ -88,16 +88,6 @@ public class ChildData {
         modificarNombreMadre.setVisible(siONo);
         modificarNombrePadre.setVisible(siONo);
         modificarHistorialPane.setVisible(siONo);
-    }
-
-    private void putaMadreNene(String message) {
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Información");
-        dialog.setBounds(400, 400, 300, 200);
-        dialog.setMinimumSize(new Dimension(550, 150));
-        dialog.setContentPane(new JLabel(message));
-        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        dialog.setVisible(true);
     }
 
     private void modifyKidDB(Joven kid) {
