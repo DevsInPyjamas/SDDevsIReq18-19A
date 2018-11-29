@@ -30,7 +30,6 @@ public class NewChild {
     private JLabel anadirProyecoLabel;
     private JComboBox proyectoComboBox;
     Usuario loggedUser;
-    Joven joven;
 
     NewChild(Usuario loggedUser) {
         this.loggedUser = loggedUser;
@@ -63,23 +62,19 @@ public class NewChild {
             if(checkIfThereAreNotBlankFields()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Hay campos obligatorios en blanco");
             } else {
-                joven = new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
+                new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
                         nombreMadreField.getText(), nombrePadreField.getText(), historialPane.getText(),
                         "", "", "", "0");
-                /**
-                 *
-                 * Fallo: Error en el INSERT: insert into Accion(id_proyecto, id_joven, fecha_entrada) values
-                 * ('1', '5033', '29/11/2018');. Instrucción INSERT en conflicto con la restricción FOREIGN KEY
-                 * 'FK_Action_Joven'. El conflicto ha aparecido en la base de datos 'ACOES', tabla 'dbo.Jovenes', column 'id'.
-
-                 int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
+               
+                int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
                         proyectoComboBox.getSelectedItem() + "';").get(0)[0];
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String entradaToStr = dtf.format(LocalDate.now());
-                System.out.println(joven.getId());
+                int idJoven = (int) dbManager.select("select id from Jovenes where nombre like '" +
+                        nombreField.getText() + "' and apellidos like '" + apellidosField.getText() + "';").get(0)[0];
                 dbManager.execute("insert into Accion(id_proyecto, id_joven, fecha_entrada)" +
-                        " values ('" + idProyecto + "', '" + joven.getId() + "', '" + entradaToStr + "');");
-                 */
+                        " values ('" + idProyecto + "', '" + idJoven + "', '" + entradaToStr + "');");
+
                 JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos son correctos");
                 new GrantManagement(loggedUser);
                 frame.dispose();
