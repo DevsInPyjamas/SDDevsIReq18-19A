@@ -17,14 +17,14 @@ public class SearchChild {
 
     SearchChild(Usuario loggedUser) {
         this.loggedUser = loggedUser;
-        searchChildPanel.setSize(700, 250);
+        searchChildPanel.setSize(700, 500);
         JFrame frame = new JFrame("Buscar niño");
         frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 250));
+        frame.setMinimumSize(new Dimension(700, 500));
         frame.setContentPane(searchChildPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        searchChildTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Fecha Nacimiento"}, 5));
+        searchChildTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Fecha Nacimiento"}, 10));
         DefaultTableModel model = (DefaultTableModel) searchChildTable.getModel();
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {

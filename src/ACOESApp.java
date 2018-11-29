@@ -4,6 +4,8 @@ import db_management.Usuario;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ACOESApp{
@@ -11,7 +13,7 @@ public class ACOESApp{
     private JTextField textField1;
     private JPasswordField passwordField1;
     private JButton entrarButton;
-    private DBManager dbManager = new DBManager("localhost", "ACOES");
+    private DBManager dbManager = new DBManager();
     private static JFrame frame;
 
     public static void main(String[] args) {

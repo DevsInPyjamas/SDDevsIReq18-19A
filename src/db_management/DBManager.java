@@ -31,7 +31,7 @@ public class DBManager {
             dataSource = new SQLServerDataSource();
             dataSource.setUser("alkesst");
             dataSource.setPassword("1234");
-            dataSource.setServerName("localhost");
+            dataSource.setServerName("127.0.0.1");
             dataSource.setPortNumber(1433);
             dataSource.setDatabaseName("ACOES");
             connection = dataSource.getConnection();

@@ -7,6 +7,7 @@ public class Usuario {
     private String password;
     private String nombre;
     private String email;
+    private Rol role;
 
     public Usuario(String email) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -16,6 +17,8 @@ public class Usuario {
         this.usuario = (String) tuples[1];
         this.password = (String) tuples[2];
         this.nombre = (String) tuples[3];
+        Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
+        role = new Rol((int) queryTuple[0]);
     }
 
     public Usuario(String usuario, String password, String nombre, String email) {
@@ -44,9 +47,7 @@ public class Usuario {
     }
 
     public Rol getRol() {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
-        return new Rol((int) queryTuple[0]);
+        return role;
     }
 
     public void setPassword(String password) {
