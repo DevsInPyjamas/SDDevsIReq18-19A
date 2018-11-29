@@ -1,5 +1,9 @@
 package db_management;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Usuario {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
@@ -9,7 +13,17 @@ public class Usuario {
     private String email;
     private Rol role;
 
-    public Usuario(String email) {
+    public List<Usuario> selectAllUsers() throws Exception {
+        DBManager dbManager = new DBManager();
+        List<Object[]> query = dbManager.select("select email from Usuario");
+        List<Usuario> list = new ArrayList<>();
+        for (Object[] obj : query) {
+            list.add(new Usuario((String) obj[0]));
+        }
+        return list;
+    }
+
+    public Usuario(String email) throws Exception {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
 
         Object[] tuples = db.select("SELECT * FROM Usuario WHERE email = '" + email + "';").get(0);

@@ -1,5 +1,5 @@
 import db_management.DBManager;
-import db_management.Proyectos;
+import db_management.Proyecto;
 import db_management.Usuario;
 
 import javax.swing.*;
@@ -11,30 +11,23 @@ import java.util.Objects;
 public class NewProject extends JPanel{
     private JPanel nuevoProyectoPanel;
     private JButton backButton;
-    private JLabel nuevoProyectoLabel;
-    private JLabel nombreLabel;
     private JTextField nombreField;
-    private JLabel tipoProyectoLabel;
     private JComboBox tipoProyectoComboBox;
-    private JLabel ubicacionLabel;
     private JTextField ubicacionField;
-    private JLabel coordinadorLabel;
     private JTextField coordinadorTextField;
-    private JLabel economicoLabel;
     private JTextField economicoField;
     private JButton anadirButton;
     private Usuario loggedUser;
-    private JPanel adminWindow;
-    private Proyectos proyecto;
+    private Proyecto proyecto;
 
 
     public NewProject(Usuario loggedUser) {
         this.loggedUser = loggedUser;
-        adminWindow.setSize(700, 250);
+        //nuevoProyectoPanel.setSize(250, 500);
         JFrame frame = new JFrame("Admin Section");
         frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 250));
-        frame.setContentPane(adminWindow);
+        frame.setMinimumSize(new Dimension(500, 300));
+        frame.setContentPane(nuevoProyectoPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         backButton.addActionListener(new ActionListener() {
@@ -51,18 +44,29 @@ public class NewProject extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getActionCommand().equals("Añadir")) {
-                    DBManager bd = new DBManager();
-                    proyecto.setNombre(nombreField.getText());
-                    proyecto.setUbicacion(ubicacionField.getText());
-                    String queryGeneral = (String) bd.select("SELECT email FROM Usuario WHERE nombre = '" +
-                            coordinadorTextField.getText() + "';").get(0)[0];
-                    proyecto.setCoordinadorAsignado(new Usuario(queryGeneral));
-                    String queryEconomico = (String) bd.select("SELECT email FROM Usuario WHERE nombre = '" +
-                            economicoField.getText() + "';").get(0)[0];
-                    proyecto.setResponsableEconomico(new Usuario(queryEconomico));
-                    proyecto.setTipoProyecto(Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString());
+                    try {
+                        String nombre = nombreField.getText();
+                        String ubicacion = ubicacionField.getText();
+                        Usuario coord = new Usuario(coordinadorTextField.getText());
+                        Usuario resp = new Usuario(economicoField.getText());
+                        String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
+                        proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
+                        putaMadreNene("Se ha añadido el proyecto correctamente");
+                    }catch (Exception ex) {
+                        putaMadreNene(ex.getMessage());
+                    }
                 }
             }
         });
+    }
+
+    private void putaMadreNene(String message) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Información");
+        dialog.setBounds(400, 400, 300, 200);
+        dialog.setMinimumSize(new Dimension(550, 150));
+        dialog.setContentPane(new JLabel(message));
+        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        dialog.setVisible(true);
     }
 }

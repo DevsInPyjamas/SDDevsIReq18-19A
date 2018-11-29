@@ -33,7 +33,11 @@ public class ACOESApp{
                 List<Object[]> queryTuples = dbManager.
                         select("select * from Usuario where email = '" + textField1.getText() + "';");
                     if ((queryTuples.get(0))[2].equals(passwordField1.getText())) {
-                        new WelcomeForm(new Usuario((String) queryTuples.get(0)[0]));
+                        try {
+                            new WelcomeForm(new Usuario((String) queryTuples.get(0)[0]));
+                        } catch (Exception e1) {
+                            wrongLogInDialog();
+                        }
                         frame.dispose();
                     } else {
                         wrongLogInDialog();
