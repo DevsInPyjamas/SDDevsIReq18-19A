@@ -1,7 +1,5 @@
 import db_management.DBManager;
 import db_management.Usuario;
-import org.omg.CORBA.OBJ_ADAPTER;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -11,7 +9,6 @@ public class SearchProject {
     private JPanel searchProjectPanel;
     private JButton atrásButton;
     private JTextField searchProjectTextField;
-    private JTable seachProjectTable;
     private JButton buscarButton;
     private JTable searchProjectTable;
     private Usuario loggedUser;
@@ -19,15 +16,15 @@ public class SearchProject {
 
     SearchProject(Usuario loggedUser){
         this.loggedUser= loggedUser;
+        searchProjectPanel.setSize(700, 500);
         JFrame frame= new JFrame("Buscar proyecto");
         frame.setBounds(400,400,300,200);
         frame.setMinimumSize(new Dimension(700, 250));
         frame.setContentPane(searchProjectPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        seachProjectTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Ubicacion", "Coordinador",
-                "Responsable"}, 5));
-        DefaultTableModel model = (DefaultTableModel) seachProjectTable.getModel();
+        searchProjectTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Coordinador", "Responsable"}, 5));
+        DefaultTableModel model = (DefaultTableModel) searchProjectTable.getModel();
         atrásButton.addActionListener((e)->{
             if(e.getActionCommand().equals("Atrás")){
                 new AdminArea(loggedUser);
@@ -49,42 +46,25 @@ public class SearchProject {
                 }
             }
         });
-        seachProjectTable.getSelectionModel().addListSelectionListener(e -> {
-            String idProject = seachProjectTable.getValueAt(seachProjectTable.getSelectedRow(), 0).toString();
-            new ModifyProject(); //TODO Pasar loggedUser y idProject.
+        searchProjectTable.getSelectionModel().addListSelectionListener(e -> {
+            try {
+                int idProject = (int) searchProjectTable.getValueAt(searchProjectTable.getSelectedRow(), 0);
+                new ModifyProject(loggedUser, idProject);
+                frame.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
+            }
         });
     }
 
     private List<Object[]> normalSearchProcess() {
-        //TODO
-        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
-                loggedUser.getEmail() + "';");
-        int idProyecto;
-        List<Object[]> queryTuples = null;
-
-        if(query.get(0)[0] != null) {
-
-        } else {
-
-        }
-
-        return queryTuples;
+        return dbManager.select("select id, nombre, project_coordinator, project_responsable from proyecto " +
+                "where nombre = '" + searchProjectTextField.getText() + "';");
     }
 
     private List<Object[]> processWhenSearchWithoutValue() {
-        //TODO
-        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
-                loggedUser.getEmail() + "';");
-        int idProyecto;
-        List<Object[]> queryTuples = null;
-
-        if(query.get(0)[0] != null) {
-
-        } else {
-
-        }
-
-        return queryTuples;    }
+        return dbManager.select("select id, nombre, project_coordinator, project_responsable from proyecto");
+    }
 
 
 }

@@ -17,12 +17,8 @@ public class Proyecto {
         this.nombre = (String) tuples[1];
         this.ubicacion = (String) tuples[2];
         this.tipoProyecto = (String) tuples[3];
-        String queryGeneral = (String) db.select("SELECT email FROM Usuario WHERE nombre = '" +
-                tuples[4] + "';").get(0)[0];
-        coordinadorAsignado = new Usuario(queryGeneral);
-        String queryEconomico = (String) db.select("SELECT email FROM Usuario WHERE nombre = '" +
-                tuples[5] + "';").get(0)[0];
-        responsableEconomico = new Usuario(queryEconomico);
+        coordinadorAsignado = new Usuario((String) tuples[4]);
+        responsableEconomico = new Usuario((String) tuples[5]);
     }
 
     public Proyecto(String nombre, String ubicacion, Usuario coordinadorAsignado, Usuario responsableEconomico,
