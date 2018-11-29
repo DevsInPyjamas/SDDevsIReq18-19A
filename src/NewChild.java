@@ -5,6 +5,8 @@ import db_management.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class NewChild {
@@ -28,6 +30,7 @@ public class NewChild {
     private JLabel anadirProyecoLabel;
     private JComboBox proyectoComboBox;
     Usuario loggedUser;
+    Joven joven;
 
     NewChild(Usuario loggedUser) {
         this.loggedUser = loggedUser;
@@ -60,9 +63,16 @@ public class NewChild {
             if(checkIfThereAreNotBlankFields()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Hay campos obligatorios en blanco");
             } else {
-                new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
+                joven = new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
                         nombreMadreField.getText(), nombrePadreField.getText(), historialPane.getText(),
                         "", "", "", "0");
+                int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
+                        proyectoComboBox.getSelectedItem() + "';").get(0)[0];
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String entradaToStr = dtf.format(LocalDate.now());
+                System.out.println(joven.getId());
+                dbManager.execute("insert into Accion(id_proyecto, id_joven, fecha_entrada)" +
+                        " values ('" + idProyecto + "', '" + joven.getId() + "', '" + entradaToStr + "');");
                 JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos son correctos");
                 new GrantManagement(loggedUser);
                 frame.dispose();

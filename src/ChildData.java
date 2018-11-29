@@ -4,6 +4,8 @@ import db_management.Usuario;
 
 import javax.swing.*;
 import java.awt.Dimension;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ChildData {
@@ -60,6 +62,9 @@ public class ChildData {
         nombreMadreTextField.setText(child.getNombreMadre());
         nombrePadreTextField.setText(child.getNombrePadre());
         historialEditorPane.setText(child.getHistorial());
+        String text = (String) dbManager.select("select p.nombre from Proyecto p, Accion a where a.id_proyecto = p.id " +
+                "and a.id_joven = '" + child.getId() + "';").get(0)[0];
+        cambiarProyecto.setText(text);
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
                 new SearchChild(loggedUser);
@@ -86,6 +91,9 @@ public class ChildData {
             nombreMadreTextField.setText(child.getNombreMadre());
             nombrePadreTextField.setText(child.getNombrePadre());
             historialEditorPane.setText(child.getHistorial());
+            String text1 = (String) dbManager.select("select p.nombre from Proyecto p, Accion a where a.id_proyecto = p.id " +
+                    "and a.id_joven = '" + child.getId() + "';").get(0)[0];
+            cambiarProyecto.setText(text1);
         });
         deleteKid.addActionListener((e) -> {
             /*
@@ -130,6 +138,14 @@ public class ChildData {
         }
         if(!modificarHistorialPane.getText().isEmpty()) {
             kid.setHistorial(modificarHistorialPane.getText());
+        }
+        if (!modificarProyectoComboBox.getSelectedItem().toString().equals(cambiarProyecto.getText())) {
+            int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
+                    modificarProyectoComboBox.getSelectedItem() + "';").get(0)[0];
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String entradaToStr = dtf.format(LocalDate.now());
+            dbManager.execute("update Accion set id_proyecto = '" + idProyecto + "', fecha_entrada = '" + entradaToStr +
+                    "' where id_joven = '" + kid.getId() +"';");
         }
         /*if(!((String) modificarProyectoComboBox.getItemAt(modificarProyectoComboBox.getSelectedIndex())).isEmpty()) {
            Tendríamos que añadir un deste que modifique el proyecto en el que está el niño
