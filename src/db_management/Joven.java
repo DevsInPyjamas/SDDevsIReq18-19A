@@ -1,6 +1,10 @@
 package db_management;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Joven {
@@ -41,21 +45,19 @@ public class Joven {
         this.notaMedia = (float) tuples[13];
     }
 
-    public Joven(int id, String nombre, String apellidos, String fechaNacimiento,
+    public Joven(String nombre, String apellidos, String fechaNacimiento,
                  String nombreMadre, String nombrePadre, String historial, String datosComunidad,
-                 String genero, String observaciones, String fechaEntrada
-                , String beca, float notaMedia){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String nacimientoToStr = format.format(fechaNacimiento);
-        String entradaToStr = format.format(fechaEntrada);
-        String bajaToStr = format.format(fechaBaja);
+                 String genero, String observaciones, String beca)  {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.now();
+        String entradaToStr = dtf.format(localDate);
 
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
-        db.execute("INSERT INTO Jovenes VALUES('" + id + "','" + nombre + "','" + apellidos + "','"
-                + nacimientoToStr + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
+        db.execute("INSERT INTO Jovenes (nombre, apellidos, fechaNacimiento, nombreMadre, nombrePadre, historial," +
+                "datosComunidad, genero, observaciones, fechaEntrada, beca, notaMedia) VALUES('" + nombre + "','" + apellidos + "','"
+                + fechaNacimiento + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
                 + datosComunidad + "','" + genero + "','" + observaciones + "','" + entradaToStr + "','"
-                + beca + "', '" + notaMedia + ");");
-        this.id = id;
+                + beca + "', '" + 0.0 + "');");
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -65,9 +67,9 @@ public class Joven {
         this.datosComunidad = datosComunidad;
         this.genero = genero;
         this.observaciones = observaciones;
-        this.fechaEntrada = fechaEntrada;
+        this.fechaEntrada = entradaToStr;
         this.beca = beca;
-        this.notaMedia = notaMedia;
+        this.notaMedia = 0.0f;
     }
 
     public void setId(int id) {
