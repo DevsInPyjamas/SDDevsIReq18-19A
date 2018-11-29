@@ -270,7 +270,7 @@
           <text value="Actualizar"/>
         </properties>
       </component>
-      <component id="23963" class="javax.swing.JButton" default-binding="true">
+      <component id="23963" class="javax.swing.JButton" binding="deleteKid">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

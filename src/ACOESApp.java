@@ -37,25 +37,13 @@ public class ACOESApp{
                             new WelcomeForm(new Usuario((String) queryTuples.get(0)[0]));
                             frame.dispose();
                         } else {
-                            wrongLogInDialog();
+                            JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos no son correctos");
                         }
                     } catch (Exception ex) {
-                        wrongLogInDialog();
+                        JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos no son correctos");
                     }
                 }
         });
     }
 
-    private void wrongLogInDialog() {
-        JDialog dialog = new JDialog();
-        JButton accept = new JButton("Aceptar");
-        dialog.setTitle("La combinación de email y contraseña no es correcta");
-        dialog.setBounds(400, 400, 300, 200);
-        dialog.setMinimumSize(new Dimension(550, 150));
-        dialog.add(accept);
-        dialog.setContentPane(new JLabel("         Si no recuerda su combinación, contacte con uno de sus administradores."));
-        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        dialog.setVisible(true);
-        accept.addActionListener((e) -> dialog.dispose());
-    }
 }

@@ -27,6 +27,7 @@ public class ChildData {
     private JTextField cambiarProyecto;
     private JButton generateFichaButton;
     private JButton actualizarButton;
+    private JButton deleteKid;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
@@ -75,6 +76,30 @@ public class ChildData {
                 JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el niño...");
             } catch (Exception p) {
                 JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " + p.getMessage());
+            }
+            displayButtons(false);
+            childDataServer.setSize(700, 400);
+            frame.setMinimumSize(new Dimension(700, 400));
+            nombreTextField.setText(child.getNombre());
+            fechaNacimientoTextField.setText(child.getFechaNacimiento());
+            apellidoTextField.setText(child.getApellidos());
+            nombreMadreTextField.setText(child.getNombreMadre());
+            nombrePadreTextField.setText(child.getNombrePadre());
+            historialEditorPane.setText(child.getHistorial());
+        });
+        deleteKid.addActionListener((e) -> {
+            /*
+            *  Code solution adapted from https://stackoverflow.com/questions/8689122/joptionpane-yes-no-options-confirm-dialog-box-issue
+            * */
+            int dialogResult = JOptionPane.showConfirmDialog (null,
+                    "¿Estás seguro de que quiere eliminar al niño?","Confirmación de Borrado",
+                    JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                dbManager.execute("delete from Accion where id_joven = '" + child.getId() + "';");
+                dbManager.execute("delete from Jovenes where id = '" + child.getId() + "';");
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado al niño de la base de datos");
+                new SearchChild(loggedUser);
+                frame.dispose();
             }
         });
     }
