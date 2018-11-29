@@ -29,10 +29,10 @@ create table [dbo].[Jovenes](
   datosComunidad varchar(100),
   genero varchar(10),
   observaciones varchar(1000),
-  fechaEntrada date not null,
-  fechaBaja date,
+  fechaEntrada datetime not null,
+  fechaBaja datetime,
   beca varchar(50),
-  fechaNacimiento date not null,
+  fechaNacimiento datetime not null,
   notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
   ) on [Primary];
@@ -49,8 +49,8 @@ create table [dbo].[Proyecto](
 create table [dbo].[Accion](
                              id_proyecto int not null,
                              id_joven int not null,
-                             fecha_entrada date not null,
-                             fecha_salida date,
+                             fecha_entrada datetime not null,
+                             fecha_salida datetime,
                              constraint pk_Accion primary key clustered (id_proyecto, id_joven)
   ) on [Primary];
 
@@ -100,11 +100,23 @@ values ('d@d.com', 'albert', '1234', 'Albert', '3');
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
 insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('hmm@hmm', 'Ala', '1234', 'EsGrande', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', '3');
+insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', '4');
+insert into Usuario (email, usuario, password, nombre, rol_id)
+values ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', '4');
 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0);
@@ -158,6 +170,7 @@ insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, 
 ('Midoriya', 'Julia', 'Al-Migth', 'Otaku', '06/06/2006', '20/05/2000', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('ElChavo', 'Juana', 'Mariano', 'Delocho', '08/08/2008', '07/12/2002', 0.0);
+
 
 
 
