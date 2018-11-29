@@ -110,6 +110,14 @@ public class ChildData {
         if(!modificarNombrePadre.getText().isEmpty()) {
             kid.setNombrePadre(modificarNombrePadre.getText());
         }
-
+        if(!modificarNombreMadre.getText().isEmpty()) {
+            kid.setNombreMadre(modificarNombreMadre.getText());
+        }
+        if(!modificarHistorialPane.getText().isEmpty()) {
+            kid.setHistorial(modificarHistorialPane.getText());
+        }
+        /*if(!((String) modificarProyectoComboBox.getItemAt(modificarProyectoComboBox.getSelectedIndex())).isEmpty()) {
+           Tendríamos que añadir un deste que modifique el proyecto en el que está el niño
+        }*/
     }
  }
