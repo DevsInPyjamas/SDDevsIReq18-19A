@@ -79,7 +79,7 @@ public class DBManager {
             stmt.execute(ins);
             stmt.close();
         } catch (SQLException ex) {
-            throw new Error("Error en el INSERT: " + ins + ". " + ex.getMessage());
+            throw new Error("Error: " + ins + ". " + ex.getMessage());
         }
     }
 

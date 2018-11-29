@@ -75,12 +75,12 @@ public class ModifyProject {
             }
         });
         borrarProyectoButton.addActionListener(e -> {
-            //TODO fix
             if (e.getActionCommand().equals("Borrar Proyecto")){
                 int dialogResult = JOptionPane.showConfirmDialog (null,
                         "¿Estás seguro de que quiere eliminar el proyecto?","Confirmación de Borrado",
                         JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_NO_OPTION) {
+                    dbManager.execute("delete from Accion where id_proyecto = '" + proyecto.getId() + "';");
                     dbManager.execute("delete from Proyecto where id = '" + proyecto.getId() + "';");
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado el proyecto de la base de datos");
                     new SearchProject(loggedUser);

@@ -77,7 +77,7 @@ alter table Accion with check add constraint [FK_Action_Project] foreign key([id
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Jovenes] foreign key ([id_jovenes]) references Jovenes;
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Rol] foreign key ([id_rol]) references Rol;
 alter table Usuario add pertenece_proyecto int;
-alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto;
+alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto on delete cascade;
 
 
 -- data set
