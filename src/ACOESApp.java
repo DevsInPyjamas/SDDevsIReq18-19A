@@ -32,14 +32,14 @@ public class ACOESApp{
             if(e.getActionCommand().equals("Entrar")) {
                 List<Object[]> queryTuples = dbManager.
                         select("select * from Usuario where email = '" + textField1.getText() + "';");
-                    if ((queryTuples.get(0))[2].equals(passwordField1.getText())) {
-                        try {
+                    try {
+                        if ((queryTuples.get(0))[2].equals(passwordField1.getText())) {
                             new WelcomeForm(new Usuario((String) queryTuples.get(0)[0]));
-                        } catch (Exception e1) {
+                            frame.dispose();
+                        } else {
                             wrongLogInDialog();
                         }
-                        frame.dispose();
-                    } else {
+                    } catch (Exception ex) {
                         wrongLogInDialog();
                     }
                 }
@@ -48,11 +48,14 @@ public class ACOESApp{
 
     private void wrongLogInDialog() {
         JDialog dialog = new JDialog();
+        JButton accept = new JButton("Aceptar");
         dialog.setTitle("La combinación de email y contraseña no es correcta");
         dialog.setBounds(400, 400, 300, 200);
         dialog.setMinimumSize(new Dimension(550, 150));
+        dialog.add(accept);
         dialog.setContentPane(new JLabel("         Si no recuerda su combinación, contacte con uno de sus administradores."));
         dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dialog.setVisible(true);
+        accept.addActionListener((e) -> dialog.dispose());
     }
 }
