@@ -66,13 +66,20 @@ public class NewChild {
                 joven = new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
                         nombreMadreField.getText(), nombrePadreField.getText(), historialPane.getText(),
                         "", "", "", "0");
-                int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
+                /**
+                 *
+                 * Fallo: Error en el INSERT: insert into Accion(id_proyecto, id_joven, fecha_entrada) values
+                 * ('1', '5033', '29/11/2018');. Instrucción INSERT en conflicto con la restricción FOREIGN KEY
+                 * 'FK_Action_Joven'. El conflicto ha aparecido en la base de datos 'ACOES', tabla 'dbo.Jovenes', column 'id'.
+
+                 int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
                         proyectoComboBox.getSelectedItem() + "';").get(0)[0];
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String entradaToStr = dtf.format(LocalDate.now());
                 System.out.println(joven.getId());
                 dbManager.execute("insert into Accion(id_proyecto, id_joven, fecha_entrada)" +
                         " values ('" + idProyecto + "', '" + joven.getId() + "', '" + entradaToStr + "');");
+                 */
                 JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos son correctos");
                 new GrantManagement(loggedUser);
                 frame.dispose();
