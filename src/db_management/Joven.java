@@ -47,7 +47,7 @@ public class Joven {
 
     public Joven(String nombre, String apellidos, String fechaNacimiento,
                  String nombreMadre, String nombrePadre, String historial, String datosComunidad,
-                 String genero, String observaciones, String beca)  {
+                 String genero, String observaciones, String beca, float notaMedia)  {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.now();
         String entradaToStr = dtf.format(localDate);
@@ -57,7 +57,7 @@ public class Joven {
                 "datosComunidad, genero, observaciones, fechaEntrada, beca, notaMedia) VALUES('" + nombre + "','" + apellidos + "','"
                 + fechaNacimiento + "','" + nombreMadre + "','" + nombrePadre + "','" + historial + "','"
                 + datosComunidad + "','" + genero + "','" + observaciones + "','" + entradaToStr + "','"
-                + beca + "', '" + 0.0 + "');");
+                + beca + "', '" + notaMedia + "');");
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -69,7 +69,7 @@ public class Joven {
         this.observaciones = observaciones;
         this.fechaEntrada = entradaToStr;
         this.beca = beca;
-        this.notaMedia = 0.0f;
+        this.notaMedia = notaMedia;
     }
 
     public void setId(int id) {

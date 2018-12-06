@@ -13,6 +13,7 @@ public class DBManager {
     public DBManager(String server, String databaseName) {
         try {
             dataSource = new SQLServerDataSource();
+            //dataSource.setIntegratedSecurity(true);
             dataSource.setUser("alkesst");
             dataSource.setPassword("1234");
             dataSource.setServerName(server);
@@ -29,6 +30,7 @@ public class DBManager {
         // database so, that's why I'm using this s.
         try {
             dataSource = new SQLServerDataSource();
+            //dataSource.setIntegratedSecurity(true);
             dataSource.setUser("alkesst");
             dataSource.setPassword("1234");
             dataSource.setServerName("127.0.0.1");
