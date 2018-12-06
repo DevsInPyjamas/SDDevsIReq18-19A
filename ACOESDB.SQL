@@ -33,6 +33,7 @@ create table [dbo].[Jovenes](
   fechaBaja date,
   beca varchar(50),
   fechaNacimiento date not null,
+  isDeleted bit not null,
   notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
   ) on [Primary];
@@ -43,6 +44,7 @@ create table [dbo].[Proyecto](
   nombre varchar(50) not null,
   ubicacion varchar(50) not null,
   tipoProyecto varchar(50) not null,
+  isDeleted bit not null,
   constraint pk_Proyecto primary key clustered (id ASC)
   ) on [Primary];
 

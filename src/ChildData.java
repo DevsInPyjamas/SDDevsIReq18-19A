@@ -86,6 +86,8 @@ public class ChildData {
         });
         modifyKidButton.addActionListener((e) -> {
             modifying = true;
+            childDataServer.setSize(750, 700);
+            frame.setMinimumSize(new Dimension(750, 700));
             displayButtons(true);
         });
         actualizarButton.addActionListener((e) -> {
@@ -106,7 +108,7 @@ public class ChildData {
             historialEditorPane.setText(child.getHistorial());
             comunidadTextField.setText(child.getDatosComunidad());
             generoComboBox.setSelectedItem(child.getGenero());
-            fechaEntradaTextBox.setText(child.getFechaNacimiento());
+            fechaEntradaTextBox.setText(child.getFechaEntrada());
             fechaSalidaTextBox.setText(child.getFechaBaja());
             becaTextField.setText(child.getBeca());
             notaMediaTextField.setText(String.valueOf(child.getNotaMedia()));
@@ -124,8 +126,7 @@ public class ChildData {
                     "¿Estás seguro de que quiere eliminar al niño?", "Confirmación de Borrado",
                     JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                dbManager.execute("delete from Accion where id_joven = '" + child.getId() + "';");
-                dbManager.execute("delete from Jovenes where id = '" + child.getId() + "';");
+                child.setIsDeleted(true);
                 JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado al niño de la base de datos");
                 new SearchChild(loggedUser);
                 frame.dispose();
@@ -170,12 +171,12 @@ public class ChildData {
         if (!comunidadTextField.getText().equals(kid.getDatosComunidad())) {
             kid.setDatosComunidad(comunidadTextField.getText());
         }
-        /*if (!fechaEntradaTextBox.getText().equals(kid.getFechaEntrada())) {
+        if (!fechaEntradaTextBox.getText().equals(kid.getFechaEntrada())) {
             kid.setFechaEntrada(fechaEntradaTextBox.getText());
         }
         if (!fechaSalidaTextBox.getText().isEmpty()) {
             kid.setFechaBaja(fechaSalidaTextBox.getText());
-        }*/
+        }
         if (!becaTextField.getText().equals(kid.getBeca())) {
             kid.setBeca(becaTextField.getText());
         }

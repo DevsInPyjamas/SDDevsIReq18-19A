@@ -25,6 +25,7 @@ public class Joven {
     private String fechaBaja;
     private String beca;
     private float notaMedia;
+    private boolean isDeleted;
 
     public Joven(String id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
@@ -42,7 +43,8 @@ public class Joven {
         this.fechaEntrada = tuples[9].toString();
         this.beca = (String)tuples[11];
         this.fechaNacimiento =  tuples[12].toString();
-        this.notaMedia = (float) tuples[13];
+        this.isDeleted = (boolean) tuples[13];
+        this.notaMedia = (float) tuples[14];
     }
 
     public Joven(String nombre, String apellidos, String fechaNacimiento,
@@ -136,25 +138,21 @@ public class Joven {
     }
 
     public void setFechaEntrada(String fechaEntrada) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String entradaToStr = format.format(fechaEntrada);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Jovenes SET fechaEntrada = '" + entradaToStr + "' WHERE id = '" + this.id + "';");
+        db.execute("UPDATE Jovenes SET fechaEntrada = '" + fechaEntrada + "' WHERE id = '" + this.id + "';");
         this.fechaEntrada = fechaEntrada;
     }
 
     public void setFechaBaja(String fechaBaja) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String bajaToStr = format.format(fechaBaja);
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Jovenes SET fechaBaja = '" + bajaToStr + "' WHERE id = '" + this.id + "';");
+        db.execute("UPDATE Jovenes SET fechaBaja = '" + fechaBaja + "' WHERE id = '" + this.id + "';");
         this.fechaBaja = fechaBaja;
     }
 
 
     public void setBeca(String beca) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET beca = '" + beca + "' WHERE id = '" + this.id + "';");
+        db.execute("UPDATE Jovenes SET beca = '" + beca + "' WHERE id = '" + this.id + "';");
         this.beca = beca;
     }
 
@@ -162,6 +160,13 @@ public class Joven {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("UPDATE Joven SET notaMedia = '" + notaMedia + "' WHERE id = '" + this.id + "';");
         this.notaMedia = notaMedia;
+    }
+
+    public void setIsDeleted(boolean newValue) {
+        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        int value = (newValue)? 1 : 0;
+        db.execute("UPDATE Joven SET isDeleted = '" + value + "' WHERE id = '" + this.id + "';");
+        this.isDeleted = newValue;
     }
 
     public int getId() {
@@ -217,4 +222,7 @@ public class Joven {
     }
 
     public float getNotaMedia() { return notaMedia; }
+
+    public boolean getIsDeleted() { return isDeleted; }
+
 }
