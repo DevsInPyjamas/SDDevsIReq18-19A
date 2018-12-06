@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 public class NewChild {
     private JPanel nuevoNinoPanel;
@@ -29,6 +30,13 @@ public class NewChild {
     private JLabel historialLabel;
     private JLabel anadirProyecoLabel;
     private JComboBox proyectoComboBox;
+    private JTextField comunidadTextField;
+    private JComboBox generoComboBox;
+    private JTextField fechaEntradaTextFIeld;
+    private JTextField becaTextField;
+    private JTextField notaMediaTextFIeld;
+    private JEditorPane observacionesPane;
+    private JTextField observacionesTextField;
     Usuario loggedUser;
 
     NewChild(Usuario loggedUser) {
@@ -36,7 +44,7 @@ public class NewChild {
         nuevoNinoPanel.setSize(700, 250);
         JFrame frame = new JFrame("Información Niño");
         frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 500));
+        frame.setMinimumSize(new Dimension(700, 600));
         frame.setContentPane(nuevoNinoPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -64,13 +72,15 @@ public class NewChild {
             } else {
                 new Joven(nombreField.getText(), apellidosField.getText(), fechaNacimientoFIeld.getText(),
                         nombreMadreField.getText(), nombrePadreField.getText(), historialPane.getText(),
-                        "", "", "", "0");
-               
+                        comunidadTextField.getText(), Objects.requireNonNull(generoComboBox.getSelectedItem()).toString(),
+                        observacionesPane.getText(), becaTextField.getText(),
+                        Float.parseFloat(notaMediaTextFIeld.getText()));
+
                 int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
                         proyectoComboBox.getSelectedItem() + "';").get(0)[0];
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 String entradaToStr = dtf.format(LocalDate.now());
-                int idJoven = (int) dbManager.select("select id from Jovenes where nombre like '" +
+                int idJoven = (int) dbManager.select("select max(id) from Jovenes where nombre like '" +
                         nombreField.getText() + "' and apellidos like '" + apellidosField.getText() + "';").get(0)[0];
                 dbManager.execute("insert into Accion(id_proyecto, id_joven, fecha_entrada)" +
                         " values ('" + idProyecto + "', '" + idJoven + "', '" + entradaToStr + "');");

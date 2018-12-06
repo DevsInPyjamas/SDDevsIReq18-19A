@@ -51,13 +51,13 @@ public class ModifyProject {
             }
         });
         modificarProyectoButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Actualizar")) {
+            if (e.getActionCommand().equals("Modificar Proyecto")) {
                 frame.setMinimumSize(new Dimension(1000, 400));
                 displayButtons(true);
             }
         });
         actualizarButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Modificar Proyecto")) {
+            if (e.getActionCommand().equals("Actualizar")) {
                 try {
                     this.modifyProjectDB(proyecto);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el proyecto...");
@@ -75,7 +75,6 @@ public class ModifyProject {
             }
         });
         borrarProyectoButton.addActionListener(e -> {
-            //TODO fix
             if (e.getActionCommand().equals("Borrar Proyecto")){
                 int dialogResult = JOptionPane.showConfirmDialog (null,
                         "¿Estás seguro de que quiere eliminar el proyecto?","Confirmación de Borrado",
