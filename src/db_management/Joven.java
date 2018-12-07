@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -158,14 +159,19 @@ public class Joven {
 
     public void setNotaMedia(float notaMedia) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Joven SET notaMedia = '" + notaMedia + "' WHERE id = '" + this.id + "';");
+        db.execute("UPDATE Jovenes SET notaMedia = '" + notaMedia + "' WHERE id = '" + this.id + "';");
         this.notaMedia = notaMedia;
     }
 
     public void setIsDeleted(boolean newValue) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         int value = (newValue)? 1 : 0;
-        db.execute("UPDATE Joven SET isDeleted = '" + value + "' WHERE id = '" + this.id + "';");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String today = dtf.format(now);
+        db.execute("UPDATE Jovenes SET isDeleted = '" + value + "' WHERE id = '" + this.id + "';");
+        db.execute("UPDATE Jovenes set fechaBaja = '" + today + "' where id = '" + this.id + "';");
+        db.execute("UPDATE Accion set fecha_salida = '" + today + "' where id_joven ='" + this.id + "';");
         this.isDeleted = newValue;
     }
 

@@ -24,7 +24,7 @@ public class SearchChild {
         frame.setContentPane(searchChildPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        searchChildTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Fecha Nacimiento"}, 10));
+        searchChildTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Proyecto"}, 10));
         DefaultTableModel model = (DefaultTableModel) searchChildTable.getModel();
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
@@ -42,7 +42,11 @@ public class SearchChild {
                     queryTuples = normalSearchProcess();
                 }
                 for(Object[] tuple : queryTuples) {
-                    model.addRow(tuple);
+                    if(!(boolean) tuple[0]) {
+                        Object[] row = new Object[tuple.length];
+                        row[0] = tuple[1]; row[1] = tuple[2]; row[2] = tuple[3]; row[3] = tuple[4];
+                        model.addRow(row);
+                    }
                 }
             }
         });
@@ -61,11 +65,11 @@ public class SearchChild {
         List<Object[]> queryTuples;
         if (query.get(0)[0] != null) {
              idProyecto = (int) query.get(0)[0];
-             queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                     "from proyecto p left outer join Accion A on " +
                     "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + idProyecto + "';");
         } else {
-            queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                     "from proyecto p left outer join Accion A on " +
                     "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven;");
         }
@@ -80,12 +84,12 @@ public class SearchChild {
         int idProyecto;
         if (query.get(0)[0] != null) {
             idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                     "from proyecto p left outer join Accion A on " +
                     "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where P.id = '" + idProyecto + "' " +
                     "and concat(J.nombre, ' ',J.apellidos) like '%" + searchChildTextField.getText() + "%';");
         } else {
-            queryTuples = dbManager.select("select j.id, j.nombre, j.apellidos, j.fechaNacimiento " +
+            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                             "from proyecto p left outer join Accion A on " +
                             "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where " +
                     "concat(J.nombre, ' ' ,J.apellidos) like '%" + searchChildTextField.getText() + "%';");
