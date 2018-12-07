@@ -30,34 +30,31 @@ public class NewProject extends JPanel{
         frame.setContentPane(nuevoProyectoPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand().equals("Atras")){
+        DBManager dbManager = new DBManager();
+        for(Object[] tuple : dbManager.select("select nombre from TipoProyecto;")) {
+            tipoProyectoComboBox.addItem(tuple[0]);
+        }
+        backButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Atras")){
+                new AdminArea(loggedUser);
+                frame.dispose();
+            }
+        });
+        anadirButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Añadir")) {
+                try {
+                    String nombre = nombreField.getText();
+                    String ubicacion = ubicacionField.getText();
+                    Usuario coord = new Usuario(coordinadorTextField.getText());
+                    Usuario resp = new Usuario(economicoField.getText());
+                    String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
+                    proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
+                    JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el proyecto correctamente");
                     new AdminArea(loggedUser);
                     frame.dispose();
-                }
-            }
+                }catch (Exception ex) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
 
-        });
-        anadirButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand().equals("Añadir")) {
-                    try {
-                        String nombre = nombreField.getText();
-                        String ubicacion = ubicacionField.getText();
-                        Usuario coord = new Usuario(coordinadorTextField.getText());
-                        Usuario resp = new Usuario(economicoField.getText());
-                        String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
-                        proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
-                        JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el proyecto correctamente");
-                        new AdminArea(loggedUser);
-                        frame.dispose();
-                    }catch (Exception ex) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
-
-                    }
                 }
             }
         });

@@ -62,6 +62,11 @@ create table [dbo].[RolJovenesRelation](
                                          constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
   ) on [Primary];
 
+create table TipoProyecto(
+  nombre varchar(50) not null,
+  constraint Pk_TipoProyecto primary key clustered (nombre)
+);
+
 -- relations
 
 alter table Usuario add rol_id int not null;
@@ -80,7 +85,7 @@ alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Rol] foreign key ([id_rol]) references Rol;
 alter table Usuario add pertenece_proyecto int;
 alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto on delete cascade;
-
+alter table dbo.Proyecto add constraint [FK_TipoProyecto] foreign key([tipoProyecto]) references TipoProyecto on delete cascade on update cascade;
 
 -- data set
 insert into Rol values('Coordinador General Proyectos', 1);
@@ -173,7 +178,9 @@ insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('ElChavo', 'Juana', 'Mariano', 'Delocho', '08/08/2008', '07/12/2002', 0.0);
 
-
+insert into TipoProyecto values ('Casa Populorum');
+insert into TipoProyecto values ('CCJ');
+insert into TipoProyecto values ('Colegio');
 
 
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
@@ -181,7 +188,7 @@ insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, proj
 ('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com')
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
-  ('Escuela Tegulcipaga', 'Tegulcipaga', 'Escuela', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com')
+  ('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com')
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
   ('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com')

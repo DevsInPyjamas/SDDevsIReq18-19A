@@ -34,6 +34,9 @@ public class ModifyProject {
         frame.setContentPane(modificarProyectoPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        for(Object[] tuple : dbManager.select("select nombre from TipoProyecto;")) {
+            tipoProyectoComboBox.addItem(tuple[0]);
+        }
         Proyecto proyecto = new Proyecto(idProject);
         nombreTextField.setText(proyecto.getNombre());
         ubicacionTextField.setText(proyecto.getUbicacion());
