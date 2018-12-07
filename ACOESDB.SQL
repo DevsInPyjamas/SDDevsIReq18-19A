@@ -33,7 +33,7 @@ create table [dbo].[Jovenes](
   fechaBaja date,
   beca varchar(50),
   fechaNacimiento date not null,
-  isDeleted bit not null,
+  isDeleted bit not null default 0,
   notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
   ) on [Primary];
@@ -44,7 +44,7 @@ create table [dbo].[Proyecto](
   nombre varchar(50) not null,
   ubicacion varchar(50) not null,
   tipoProyecto varchar(50) not null,
-  isDeleted bit not null,
+  isDeleted bit not null default 0,
   constraint pk_Proyecto primary key clustered (id ASC)
   ) on [Primary];
 
@@ -120,8 +120,8 @@ values ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', '4');
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', '4');
 
-insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
-('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0);
+insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia, isDeleted) values
+('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0, 0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values
 ('Pepe', 'Paco', 'Paca', 'Menendez', '17-09-09', '1-02-98', 0.0);
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia) values

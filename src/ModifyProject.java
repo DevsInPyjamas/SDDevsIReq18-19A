@@ -18,15 +18,11 @@ public class ModifyProject {
     private JTextField ubicacionTextField;
     private JTextField coordinadorTextField;
     private JTextField responsableTextFIeld;
-    private JTextField modificarNombreTextField;
-    private JTextField modificarUbicacionTextField;
-    private JTextField modificarCoordinadorTextField;
-    private JTextField modificarResponsableTextField;
     private JButton modificarProyectoButton;
-    private JTextField tipoProyectoTextField;
-    private JComboBox modificarTipoProyectoComboBox;
+    private JComboBox tipoProyectoComboBox;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
+    private boolean modifying = false;
 
     ModifyProject(Usuario loggedUser, int idProject) throws Exception {
         this.loggedUser = loggedUser;
@@ -43,16 +39,25 @@ public class ModifyProject {
         ubicacionTextField.setText(proyecto.getUbicacion());
         coordinadorTextField.setText(proyecto.getCoordinadorAsignado().getEmail());
         responsableTextFIeld.setText(proyecto.getResponsableEconomico().getEmail());
-        tipoProyectoTextField.setText(proyecto.getTipoProyecto());
+        tipoProyectoComboBox.setSelectedItem(proyecto.getTipoProyecto());
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
-                new SearchProject(loggedUser);
-                frame.dispose();
+                if (modifying) {
+                    try {
+                        new ModifyProject(loggedUser, proyecto.getId());
+                        frame.dispose();
+                    } catch (Exception e1) {
+                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());                    }
+                } else {
+                    new SearchProject(loggedUser);
+                    frame.dispose();
+                }
             }
         });
         modificarProyectoButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Modificar Proyecto")) {
-                frame.setMinimumSize(new Dimension(1000, 400));
+                modifying = true;
+                frame.setMinimumSize(new Dimension(700, 400));
                 displayButtons(true);
             }
         });
@@ -62,7 +67,8 @@ public class ModifyProject {
                     this.modifyProjectDB(proyecto);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el proyecto...");
                 } catch (Exception p) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " + p.getMessage());
+                    JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " +
+                            p.getMessage());
                 }
                 displayButtons(false);
                 modificarProyectoPanel.setSize(700, 400);
@@ -71,13 +77,14 @@ public class ModifyProject {
                 ubicacionTextField.setText(proyecto.getUbicacion());
                 coordinadorTextField.setText(proyecto.getCoordinadorAsignado().getEmail());
                 responsableTextFIeld.setText(proyecto.getResponsableEconomico().getEmail());
-                tipoProyectoTextField.setText(proyecto.getTipoProyecto());
+                tipoProyectoComboBox.setSelectedItem(proyecto.getTipoProyecto());
+                modifying = false;
             }
         });
         borrarProyectoButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Borrar Proyecto")){
-                int dialogResult = JOptionPane.showConfirmDialog (null,
-                        "¿Estás seguro de que quiere eliminar el proyecto?","Confirmación de Borrado",
+            if (e.getActionCommand().equals("Borrar Proyecto")) {
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "¿Estás seguro de que quiere eliminar el proyecto?", "Confirmación de Borrado",
                         JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_NO_OPTION) {
                     proyecto.setIsDeleted(true);
@@ -91,29 +98,29 @@ public class ModifyProject {
     }
 
     private void displayButtons(boolean siONo) {
-        modificarNombreTextField.setVisible(siONo);
-        modificarUbicacionTextField.setVisible(siONo);
-        modificarCoordinadorTextField.setVisible(siONo);
-        modificarResponsableTextField.setVisible(siONo);
-        modificarTipoProyectoComboBox.setVisible(siONo);
+        nombreTextField.setEditable(siONo);
+        ubicacionTextField.setEditable(siONo);
+        coordinadorTextField.setEditable(siONo);
+        responsableTextFIeld.setEditable(siONo);
+        tipoProyectoComboBox.setEnabled(siONo);
         actualizarButton.setVisible(siONo);
     }
 
     private void modifyProjectDB(Proyecto proyecto) throws Exception {
-        if (!modificarNombreTextField.getText().isEmpty()) {
-            proyecto.setNombre(modificarNombreTextField.getText());
+        if (!nombreTextField.getText().equals(proyecto.getNombre())) {
+            proyecto.setNombre(nombreTextField.getText());
         }
-        if (!modificarUbicacionTextField.getText().isEmpty()) {
-            proyecto.setUbicacion(modificarUbicacionTextField.getText());
+        if (!ubicacionTextField.getText().equals(proyecto.getUbicacion())) {
+            proyecto.setUbicacion(ubicacionTextField.getText());
         }
-        if (!modificarCoordinadorTextField.getText().isEmpty()) {
-            proyecto.setCoordinadorAsignado(new Usuario(modificarCoordinadorTextField.getText()));
+        if (!coordinadorTextField.getText().equals(proyecto.getCoordinadorAsignado().getEmail())) {
+            proyecto.setCoordinadorAsignado(new Usuario(ubicacionTextField.getText()));
         }
-        if (!modificarResponsableTextField.getText().isEmpty()) {
-            proyecto.setResponsableEconomico(new Usuario(modificarResponsableTextField.getText()));
+        if (!responsableTextFIeld.getText().equals(proyecto.getResponsableEconomico().getEmail())) {
+            proyecto.setResponsableEconomico(new Usuario(ubicacionTextField.getText()));
         }
-        if(!Objects.requireNonNull(modificarTipoProyectoComboBox.getSelectedItem()).toString().equals("")) {
-            proyecto.setTipoProyecto(modificarTipoProyectoComboBox.getSelectedItem().toString());
+        if (!Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).equals(proyecto.getTipoProyecto())) {
+            proyecto.setTipoProyecto(Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString());
         }
     }
 }
