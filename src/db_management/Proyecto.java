@@ -1,5 +1,8 @@
 package db_management;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Proyecto {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
@@ -9,6 +12,7 @@ public class Proyecto {
     private Usuario coordinadorAsignado;
     private Usuario responsableEconomico;
     private String tipoProyecto;
+    private boolean isDeleted;
 
     public Proyecto(int id) throws Exception {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -17,8 +21,9 @@ public class Proyecto {
         this.nombre = (String) tuples[1];
         this.ubicacion = (String) tuples[2];
         this.tipoProyecto = (String) tuples[3];
-        coordinadorAsignado = new Usuario((String) tuples[4]);
-        responsableEconomico = new Usuario((String) tuples[5]);
+        this.isDeleted = (boolean) tuples[4];
+        coordinadorAsignado = new Usuario((String) tuples[5]);
+        responsableEconomico = new Usuario((String) tuples[6]);
     }
 
     public Proyecto(String nombre, String ubicacion, Usuario coordinadorAsignado, Usuario responsableEconomico,
@@ -99,4 +104,16 @@ public class Proyecto {
                 "' WHERE id = '" + this.id + "';");
         this.tipoProyecto = tipoProyecto;
     }
+
+    public void setIsDeleted(boolean value) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        String today = dtf.format(now);
+        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        int newValue = (value)? 1 : 0;
+        db.execute("UPDATE Proyecto SET isDeleted = '" + newValue + "' where id = '" + this.id + "';");
+        db.execute("Update Accion set fecha_salida = '" + today + "' where id_proyecto = '" + this.id + "';");
+    }
+
+    public boolean getIsDeleted() { return this.isDeleted; }
 }

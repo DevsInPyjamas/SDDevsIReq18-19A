@@ -40,9 +40,15 @@ public class SearchProject {
                 } else {
                     queryTuples = normalSearchProcess();
                 }
-
                 for(Object[] tuple : queryTuples) {
-                    model.addRow(tuple);
+                    if(!(boolean) tuple[0]) {
+                        Object[] row = new Object[tuple.length];
+                        row[0] = tuple[1];
+                        row[1] = tuple[2];
+                        row[2] = tuple[3];
+                        row[3] = tuple[3];
+                        model.addRow(row);
+                    }
                 }
             }
         });
@@ -58,12 +64,12 @@ public class SearchProject {
     }
 
     private List<Object[]> normalSearchProcess() {
-        return dbManager.select("select id, nombre, project_coordinator, project_responsable from proyecto " +
-                "where nombre = '" + searchProjectTextField.getText() + "';");
+        return dbManager.select("select isDeleted, id, nombre, project_coordinator, project_responsable from proyecto " +
+                "where nombre like '" + searchProjectTextField.getText() + "';");
     }
 
     private List<Object[]> processWhenSearchWithoutValue() {
-        return dbManager.select("select id, nombre, project_coordinator, project_responsable from proyecto");
+        return dbManager.select("select isDeleted, id, nombre, project_coordinator, project_responsable from proyecto");
     }
 
 

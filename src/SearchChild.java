@@ -44,7 +44,10 @@ public class SearchChild {
                 for(Object[] tuple : queryTuples) {
                     if(!(boolean) tuple[0]) {
                         Object[] row = new Object[tuple.length];
-                        row[0] = tuple[1]; row[1] = tuple[2]; row[2] = tuple[3]; row[3] = tuple[4];
+                        row[0] = tuple[1];
+                        row[1] = tuple[2];
+                        row[2] = tuple[3];
+                        row[3] = (!isDeletedThatProject((String) tuple[4])) ? tuple[4] : "";
                         model.addRow(row);
                     }
                 }
@@ -95,5 +98,10 @@ public class SearchChild {
                     "concat(J.nombre, ' ' ,J.apellidos) like '%" + searchChildTextField.getText() + "%';");
         }
         return queryTuples;
+    }
+
+    private boolean isDeletedThatProject(String projectName) {
+        Object[] query = dbManager.select("select isDeleted from Proyecto where nombre like '" + projectName + "';").get(0);
+        return (boolean) query[0];
     }
 }

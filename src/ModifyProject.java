@@ -80,8 +80,7 @@ public class ModifyProject {
                         "¿Estás seguro de que quiere eliminar el proyecto?","Confirmación de Borrado",
                         JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_NO_OPTION) {
-                    dbManager.execute("delete from Accion where id_proyecto = '" + proyecto.getId() + "';");
-                    dbManager.execute("delete from Proyecto where id = '" + proyecto.getId() + "';");
+                    proyecto.setIsDeleted(true);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado el proyecto de la base de datos");
                     new SearchProject(loggedUser);
                     frame.dispose();
