@@ -74,7 +74,7 @@ public class SearchChild {
         } else {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                     "from proyecto p left outer join Accion A on " +
-                    "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven;");
+                    "A.id_proyecto = P.id left outer join Jovenes J on J.id = A.id_joven where p.isDeleted = 0;");
         }
         return queryTuples;
     }

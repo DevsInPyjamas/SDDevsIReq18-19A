@@ -39,13 +39,16 @@ public class ChildData {
         this.loggedUser = loggedUser;
         List<Object[]> queryTuples;
         if (!loggedUser.getRol().isAdmin()) {
-            queryTuples = dbManager.select("select p.nombre from Proyecto p inner join " +
+            queryTuples = dbManager.select("select p.isDeleted, p.nombre from Proyecto p inner join " +
                     "Usuario u on u.pertenece_proyecto = p.id and u.email = '" + loggedUser.getEmail() + "';");
         } else {
-            queryTuples = dbManager.select("select nombre from Proyecto");
+            queryTuples = dbManager.select("select isDeleted, nombre from Proyecto");
         }
+        cambiarProyectoComboBox.addItem("");
         for (Object[] tuple : queryTuples) {
-            cambiarProyectoComboBox.addItem(tuple[0]);
+            if(! (boolean) tuple[0]) {
+                cambiarProyectoComboBox.addItem(tuple[1]);
+            }
         }
         generateFichaButton.setVisible(false); // TODO algun dia lo quitaremos!!!!
         displayButtons(false);
@@ -70,8 +73,9 @@ public class ChildData {
         becaTextField.setText(child.getBeca());
         notaMediaTextField.setText(String.valueOf(child.getNotaMedia()));
         observacionesPane.setText(child.getObservaciones());
-        String text = (String) dbManager.select("select p.nombre from Proyecto p, Accion a where a.id_proyecto = p.id " +
-                "and a.id_joven = '" + child.getId() + "';").get(0)[0];
+        String text = (child.getCurrentProjectID() == -1) ? "" :
+                (String) dbManager.select("select p.nombre from Proyecto where id = '" + child.getCurrentProjectID()
+                        + "';").get(0)[0];
         cambiarProyectoComboBox.setSelectedItem(text);
         backButton.addActionListener((e) -> {
             if (e.getActionCommand().equals("Atrás")) {
@@ -113,8 +117,9 @@ public class ChildData {
             becaTextField.setText(child.getBeca());
             notaMediaTextField.setText(String.valueOf(child.getNotaMedia()));
             observacionesPane.setText(child.getObservaciones());
-            String text1 = (String) dbManager.select("select p.nombre from Proyecto p, Accion a where a.id_proyecto = p.id " +
-                    "and a.id_joven = '" + child.getId() + "';").get(0)[0];
+            String text1 = (child.getCurrentProjectID() == -1) ? "" :
+                    (String) dbManager.select("select p.nombre from Proyecto where id = '" + child.getCurrentProjectID()
+                            + "';").get(0)[0];
             cambiarProyectoComboBox.setSelectedItem(text1);
             modifying = false;
         });
@@ -189,17 +194,18 @@ public class ChildData {
         if (!generoComboBox.getSelectedItem().equals(kid.getGenero())) {
             kid.setGenero(generoComboBox.getSelectedItem().toString());
         }
-        /*if (!cambiarProyectoComboBox.getSelectedItem().equals(dbManager.select("select p.nombre from proyecto p inner " +
-                "join Accion a on a.id_proyecto = p.id where a.id_joven = " + kid.getId() + ";"))) {*/
-            int idProyecto = (int) dbManager.select("select id from Proyecto where nombre like '" +
-                    cambiarProyectoComboBox.getSelectedItem() + "';").get(0)[0];
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<Object[]> queryTuples = dbManager.select("select nombre from Proyecto where id = '" +
+                kid.getCurrentProjectID() + "';");
+        String currentProjectName = (queryTuples.isEmpty()) ? "" : (String) queryTuples.get(0)[0];
+        if (!cambiarProyectoComboBox.getSelectedItem().equals(currentProjectName)) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             String entradaToStr = dtf.format(LocalDate.now());
-            dbManager.execute("update Accion set id_proyecto = '" + idProyecto + "', fecha_entrada = '" + entradaToStr +
-                    "' where id_joven = '" + kid.getId() + "';");
-       // }
-        /*if(!((String) modificarProyectoComboBox.getItemAt(modificarProyectoComboBox.getSelectedIndex())).isEmpty()) {
-           Tendríamos que añadir un deste que modifique el proyecto en el que está el niño
-        }*/
+            dbManager.execute("update Accion set fecha_salida = '" +  entradaToStr +
+                    "' where id_joven = '" + kid.getCurrentProjectID() + "';");
+            int newProjectId = (int) dbManager.select("select id from proyecto where nombre like '" +
+                    cambiarProyectoComboBox.getSelectedItem() + "';").get(0)[0];
+            dbManager.execute("insert into Accion (id_proyecto, id_joven, fecha_entrada) values ('" +
+                    newProjectId + "','" + kid.getId() + "','" + entradaToStr + "');");
+        }
     }
 }

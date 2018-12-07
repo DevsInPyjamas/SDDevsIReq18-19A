@@ -27,6 +27,7 @@ public class Joven {
     private String beca;
     private float notaMedia;
     private boolean isDeleted;
+    private int currentProjectID;
 
     public Joven(String id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
@@ -46,6 +47,9 @@ public class Joven {
         this.fechaNacimiento =  tuples[12].toString();
         this.isDeleted = (boolean) tuples[13];
         this.notaMedia = (float) tuples[14];
+        List<Object[]> queryTuples = db.select("select p.id from Accion a inner join Proyecto p on p.id = a.id_proyecto" +
+                " inner join Jovenes j on j.id = a.id_joven where fecha_salida is null and j.id = '" + this.id + "';");
+        this.currentProjectID = (!queryTuples.isEmpty()) ? (int) queryTuples.get(0)[0] : -1;
     }
 
     public Joven(String nombre, String apellidos, String fechaNacimiento,
@@ -172,6 +176,7 @@ public class Joven {
         db.execute("UPDATE Jovenes SET isDeleted = '" + value + "' WHERE id = '" + this.id + "';");
         db.execute("UPDATE Jovenes set fechaBaja = '" + today + "' where id = '" + this.id + "';");
         db.execute("UPDATE Accion set fecha_salida = '" + today + "' where id_joven ='" + this.id + "';");
+        this.currentProjectID = -1;
         this.isDeleted = newValue;
     }
 
@@ -230,5 +235,9 @@ public class Joven {
     public float getNotaMedia() { return notaMedia; }
 
     public boolean getIsDeleted() { return isDeleted; }
+
+    public int getCurrentProjectID() {
+        return this.currentProjectID;
+    }
 
 }
