@@ -68,13 +68,13 @@ public class ChildData {
         historialEditorPane.setText(child.getHistorial());
         comunidadTextField.setText(child.getDatosComunidad());
         generoComboBox.setSelectedItem(child.getGenero());
-        fechaEntradaTextBox.setText(child.getFechaNacimiento());
+        fechaEntradaTextBox.setText(child.getFechaEntrada());
         fechaSalidaTextBox.setText(child.getFechaBaja());
         becaTextField.setText(child.getBeca());
         notaMediaTextField.setText(String.valueOf(child.getNotaMedia()));
         observacionesPane.setText(child.getObservaciones());
         String text = (child.getCurrentProjectID() == -1) ? "" :
-                (String) dbManager.select("select p.nombre from Proyecto where id = '" + child.getCurrentProjectID()
+                (String) dbManager.select("select nombre from Proyecto where id = '" + child.getCurrentProjectID()
                         + "';").get(0)[0];
         cambiarProyectoComboBox.setSelectedItem(text);
         backButton.addActionListener((e) -> {
@@ -118,7 +118,7 @@ public class ChildData {
             notaMediaTextField.setText(String.valueOf(child.getNotaMedia()));
             observacionesPane.setText(child.getObservaciones());
             String text1 = (child.getCurrentProjectID() == -1) ? "" :
-                    (String) dbManager.select("select p.nombre from Proyecto where id = '" + child.getCurrentProjectID()
+                    (String) dbManager.select("select nombre from Proyecto where id = '" + child.getCurrentProjectID()
                             + "';").get(0)[0];
             cambiarProyectoComboBox.setSelectedItem(text1);
             modifying = false;
