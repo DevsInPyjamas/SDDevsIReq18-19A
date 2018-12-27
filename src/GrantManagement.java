@@ -11,6 +11,7 @@ public class GrantManagement {
     private JButton searchKidButton;
     private JButton buscarSocioButton;
     private JButton addNewSocioButton;
+    private JButton apadrinamientoButton;
     private Usuario loggedUser;
 
 
@@ -41,6 +42,11 @@ public class GrantManagement {
                 frame.dispose();
             }
         });
-
+        apadrinamientoButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Apadrinamiento")) {
+                new SupportChild(loggedUser);
+                frame.dispose();
+            }
+        });
     }
 }
