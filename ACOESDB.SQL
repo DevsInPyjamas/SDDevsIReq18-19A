@@ -9,18 +9,18 @@ create table [dbo].[Usuario](
   password varchar(50) not null,
   nombre varchar(50) not null,
   CONSTRAINT PK_tLibro PRIMARY KEY CLUSTERED (email ASC)
-  ) ON [Primary];
+) ON [Primary];
 
 
 create table [dbo].[Rol](
   nombre varchar(50) not null,
   id int not null
   constraint pk_rol primary key clustered ([id] ASC)
-  ) on [Primary]
+) on [Primary]
 
 
 create table [dbo].[Jovenes](
-                              id int not null identity(5000,1),
+  id int not null identity(5000,1),
   nombre varchar(50) not null,
   nombreMadre varchar(50),
   nombrePadre varchar(50),
@@ -36,37 +36,59 @@ create table [dbo].[Jovenes](
   isDeleted bit not null default 0,
   notaMedia real not null,
   constraint pk_jovenes primary key clustered (id ASC)
-  ) on [Primary];
+) on [Primary];
 
 
 create table [dbo].[Proyecto](
-                               id int not null identity(1, 1),
+  id int not null identity(1, 1),
   nombre varchar(50) not null,
   ubicacion varchar(50) not null,
   tipoProyecto varchar(50) not null,
   isDeleted bit not null default 0,
   constraint pk_Proyecto primary key clustered (id ASC)
-  ) on [Primary];
+) on [Primary];
 
 create table [dbo].[Accion](
-                             id_proyecto int not null,
-                             id_joven int not null,
-                             fecha_entrada date not null,
- fecha_salida date,
-                             constraint pk_Accion primary key clustered (id_proyecto, id_joven)
-  ) on [Primary];
+  id_proyecto int not null,
+  id_joven int not null,
+  fecha_entrada date not null,
+  fecha_salida date,
+  constraint pk_Accion primary key clustered (id_proyecto, id_joven)
+) on [Primary];
 
 create table [dbo].[RolJovenesRelation](
-                                         id_rol int not null,
-                                         id_jovenes int not null,
-                                         constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
-  ) on [Primary];
+  id_rol int not null,
+  id_jovenes int not null,
+  constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
+) on [Primary];
 
 create table TipoProyecto(
   nombre varchar(50) not null,
   constraint Pk_TipoProyecto primary key clustered (nombre)
 );
 
+create table Asociacion(
+  id int not null identity(20000,1),
+  nombre varchar(50) not null,
+  localizacion varchar(50),
+  constraint Pk_Asociacion primary key clustered (id)
+);
+
+create table Socio(
+  id int not null identity(15000,1),
+  nombre varchar(50) not null,
+  dni varchar(9) not null unique,
+  constraint Pk_Socio primary key clustered (id)
+);
+
+create table Transaccion(
+  id int not null identity(10000,1),
+  emisor varchar(50) not null,
+  concepto varchar(50),
+  cantidad money not null,
+  isDeleted bit not null default 0,
+  constraint Pk_Transaccion primary key clustered (id)
+);
 -- relations
 
 alter table Usuario add rol_id int not null;
@@ -86,6 +108,12 @@ alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_
 alter table Usuario add pertenece_proyecto int;
 alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto on delete cascade;
 alter table dbo.Proyecto add constraint [FK_TipoProyecto] foreign key([tipoProyecto]) references TipoProyecto on delete cascade on update cascade;
+alter table Usuario add asociacion int not null;
+alter table Usuario with check add constraint [FK_pertenece_asociacion] foreign key([asociacion]) references Asociacion on delete cascade;
+alter table Proyecto add pertenece_asociacion int not null;
+alter table Proyecto with check add constraint [FK_Pertenece_asociacion_Proyecto] foreign key([pertenece_asociacion]) references Asociacion;
+alter table Transaccion add proyecto int not null;
+alter table Transaccion with check add constraint [FK_Proyecto] foreign key([proyecto]) references Proyecto on delete cascade;
 
 -- data set
 insert into Rol values('Coordinador General Proyectos', 1);
@@ -95,35 +123,45 @@ insert into Rol values('Responsable Economico',4);
 insert into Rol values('Becas',5);
 insert into Rol values('Economico',6);
 insert into Rol values('Usuario Raso',7);
+insert into Rol values('Gestor España',8);
 
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('b@b.com', 'pito', '1234', 'Manolo', '2');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('c@c.com', 'rajoy', '1234', 'Mariano', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('d@d.com', 'albert', '1234', 'Albert', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('hmm@hmm', 'Ala', '1234', 'EsGrande', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', '3');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('wan@uma.es', 'wan', '1234', 'Juan', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', '4');
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', '4');
+insert into Asociacion(nombre, localizacion) values ('ACOES', 'HONDURAS');
+insert into Asociacion(nombre, localizacion) values ('Broasos', 'MALAGA');
+insert into Asociacion(nombre, localizacion) values ('Al·lotets', 'ILLES BALEARS');
+insert into Asociacion(nombre, localizacion) values ('Nins', 'CATALUNYA');
+
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values('a@a.com', 'alkesst', '1234', 'Alejandro G.', '1', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('b@b.com', 'pito', '1234', 'Manolo', '2', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('c@c.com', 'rajoy', '1234', 'Mariano', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('d@d.com', 'albert', '1234', 'Albert', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('pablo@Casado.com', 'Pablo', '1234', 'Casado', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('hmm@hmm', 'Ala', '1234', 'EsGrande', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', '3', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('wan@uma.es', 'wan', '1234', 'Juan', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('lol@lol.es', 'LolSer', '1234', 'Sergio', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', '4', 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values('p@p.com', 'kekes', '1234', 'Juan G.', '8', 20001);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values('c@p.com', 'jejes', '1234', 'Carlos G.', '8', 20001);
 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia, isDeleted) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0, 0);
@@ -184,56 +222,57 @@ insert into TipoProyecto values ('Colegio');
 
 
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable) values
-('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com')
+                      general_project_responsable, pertenece_asociacion) values
+('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com', 20000);
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable) values
-  ('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com')
+                      general_project_responsable, pertenece_asociacion) values
+  ('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com', 20000);
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable) values
-  ('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com')
+                      general_project_responsable, pertenece_asociacion) values
+  ('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com', 20000);
 
 
 
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5000', '17-09-09')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5001', '17-09-09')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5002', '18-02-07')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5003', '26/11/2017')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5004', '10/1/2015')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5005', '14/09/2014')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5006', '1/03/2005')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5007', '10/07/1998')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5008', '21/12/2010')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5009', '04/05/2015')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5010', '01/01/2012')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5011', '12/12/2005')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5012', '12/05/2008')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5013', '07/07/2007')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5014', '03/03/2004')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5015', '25/06/2001')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5016', '16/03/2010')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5017', '03/04/2008')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5018', '04/06/2014')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5019', '06/05/2011')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5020', '01/05/2005')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5021', '26/10/2012')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5022', '25/04/2012')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5023', '06/06/2006')
-insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5024', '08/08/2008')
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5000', '17-09-09');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5001', '17-09-09');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5002', '18-02-07');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5003', '26/11/2017');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5004', '10/1/2015');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5005', '14/09/2014');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5006', '1/03/2005');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5007', '10/07/1998');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5008', '21/12/2010');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5009', '04/05/2015');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5010', '01/01/2012');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5011', '12/12/2005');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5012', '12/05/2008');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5013', '07/07/2007');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5014', '03/03/2004');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5015', '25/06/2001');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5016', '16/03/2010');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5017', '03/04/2008');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5018', '04/06/2014');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('1','5019', '06/05/2011');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5020', '01/05/2005');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5021', '26/10/2012');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5022', '25/04/2012');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('3','5023', '06/06/2006');
+insert into Accion( id_proyecto, id_joven ,fecha_entrada) values ('2','5024', '08/08/2008');
 
 
 
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('pedro@uma.es', 'gatobetis', '1234', 'Pedro', '5', 1);
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('hey@hey.com', 'uwu', '1234', 'Hyem', '5', 2);
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('otaku@uma.es', 'LOlplayer', '1234', 'Reckles', '5', 3);
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6', 1);
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('pozo@pozo.com', 'pozo', '1234', 'Pozo', '6', 2);
-insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
-values ('onichan@onichan.com', 'onix', '1234', 'Boruto', '6', 3);
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('av@a.es', 'av', '1234', 'Antonio', '7');
+
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('pedro@uma.es', 'gatobetis', '1234', 'Pedro', '5', 1, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('hey@hey.com', 'uwu', '1234', 'Hyem', '5', 2, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('otaku@uma.es', 'LOlplayer', '1234', 'Reckles', '5', 3, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('parejo@uma.com', 'parejo', '1234', 'Jesus P', '6', 1, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('pozo@pozo.com', 'pozo', '1234', 'Pozo', '6', 2, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto, asociacion)
+values ('onichan@onichan.com', 'onix', '1234', 'Boruto', '6', 3, 20000);
+insert into Usuario (email, usuario, password, nombre, rol_id, asociacion)
+values ('av@a.es', 'av', '1234', 'Antonio', '7', 20000);
