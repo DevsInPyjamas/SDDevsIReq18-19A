@@ -23,7 +23,7 @@ public class Usuario {
         return list;
     }
 
-    public Usuario(String email) throws Exception {
+    public Usuario(String email) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
 
         Object[] tuples = db.select("SELECT * FROM Usuario WHERE email = '" + email + "';").get(0);

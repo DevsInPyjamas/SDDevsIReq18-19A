@@ -14,7 +14,7 @@ public class Proyecto {
     private String tipoProyecto;
     private boolean isDeleted;
 
-    public Proyecto(int id) throws Exception {
+    public Proyecto(int id) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         Object[] tuples = db.select("SELECT * FROM Proyecto WHERE id = '" + id + "';").get(0);
         this.id = (int) tuples[0];
