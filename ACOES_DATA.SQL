@@ -9,10 +9,14 @@ insert into Rol values('Economico',6);
 insert into Rol values('Usuario Raso',7);
 insert into Rol values('Gestor España',8);
 
+insert into TipoGasto(nombre) values ('Material Escolar'), ('Infraestructura'), ('Beca'), ('Comida')
+
 insert into Asociacion(nombre, localizacion) values ('ACOES', 'HONDURAS');
 insert into Asociacion(nombre, localizacion) values ('Broasos', 'MALAGA');
 insert into Asociacion(nombre, localizacion) values ('Al·lotets', 'ILLES BALEARS');
 insert into Asociacion(nombre, localizacion) values ('Nins', 'CATALUNYA');
+
+insert into Empresa(nombre) values ('INDRA'), ('Ebury'), ('UMA'), ('SEQUEL'), ('Phace'), ('MEFJUS');
 
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1),
@@ -159,3 +163,8 @@ insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
 values(15002, 5002, 15, '20-01-1998');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
 values(15003, 5003, 15, '20-01-1998');
+
+insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
+values ('Juan Castilla', 'Nuevo material escolar', 2500, 'Material Escolar', 2, (select id from empresa where nombre = 'INDRA')
+, null), ('Ks', 'Comida', 150, 'Comida', 3, null, (select id from socio where nombre = 'Alejandro')),
+       ('MEFJUS', 'Infraestructura', 250000, 'Infraestructura', 1, (select id from empresa where nombre = 'MEFJUS'), null)

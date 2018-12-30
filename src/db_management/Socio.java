@@ -8,9 +8,9 @@ public class Socio {
     private int id;
     private String nombre;
     private String dni;
-    private int telefono;
+    private Integer telefono;
     private String direccion;
-    private int codigoPostal;
+    private Integer codigoPostal;
     private String provincia;
     private String poblacion;
     private double mensualidad;
@@ -29,9 +29,9 @@ public class Socio {
             this.id = id;
             this.nombre = (String) row[1];
             this.dni = (String) row[2];
-            this.telefono = (int) row[3];
+            this.telefono = (Integer) row[3];
             this.direccion = (String) row[4];
-            this.codigoPostal = (int) row[4+1];
+            this.codigoPostal = (Integer) row[4+1];
             this.provincia = (String) row[5+1];
             this.poblacion = (String) row[6+1];
             this.mensualidad = Double.parseDouble(row[7+1].toString());
