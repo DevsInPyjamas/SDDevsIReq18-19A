@@ -130,11 +130,12 @@ public class Socio {
     public void save() {
         DBManager dbManager = new DBManager();
         if(id != 0) {
+            int isDeletedToInt = (isDeleted) ? 1 : 0;
             dbManager.execute("update Socio set " +
                     "nombre =  '" + this.nombre +"', dni ='" +  this.dni + "', telefono = " + this.telefono + "," +
                     "direccion =  '" + this.direccion + "', codigo_postal = " + this.codigoPostal + ", provincia = " +
                     "'" + this.provincia + "', poblacion = '" + this.poblacion + "', mensualidad = " + this.mensualidad +
-                    ", asociacion = " + this.idAsociacion + ");");
+                    ", asociacion = " + this.idAsociacion + ", isDeleted = " + isDeletedToInt + ");");
         } else {
             dbManager.execute("insert into Socio(nombre, dni, telefono," +
                     "direccion, codigo_postal, provincia, poblacion, mensualidad, asociacion) " +
