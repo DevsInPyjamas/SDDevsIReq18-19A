@@ -100,10 +100,11 @@ public class UncheckChildAsSupported {
                     "and ap.fecha_fin is null;");
         } else {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id "+
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 " +
-                    "and ap.fecha_fin is null;");
+                    "from Jovenes j inner join ApadrinarJoven ap on ap.joven_id = j.id " +
+                    "inner join Socio s on ap.apadrinador_id = S.id " +
+                    "left outer join Accion ac on ac.id_joven = j.id " +
+                    "left outer join Proyecto p on ac.id_proyecto = P.id " +
+                    "where p.isDeleted = 0 and ap.fecha_fin is null;");
         }
         return queryTuples;
     }

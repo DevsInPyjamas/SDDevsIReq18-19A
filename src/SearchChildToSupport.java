@@ -24,7 +24,8 @@ public class SearchChildToSupport {
         frame.setContentPane(searchChildToSupport);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        childrenList.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Proyecto"}, 10));
+        childrenList.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Proyecto", "Fecha Entrada"},
+                5));
         DefaultTableModel model = (DefaultTableModel) childrenList.getModel();
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")){
@@ -48,15 +49,16 @@ public class SearchChildToSupport {
                         row[1] = tuple[2];
                         row[2] = tuple[3];
                         row[3] = (!isDeletedThatProject((String) tuple[4])) ? tuple[4] : "";
+                        row[4] = tuple[5];
                         model.addRow(row);
                     }
                 }
             }
         });
         childrenList.getSelectionModel().addListSelectionListener(e -> {
-            //TODO Preguntar a aleks
-            // Hola :)
-            // He modificado algunas cosas de la búsqueda el problema es que a la hora de buscar
+            String idChild = childrenList.getValueAt(childrenList.getSelectedRow(), 0).toString();
+            new ChildDataToSupport(loggedUser, idChild);
+            frame.dispose();
         });
     }
 
@@ -74,7 +76,11 @@ public class SearchChildToSupport {
     }
 
     private boolean isDeletedThatProject(String projectName) {
-        Object[] query = dbManager.select("select isDeleted from Proyecto where nombre like '" + projectName + "';").get(0);
-        return (boolean) query[0];
+        List<Object[]> query = dbManager.select("select isDeleted from Proyecto where nombre like '" + projectName + "';");
+        if(!query.isEmpty()){
+            return (boolean) query.get(0)[0];
+        } else {
+            return true;
+        }
     }
 }

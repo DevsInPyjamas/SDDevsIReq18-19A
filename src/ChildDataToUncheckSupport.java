@@ -45,7 +45,7 @@ public class ChildDataToUncheckSupport {
         Object[] query = dbManager.select("select s.nombre, a.cuota from socio s inner join apadrinarjoven a " +
                 "on a.apadrinador_id = s.id;").get(0);
         nombreApadrinadorTextField.setText((String) query[0]);
-        mensualidadTextField.setText(String.valueOf(query[1]) + " €");
+        mensualidadTextField.setText(query[1] + " €");
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")) {
                 new UncheckChildAsSupported(loggedUser);
