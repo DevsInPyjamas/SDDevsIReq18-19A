@@ -13,6 +13,9 @@ public class AdminArea {
     private JButton anadirNuevoUsuaroButton;
     private JPanel adminArea;
     private JPanel adminWindow;
+    private JButton nuevaEmpresaButton;
+    private JButton nuevoTipoDeProyectoButton;
+    private JButton nuevoTipoDeGastoButton;
     private Usuario loggedUser;
 
     AdminArea(Usuario loggedUser) {
@@ -26,28 +29,46 @@ public class AdminArea {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         backButton.addActionListener((e) -> {
-            if(e.getActionCommand().equals("Atrás")) {
+            if (e.getActionCommand().equals("Atrás")) {
                 new WelcomeForm(loggedUser);
                 frame.dispose();
             }
         });
         newProjectButton.addActionListener(e -> {
-            if(e.getActionCommand().equals("Añadir nuevo proyecto")){
+            if (e.getActionCommand().equals("Añadir nuevo proyecto")) {
                 new NewProject(loggedUser);
                 frame.dispose();
             }
         });
 
         projectHistoricButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Historial de Proyectos")){
+            if (e.getActionCommand().equals("Historial de Proyectos")) {
                 new SearchProject(loggedUser);
+                frame.dispose();
+            }
+        });
+        nuevoTipoDeGastoButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Nuevo Tipo de Gasto")) {
+                new NewExpenditureType(loggedUser);
+                frame.dispose();
+            }
+        });
+        nuevoTipoDeProyectoButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Nuevo Tipo de Proyecto")) {
+                new NewProjectType(loggedUser);
+                frame.dispose();
+            }
+        });
+        nuevaEmpresaButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Nueva Empresa")) {
+                new NewCompany(loggedUser);
                 frame.dispose();
             }
         });
     }
 
     private void displayButtons() {
-        if(loggedUser.getRol().isSuperAdmin()) {
+        if (loggedUser.getRol().isSuperAdmin()) {
             newProjectButton.setVisible(true);
             projectHistoricButton.setVisible(true);
         } else {
