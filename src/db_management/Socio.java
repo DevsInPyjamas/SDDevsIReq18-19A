@@ -135,7 +135,7 @@ public class Socio {
                     "nombre =  '" + this.nombre +"', dni ='" +  this.dni + "', telefono = " + this.telefono + "," +
                     "direccion =  '" + this.direccion + "', codigo_postal = " + this.codigoPostal + ", provincia = " +
                     "'" + this.provincia + "', poblacion = '" + this.poblacion + "', mensualidad = " + this.mensualidad +
-                    ", asociacion = " + this.idAsociacion + ", isDeleted = " + isDeletedToInt + ");");
+                    ", asociacion = " + this.idAsociacion + ", isDeleted = " + isDeletedToInt + ";");
         } else {
             dbManager.execute("insert into Socio(nombre, dni, telefono," +
                     "direccion, codigo_postal, provincia, poblacion, mensualidad, asociacion) " +
