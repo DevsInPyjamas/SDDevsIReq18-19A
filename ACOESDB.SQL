@@ -105,12 +105,13 @@ create table Transaccion(
 );
 
 create table ApadrinarJoven(
-  apadrinador_id int unique not null,
+  id int not null identity(30000, 1),
+  apadrinador_id int not null,
   joven_id int not null,
   cuota money not null,
   fecha_inicio date not null,
   fecha_fin date,
-  constraint pk_ApadrinarJoven primary key clustered (apadrinador_id, joven_id)
+  constraint pk_ApadrinarJoven primary key clustered (id)
 );
 
 create table Empresa(

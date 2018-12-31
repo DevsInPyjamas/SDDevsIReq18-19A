@@ -156,13 +156,17 @@ insert into socio(nombre, dni, mensualidad, asociacion) values('Pedro', '1234567
 insert into socio(nombre, dni, mensualidad, asociacion) values('Manuel', 'DeFalla:)', 150, 20002);
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15000, 5000, 15, '20-01-1998');
+values(15000, 5000, 15, '20-01-2010');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15001, 5001, 15, '20-01-1998');
+values(15001, 5001, 15, '20-01-2010');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15002, 5002, 15, '20-01-1998');
+values(15002, 5002, 15, '20-01-2008');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15003, 5003, 15, '20-01-1998');
+values(15003, 5003, 15, '20-01-2018');
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_fin, fecha_inicio)
+values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
+      (15000, 5006, 150, '20-01-2005', '20-01-2001'),
+      (15002, 5017, 150, '20-01-2018', '20-01-2011');
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
 values ('Juan Castilla', 'Nuevo material escolar', 2500, 'Material Escolar', 2, (select id from empresa where nombre = 'INDRA')
