@@ -36,7 +36,7 @@ public class UncheckChildAsSupported {
         buscarButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Buscar")) {
                 model.setRowCount(0);
-                java.util.List<Object[]> queryTuples;
+                List<Object[]> queryTuples;
                 if (searchChildTextField.getText().isEmpty()) {
                     queryTuples = processWhenSearchWithoutValue();
                 } else {
@@ -56,34 +56,14 @@ public class UncheckChildAsSupported {
             }
         });
         childrenList.getSelectionModel().addListSelectionListener(e -> {
-            //TODO Preguntar a aleks
+            String idChild = childrenList.getValueAt(childrenList.getSelectedRow(), 0).toString();
+            new ChildDataToUncheckSupport(loggedUser, idChild);
+            frame.dispose();
         });
     }
 
-    private java.util.List<Object[]> normalSearchProcess() {
-        java.util.List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
-                loggedUser.getEmail() + "';");
-        java.util.List<Object[]> queryTuples;
-        int idProyecto;
-        if (query.get(0)[0] != null) {
-            idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' and " +
-                    "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%';");
-        } else {
-            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id "+
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 and " +
-                    "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%';");
-        }
-        return queryTuples;
-    }
-
-    private java.util.List<Object[]> processWhenSearchWithoutValue() {
-        java.util.List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
+    private List<Object[]> normalSearchProcess() {
+        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
                 loggedUser.getEmail() + "';");
         List<Object[]> queryTuples;
         int idProyecto;
@@ -92,12 +72,38 @@ public class UncheckChildAsSupported {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
                     "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
                     "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "';");
+                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' and " +
+                    "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
+                    "and ap.fecha_fin is null;");
         } else {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
                     "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
                     "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id "+
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0;");
+                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 and " +
+                    "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
+                    "and ap.fecha_fin is null;");
+        }
+        return queryTuples;
+    }
+
+    private List<Object[]> processWhenSearchWithoutValue() {
+        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
+                loggedUser.getEmail() + "';");
+        List<Object[]> queryTuples;
+        int idProyecto;
+        if (query.get(0)[0] != null) {
+            idProyecto = (int) query.get(0)[0];
+            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
+                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
+                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' " +
+                    "and ap.fecha_fin is null;");
+        } else {
+            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
+                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id "+
+                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 " +
+                    "and ap.fecha_fin is null;");
         }
         return queryTuples;
     }
@@ -105,9 +111,5 @@ public class UncheckChildAsSupported {
     private boolean isDeletedThatProject(String projectName) {
         Object[] query = dbManager.select("select isDeleted from Proyecto where nombre like '" + projectName + "';").get(0);
         return (boolean) query[0];
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }
