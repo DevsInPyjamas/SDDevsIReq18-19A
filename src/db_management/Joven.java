@@ -29,7 +29,7 @@ public class Joven {
     private boolean isDeleted;
     private int currentProjectID;
 
-    public Joven(String id){
+    public Joven(int id){
         DBManager db = new DBManager(BD_SERVER,BD_NAME);
 
         Object[] tuples = db.select("SELECT * FROM Jovenes WHERE id = '" + id + "';").get(0);

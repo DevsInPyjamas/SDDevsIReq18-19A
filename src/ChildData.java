@@ -59,7 +59,7 @@ public class ChildData {
         frame.setContentPane(childDataServer);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        Joven child = new Joven(idChild);
+        Joven child = new Joven(Integer.parseInt(idChild));
         nombreTextField.setText(child.getNombre());
         fechaNacimientoTextField.setText(child.getFechaNacimiento());
         apellidoTextField.setText(child.getApellidos());

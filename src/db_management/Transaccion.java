@@ -13,9 +13,9 @@ public class Transaccion {
     private Proyecto proyecto;
     private int idProyecto;
     private Socio socio;
-    private int id_socio;
+    private Integer id_socio;
     private TipoGasto tipoGasto;
-    private int id_empresa;
+    private Integer id_empresa;
     private Empresa empresa;
 
     public Transaccion() {
@@ -33,8 +33,8 @@ public class Transaccion {
             this.isDeleted = (boolean) row[4];
             this.tipoGasto = new TipoGasto((String) row[5]);
             this.idProyecto = (int) row[6];
-            this.id_empresa = (int) row[7];
-            this.id_socio = (int) row[8];
+            this.id_empresa = (Integer) row[7];
+            this.id_socio = (Integer) row[8];
         } else {
             throw new NoSuchElementException("No existe Transacción con la id: " + id);
         }
@@ -94,6 +94,24 @@ public class Transaccion {
 
     public void setTipoGasto(TipoGasto tipoGasto) {
         this.tipoGasto = tipoGasto;
+    }
+
+    public Socio getSocio() {
+        if(this.id_socio != null) {
+            this.socio = new Socio(this.id_socio);
+        }
+        return new Socio();
+    }
+
+    public TipoGasto getTipoGasto() {
+        return tipoGasto;
+    }
+
+    public Empresa getEmpresa() {
+        if(this.id_empresa != null) {
+            this.empresa = new Empresa(this.id_empresa);
+        }
+        return empresa;
     }
 
     public void setEmpresa(Empresa empresa) {

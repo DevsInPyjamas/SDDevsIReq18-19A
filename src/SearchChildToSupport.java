@@ -55,35 +55,22 @@ public class SearchChildToSupport {
         });
         childrenList.getSelectionModel().addListSelectionListener(e -> {
             //TODO Preguntar a aleks
+            // Hola :)
+            // He modificado algunas cosas de la búsqueda el problema es que a la hora de buscar
         });
     }
 
     private List<Object[]> normalSearchProcess() {
-        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
-                loggedUser.getEmail() + "';");
-        List<Object[]> queryTuples;
-        int idProyecto;
-        if(query.get(0)[0] != null) {
-            idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("");
-        } else {
-            queryTuples = dbManager.select("");
-        }
-        return queryTuples;
+        //TODO No sé si ese es el campo de búsqueda pero mete entre las comillas simples del exec NoApadrinados
+        // los datos a buscar, ejemplo, si quiero buscar a pedro amador hago lo siguiente:
+        // exec NoApadrinados 'pedro amador', entonces, lo que se coja de la barra de búsqueda, es lo que hay
+        // que meter dentro del parametro de exec
+        return dbManager.select("exec NoApadrinados '" + this.searchChildTextField.getText() + "';");
     }
 
     private List<Object[]> processWhenSearchWithoutValue() {
-        List<Object[]> query = dbManager.select("select pertenece_proyecto from Usuario where email = '" +
-                loggedUser.getEmail() + "';");
-        List<Object[]> queryTuples;
-        int idProyecto;
-        if(query.get(0)[0] != null) {
-            idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("");
-        } else {
-            queryTuples = dbManager.select("");
-        }
-        return queryTuples;
+        //TODO el procedimiento está programado para que cuando reciba un null devuelva a todos los chavales
+        return dbManager.select("exec NoApadrinados null;");
     }
 
     private boolean isDeletedThatProject(String projectName) {

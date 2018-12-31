@@ -55,4 +55,6 @@ public class Rol {
     public boolean hasAccessGrants() {
         return this.isAdmin() || nombre.contains("Becas");
     }
+
+    public boolean spanishBoy() { return nombre.contains("España"); }
 }
