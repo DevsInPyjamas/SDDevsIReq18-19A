@@ -1,3 +1,4 @@
+import db_management.Empresa;
 import db_management.Usuario;
 
 import javax.swing.*;
@@ -23,6 +24,18 @@ public class NewCompany {
         frame.setVisible(true);
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
+                new AdminArea(loggedUser);
+                frame.dispose();
+            }
+        });
+        anadirButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Añadir")) {
+                Empresa newEmpresa = new Empresa();
+                newEmpresa.setNombre(nombreTextField.getText());
+                newEmpresa.setDireccion(direccionTextField.getText());
+                newEmpresa.setNif(nifTextField.getText());
+                newEmpresa.save();
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido la empresa correctamente");
                 new AdminArea(loggedUser);
                 frame.dispose();
             }

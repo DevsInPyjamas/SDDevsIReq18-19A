@@ -100,7 +100,7 @@ create table Transaccion(
   concepto varchar(50),
   cantidad money not null,
   isDeleted bit not null default 0,
-  tipoGasto varchar(50) not null,
+  tipoGasto int not null,
   constraint Pk_Transaccion primary key clustered (id)
 );
 
@@ -117,12 +117,15 @@ create table ApadrinarJoven(
 create table Empresa(
   nombre varchar(50) not null,
   id int not null identity(25000, 1),
+  direccion varchar(50) not null,
+  nif varchar(9) not null,
   constraint Pk_Empresa primary key clustered (id)
 );
 
 create table TipoGasto(
+  id int not null identity(35000, 1),
   nombre varchar(50) not null,
-  constraint Pk_TipoGasto primary key clustered (nombre)
+  constraint Pk_TipoGasto primary key clustered (id)
 );
 -- relations
 

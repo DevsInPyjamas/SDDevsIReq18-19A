@@ -16,7 +16,10 @@ insert into Asociacion(nombre, localizacion) values ('Broasos', 'MALAGA');
 insert into Asociacion(nombre, localizacion) values ('Al·lotets', 'ILLES BALEARS');
 insert into Asociacion(nombre, localizacion) values ('Nins', 'CATALUNYA');
 
-insert into Empresa(nombre) values ('INDRA'), ('Ebury'), ('UMA'), ('SEQUEL'), ('Phace'), ('MEFJUS');
+insert into Empresa(nombre, direccion, nif)
+values ('INDRA', 'Aqui Mismo 5 SN', '443322'), ('Ebury', 'Alli Mismo SN', '5533LOL'),
+       ('UMA', 'En el otro lao SN', 'YEAHLOL'), ('SEQUEL', 'Im a bit drunk', '01-01-201'),
+       ('Phace', 'No funciona mi programa', 'Si lol'), ('MEFJUS', 'Yeah', 'Lol');
 
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1),
@@ -99,10 +102,10 @@ insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, proj
 ('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com', 20000);
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable, pertenece_asociacion) values
-  ('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com', 20000);
+('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com', 20000);
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable, pertenece_asociacion) values
-  ('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com', 20000);
+('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com', 20000);
 
 
 
@@ -169,6 +172,9 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15002, 5017, 150, '20-01-2018', '20-01-2011');
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
-values ('Juan Castilla', 'Nuevo material escolar', 2500, 'Material Escolar', 2, (select id from empresa where nombre = 'INDRA')
-, null), ('Ks', 'Comida', 150, 'Comida', 3, null, (select id from socio where nombre = 'Alejandro')),
-       ('MEFJUS', 'Infraestructura', 250000, 'Infraestructura', 1, (select id from empresa where nombre = 'MEFJUS'), null)
+values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
+, 2, (select id from empresa where nombre = 'INDRA')
+         , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
+                   (select id from socio where nombre = 'Alejandro')),
+       ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),
+        1, (select id from empresa where nombre = 'MEFJUS'), null)

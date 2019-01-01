@@ -1,3 +1,4 @@
+import db_management.DBManager;
 import db_management.Usuario;
 
 import javax.swing.*;
@@ -21,6 +22,16 @@ public class NewProjectType {
         frame.setVisible(true);
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
+                new AdminArea(loggedUser);
+                frame.dispose();
+            }
+        });
+        anadirButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Añadir")) {
+                DBManager dbManager = new DBManager();
+                dbManager.execute("insert into TipoProyecto(nombre) values ('" + this.nombreTextField.getText()
+                        + "');");
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el tipo de proyecto correctamente");
                 new AdminArea(loggedUser);
                 frame.dispose();
             }
