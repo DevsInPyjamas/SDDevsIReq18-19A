@@ -1,3 +1,4 @@
+import db_management.TipoGasto;
 import db_management.Usuario;
 
 import javax.swing.*;
@@ -21,6 +22,16 @@ public class NewExpenditureType {
         frame.setVisible(true);
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
+                new AdminArea(loggedUser);
+                frame.dispose();
+            }
+        });
+        anadirButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Añadir")) {
+                TipoGasto tipoGasto = new TipoGasto();
+                tipoGasto.setNombre(nombreTextField.getText());
+                tipoGasto.save();
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el tipo correctamente");
                 new AdminArea(loggedUser);
                 frame.dispose();
             }

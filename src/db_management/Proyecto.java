@@ -13,6 +13,8 @@ public class Proyecto {
     private Usuario responsableEconomico;
     private String tipoProyecto;
     private boolean isDeleted;
+    private int idAsociacion;
+    private Asociacion asociacion;
 
     public Proyecto(int id) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
@@ -24,15 +26,16 @@ public class Proyecto {
         this.isDeleted = (boolean) tuples[4];
         coordinadorAsignado = new Usuario((String) tuples[5]);
         responsableEconomico = new Usuario((String) tuples[6]);
+        idAsociacion = (int) tuples[7];
     }
 
     public Proyecto(String nombre, String ubicacion, Usuario coordinadorAsignado, Usuario responsableEconomico,
-                    String tipoProyecto) {
+                    String tipoProyecto, int perteneceAsociacion) {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("INSERT INTO Proyecto(nombre, ubicacion, tipoProyecto, project_coordinator," +
-                " project_responsable, general_project_coordinator, general_project_responsable) values('" +
+                " project_responsable, general_project_coordinator, general_project_responsable, pertenece_asociacion) values('" +
                 nombre + "', '" + ubicacion + "', '" + tipoProyecto + "', '" + coordinadorAsignado.getEmail() + "', '"
-                + responsableEconomico.getEmail() + "', 'a@a.com' , 'b@b.com');");
+                + responsableEconomico.getEmail() + "', 'a@a.com' , 'b@b.com', '" + perteneceAsociacion + "');");
         //this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -103,6 +106,24 @@ public class Proyecto {
         db.execute("UPDATE Proyecto SET tipoProyecto = '" + tipoProyecto +
                 "' WHERE id = '" + this.id + "';");
         this.tipoProyecto = tipoProyecto;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public Asociacion getAsociacion() {
+        asociacion = new Asociacion(this.idAsociacion);
+        return asociacion;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public void setAsociacion(Asociacion asociacion) {
+        this.idAsociacion = asociacion.getId();
+        this.asociacion = asociacion;
     }
 
     public void setIsDeleted(boolean value) {

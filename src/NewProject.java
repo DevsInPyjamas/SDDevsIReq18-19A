@@ -48,7 +48,7 @@ public class NewProject extends JPanel{
                     Usuario coord = new Usuario(coordinadorTextField.getText());
                     Usuario resp = new Usuario(economicoField.getText());
                     String tipoProy = Objects.requireNonNull(tipoProyectoComboBox.getSelectedItem()).toString();
-                    proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy);
+                    proyecto = new Proyecto(nombre, ubicacion, coord, resp, tipoProy, 1);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha añadido el proyecto correctamente");
                     new AdminArea(loggedUser);
                     frame.dispose();

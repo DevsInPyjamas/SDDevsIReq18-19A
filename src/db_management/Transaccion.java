@@ -31,7 +31,7 @@ public class Transaccion {
             this.concepto = (String) row[2];
             this.cantidad = Double.parseDouble(row[3].toString());
             this.isDeleted = (boolean) row[4];
-            this.tipoGasto = new TipoGasto((String) row[5]);
+            this.tipoGasto = new TipoGasto((int) row[5]);
             this.idProyecto = (int) row[6];
             this.id_empresa = (Integer) row[7];
             this.id_socio = (Integer) row[8];

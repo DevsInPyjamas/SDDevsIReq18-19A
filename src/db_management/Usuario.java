@@ -12,6 +12,8 @@ public class Usuario {
     private String nombre;
     private String email;
     private Rol role;
+    private Integer idProyecto;
+    private Proyecto proyecto;
 
     public List<Usuario> selectAllUsers() throws Exception {
         DBManager dbManager = new DBManager();
@@ -31,6 +33,7 @@ public class Usuario {
         this.usuario = (String) tuples[1];
         this.password = (String) tuples[2];
         this.nombre = (String) tuples[3];
+        this.idProyecto = (Integer) tuples[5];
         Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
         role = new Rol((int) queryTuple[0]);
     }
@@ -88,5 +91,42 @@ public class Usuario {
         DBManager db = new DBManager(BD_SERVER, BD_NAME);
         db.execute("UPDATE Usuario SET email = '" + email + "' WHERE email = '" + this.email + "';");
         this.email = email;
+    }
+
+    public Rol getRole() {
+        return role;
+    }
+
+    public Proyecto getProyecto() {
+        if(this.idProyecto != null) {
+            proyecto = new Proyecto(this.idProyecto);
+        }
+        return proyecto;
+    }
+
+    public void setRole(Rol role) {
+        this.role = role;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.idProyecto = proyecto.getId();
+        this.proyecto = proyecto;
+    }
+
+    public int perteneceAsociacion() {
+        return proyecto.getAsociacion().getId();
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "usuario='" + usuario + '\'' +
+                ", password='" + password + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", idProyecto=" + idProyecto +
+                ", proyecto=" + proyecto +
+                '}';
     }
 }
