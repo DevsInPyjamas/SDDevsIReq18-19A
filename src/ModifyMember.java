@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import db_management.Asociacion;
+import db_management.DBManager;
 import db_management.Usuario;
 import db_management.Socio;
 
@@ -37,8 +38,9 @@ public class ModifyMember {
     private JButton actualizarButton;
     private JLabel codigoPostalLabel;
     private JTextField codigoPostalField;
-    Usuario loggedUser;
+    private Usuario loggedUser;
     private boolean modifying = false;
+    private DBManager dbManager = new DBManager();
 
     ModifyMember(Usuario loggedUser, Integer memberId){
         this.loggedUser = loggedUser;

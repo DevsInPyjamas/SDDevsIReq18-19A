@@ -48,5 +48,9 @@ public class GrantManagement {
                 frame.dispose();
             }
         });
+        addNewSocioButton.addActionListener(e -> {
+            new NewMember(loggedUser);
+            frame.dispose();
+        });
     }
 }

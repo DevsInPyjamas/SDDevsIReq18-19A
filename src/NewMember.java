@@ -73,7 +73,7 @@ public class NewMember {
                 soc.setNombre(nombreField.getText());
                 soc.setApellidos(apellidosField.getText());
                 soc.setDni(dniField.getText());
-                soc.setFechaNacimiento(fechaNacimientoField.getText());
+                soc.setFechaNacimiento((fechaNacimientoField.getText().isEmpty()) ? null : fechaNacimientoField.getText());
                 soc.setTelefono(Integer.parseInt(telefonoField.getText()));
                 soc.setDireccion(direccionField.getText());
                 soc.setPoblacion(poblacionField.getText());

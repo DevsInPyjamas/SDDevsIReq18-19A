@@ -110,9 +110,10 @@ public class Socio {
     }
 
     public void setFechaNacimiento(String fechaNacimiento) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String nacimientoToStr = format.format(fechaNacimiento);
-
+        if (fechaNacimiento != null) {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            String nacimientoToStr = format.format(fechaNacimiento);
+        }
         this.fechaNacimiento = fechaNacimiento;
     }
 
