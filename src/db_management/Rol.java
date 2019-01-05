@@ -57,4 +57,6 @@ public class Rol {
     }
 
     public boolean spanishBoy() { return nombre.contains("España"); }
+
+    public boolean isLocalAdmin() { return true; }
 }

@@ -1,19 +1,23 @@
 package db_management;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Socio {
     private int id;
     private String nombre;
+    private String apellidos;
     private String dni;
+    private String fechaNacimiento;
     private Integer telefono;
     private String direccion;
     private Integer codigoPostal;
     private String provincia;
     private String poblacion;
     private double mensualidad;
+    private String email;
     private boolean isDeleted;
     private int idAsociacion;
     private Asociacion asociacion;
@@ -35,7 +39,10 @@ public class Socio {
             this.provincia = (String) row[5+1];
             this.poblacion = (String) row[6+1];
             this.mensualidad = Double.parseDouble(row[7+1].toString());
-            this.isDeleted = (boolean) row[8+1];
+            this.apellidos = (String) row[8+1];
+            this.fechaNacimiento = row[9+1].toString();
+            this.email = (String)row[10+1];
+            this.isDeleted = (boolean) row[11+1];
         } else {
             throw new NoSuchElementException("No existe Socio con id: " + id);
         }
@@ -52,6 +59,8 @@ public class Socio {
     public String getDni() {
         return dni;
     }
+
+    public String getFechaNacimiento() { return fechaNacimiento; }
 
     public int getTelefono() {
         return telefono;
@@ -81,6 +90,10 @@ public class Socio {
         return isDeleted;
     }
 
+    public String getApellidos() { return apellidos; }
+
+    public String getEmail() { return email; }
+
     public Asociacion getAsociacion() {
         this.asociacion = new Asociacion(this.idAsociacion);
         return asociacion;
@@ -90,8 +103,17 @@ public class Socio {
         this.nombre = nombre;
     }
 
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String nacimientoToStr = format.format(fechaNacimiento);
+
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public void setTelefono(int telefono) {
@@ -118,7 +140,11 @@ public class Socio {
         this.mensualidad = mensualidad;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
@@ -127,6 +153,7 @@ public class Socio {
         this.idAsociacion = asociacion.getId();
     }
 
+    //TODO añadir apellidos, email, fecha nacimiento
     public void save() {
         DBManager dbManager = new DBManager();
         if(id != 0) {
@@ -153,15 +180,19 @@ public class Socio {
         return "Socio{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
                 ", dni='" + dni + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
                 ", telefono=" + telefono +
                 ", direccion='" + direccion + '\'' +
                 ", codigoPostal=" + codigoPostal +
                 ", provincia='" + provincia + '\'' +
                 ", poblacion='" + poblacion + '\'' +
                 ", mensualidad=" + mensualidad +
+                ", email='" + email + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", idAsociacion=" + idAsociacion +
+                ", asociacion=" + asociacion +
                 '}';
     }
 }

@@ -21,23 +21,23 @@ values ('INDRA', 'Aqui Mismo 5 SN', '443322'), ('Ebury', 'Alli Mismo SN', '5533L
        ('UMA', 'En el otro lao SN', 'YEAHLOL'), ('SEQUEL', 'Im a bit drunk', '01-01-201'),
        ('Phace', 'No funciona mi programa', 'Si lol'), ('MEFJUS', 'Yeah', 'Lol');
 
-insert into Usuario (email, usuario, password, nombre, rol_id)
-values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1),
-      ('b@b.com', 'pito', '1234', 'Manolo', 2),
-      ('c@c.com', 'rajoy', '1234', 'Mariano', 3),
-      ('d@d.com', 'albert', '1234', 'Albert', 3),
-      ('pablo@Casado.com', 'Pablo', '1234', 'Casado', 3),
-      ('hmm@hmm', 'Ala', '1234', 'EsGrande', 3),
-      ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', 3),
-      ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', 3),
-      ('wan@uma.es', 'wan', '1234', 'Juan', 4),
-      ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', 4),
-      ('lol@lol.es', 'LolSer', '1234', 'Sergio', 4),
-      ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', 4),
-      ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', 4),
-      ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', 4),
-      ('p@p.com', 'kekes', '1234', 'Juan G.', 8),
-      ('c@p.com', 'jejes', '1234', 'Carlos G.', 8);
+insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_asociacion)
+values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1, (select id from Asociacion where nombre like '%honduras')),
+      ('b@b.com', 'pito', '1234', 'Manolo', 2, (select id from Asociacion where nombre like '%honduras')),
+      ('c@c.com', 'rajoy', '1234', 'Mariano', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('d@d.com', 'albert', '1234', 'Albert', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('pablo@Casado.com', 'Pablo', '1234', 'Casado', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('hmm@hmm', 'Ala', '1234', 'EsGrande', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', 3, (select id from Asociacion where nombre like '%honduras')),
+      ('wan@uma.es', 'wan', '1234', 'Juan', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('lol@lol.es', 'LolSer', '1234', 'Sergio', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', 4, (select id from Asociacion where nombre like '%honduras')),
+      ('p@p.com', 'kekes', '1234', 'Juan G.', 8, (select id from Asociacion where localizacion like 'illes balears')),
+      ('c@p.com', 'jejes', '1234', 'Carlos G.', 8, (select id from Asociacion where localizacion like 'illes balears'));
 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia, isDeleted) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0, 0);
@@ -151,7 +151,7 @@ values ('pozo@pozo.com', 'pozo', '1234', 'Pozo', '6', 2);
 insert into Usuario (email, usuario, password, nombre, rol_id, pertenece_proyecto)
 values ('onichan@onichan.com', 'onix', '1234', 'Boruto', '6', 3);
 insert into Usuario (email, usuario, password, nombre, rol_id)
-values ('av@a.es', 'av', '1234', 'Antonio', '7');
+values ('av@a.es', 'av', '1234', 'Antonio', 7);
 
 insert into socio(nombre, dni, mensualidad, asociacion) values('Alejandro', '76767676K', 200, 20002);
 insert into socio(nombre, dni, mensualidad, asociacion) values('WanGarcia', '67676767K', 150, 20001);

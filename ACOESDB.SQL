@@ -91,6 +91,9 @@ create table Socio(
   poblacion varchar(50),
   mensualidad money,
   isDeleted bit not null default 0,
+  apellidos varchar(50) not null,
+  fecha_nacimiento date not null,
+  email varchar(50),
   constraint Pk_Socio primary key clustered (id)
 );
 
@@ -145,6 +148,8 @@ alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_
 alter table RolJovenesRelation with check add constraint [FK_RolJovenesRelation_Rol] foreign key ([id_rol]) references Rol;
 alter table Usuario add pertenece_proyecto int;
 alter table usuario with check add constraint [FK_pertenece_proyecto] foreign key([pertenece_proyecto]) references Proyecto on delete cascade;
+alter table Usuario add pertenece_asociacion int;
+alter table Usuario with check add constraint [FK_Pertenece_asociacion] foreign key([pertenece_asociacion]) references Asociacion;
 alter table dbo.Proyecto add constraint [FK_TipoProyecto] foreign key([tipoProyecto]) references TipoProyecto on delete cascade on update cascade;
 alter table Proyecto add pertenece_asociacion int not null;
 alter table Proyecto with check add constraint [FK_Pertenece_asociacion_Proyecto] foreign key([pertenece_asociacion]) references Asociacion;
