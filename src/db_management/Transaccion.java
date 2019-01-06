@@ -100,7 +100,7 @@ public class Transaccion {
         if(this.id_socio != null) {
             this.socio = new Socio(this.id_socio);
         }
-        return new Socio();
+        return this.socio;
     }
 
     public TipoGasto getTipoGasto() {
