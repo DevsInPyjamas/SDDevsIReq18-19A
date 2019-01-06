@@ -98,14 +98,14 @@ insert into TipoProyecto values ('Colegio');
 
 
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable, pertenece_asociacion) values
-('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com', 20000);
+                      general_project_responsable) values
+('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com');
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable, pertenece_asociacion) values
-('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com', 20000);
+                      general_project_responsable) values
+('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com');
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
-                      general_project_responsable, pertenece_asociacion) values
-('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com', 20000);
+                      general_project_responsable) values
+('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com');
 
 
 
@@ -153,10 +153,14 @@ values ('onichan@onichan.com', 'onix', '1234', 'Boruto', '6', 3);
 insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('av@a.es', 'av', '1234', 'Antonio', 7);
 
-insert into socio(nombre, dni, mensualidad, asociacion) values('Alejandro', '76767676K', 200, 20002);
-insert into socio(nombre, dni, mensualidad, asociacion) values('WanGarcia', '67676767K', 150, 20001);
-insert into socio(nombre, dni, mensualidad, asociacion) values('Pedro', '123456789', 100, 20003);
-insert into socio(nombre, dni, mensualidad, asociacion) values('Manuel', 'DeFalla:)', 150, 20002);
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Alejandro', '76767676K', 200, 20002, 'apellido1', '20-01-1998');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('WanGarcia', '67676767K', 150, 20001, 'apellido1', '20-01-1998');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Pedro', '123456789', 100, 20003, 'apellido1', '20-01-1998');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '20-01-1998');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
 values(15000, 5000, 15, '20-01-2010');
@@ -173,7 +177,7 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
 values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
-, 2, (select id from empresa where nombre = 'INDRA')
+         , 2, (select id from empresa where nombre = 'INDRA')
          , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
                    (select id from socio where nombre = 'Alejandro')),
        ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),

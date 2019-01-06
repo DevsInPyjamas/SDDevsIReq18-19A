@@ -14,10 +14,12 @@ public class NewEconomicMovement {
     private JComboBox tipoGastoComboBox;
     private JComboBox empresaComboBox;
     private JComboBox socioComboBox;
+    private JComboBox comboBoxProyecto;
     private Usuario loggedUser;
 
     NewEconomicMovement(Usuario loggedUser) {
         this.loggedUser = loggedUser;
+        comboBoxProyecto.setVisible(false);
         nuevaTrancision.setSize(700, 250);
         JFrame frame = new JFrame("Nueva transacción");
         frame.setBounds(400, 400, 300, 200);
@@ -27,16 +29,29 @@ public class NewEconomicMovement {
         frame.setVisible(true);
         List<Object[]> queryTuples;
         DBManager dbManager = new DBManager();
+        if(loggedUser.getRol().isSuperAdmin()) {
+            comboBoxProyecto.setVisible(true);
+            queryTuples = dbManager.select("select nombre from Proyecto;");
+            for(Object[] tuple : queryTuples) {
+                comboBoxProyecto.addItem(tuple[0]);
+            }
+        }
         queryTuples = dbManager.select("select nombre from TipoGasto;");
         for(Object[] tuple : queryTuples) {
             tipoGastoComboBox.addItem(tuple[0]);
         }
         queryTuples = dbManager.select("select nombre from Empresa;");
+        empresaComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
             empresaComboBox.addItem(tuple[0]);
         }
-        queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
-                "where asociation = '" + loggedUser.getProyecto().getId() + "';");
+        if(!loggedUser.getRol().isSuperAdmin()) {
+            queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
+                    "where asociation = '" + loggedUser.getProyecto().getId() + "';");
+        } else {
+            queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;");
+        }
+        socioComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
             if(!(boolean) tuple[0]) {
                 socioComboBox.addItem(tuple[1]);
@@ -49,7 +64,7 @@ public class NewEconomicMovement {
             }
         });
         addEconomicButton.addActionListener((e) -> {
-            if (everyMandatoryFieldIsFilled()) {
+            if (!everyMandatoryFieldIsFilled()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Hay campos obligatorios en blanco");
             } else {
                 Transaccion t = new Transaccion();
@@ -59,10 +74,16 @@ public class NewEconomicMovement {
                         tipoGastoComboBox.getSelectedItem() + "';").get(0)[0];
                 t.setTipoGasto(new TipoGasto(tipoGastoID));
                 t.setCantidad(Double.valueOf(cantidadField.getText()));
-                t.setProyecto(loggedUser.getProyecto());
+                if(!loggedUser.getRol().isSuperAdmin()) {
+                    t.setProyecto(loggedUser.getProyecto());
+                } else {
+                    int proyectoID = (int) dbManager.select("select id from proyecto where nombre like '" +
+                            this.comboBoxProyecto.getSelectedItem() + "';").get(0)[0];
+                    t.setProyecto(new Proyecto(proyectoID));
+                }
                 if(socioComboBox.getSelectedItem() != null) {
                     int socioID = (int) dbManager.select("select id from Socio where " +
-                            "contat(nombre, ' ', apellidos) = '" + socioComboBox.getSelectedItem() + "';").get(0)[0];
+                            "CONCAT(nombre, ' ', apellidos) = '" + socioComboBox.getSelectedItem() + "';").get(0)[0];
                     t.setSocio(new Socio(socioID));
                 }
                 if(empresaComboBox.getSelectedItem() != null) {
@@ -72,12 +93,12 @@ public class NewEconomicMovement {
                 }
                 try {
                     t.save();
+                    JOptionPane.showMessageDialog(new JFrame(), "Se han guardado los datos");
+                    new EconomicSection(loggedUser);
+                    frame.dispose();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos no son correctos");
                 }
-                JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos son correctos");
-                new EconomicSection(loggedUser);
-                frame.dispose();
             }
         });
     }

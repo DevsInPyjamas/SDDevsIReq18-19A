@@ -121,8 +121,8 @@ public class Transaccion {
 
     public void save() {
         DBManager dbManager = new DBManager();
-        Object isIdEmpresaNull = (this.id_empresa == 0) ? null : this.id_empresa;
-        Object isIdSocioNull = (this.id_socio == 0) ? null : this.id_socio;
+        Object isIdEmpresaNull = (this.id_empresa == null || this.id_empresa == 0) ? null : this.id_empresa;
+        Object isIdSocioNull = (this.id_socio == null || this.id_socio == 0) ? null : this.id_socio;
         if (this.id != 0) {
             dbManager.execute("update Transaccion set " +
                     "emisor = '" + this.emisor + "', " +
@@ -140,7 +140,7 @@ public class Transaccion {
                     "emisor, concepto, cantidad, isDeleted, proyecto, tipoGasto, id_empresa, socio_donante) values(" +
                     "'" + this.emisor + "', '" + this.concepto + "', " +
                     "" + this.cantidad + ", '" + this.isDeleted + "'," + this.idProyecto + "" +
-                    ",'" + this.tipoGasto.getNombre() + "', " + isIdEmpresaNull + ", " + isIdSocioNull + ");");
+                    ",'" + this.tipoGasto.getId() + "', " + isIdEmpresaNull + ", " + isIdSocioNull + ");");
             this.id = Integer.parseInt(((BigDecimal) dbManager.select("select @@IDENTITY;").get(0)[0]).toBigInteger()
                     .toString());
         }

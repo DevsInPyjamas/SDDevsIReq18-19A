@@ -39,10 +39,10 @@ public class Socio {
             this.provincia = (String) row[5+1];
             this.poblacion = (String) row[6+1];
             this.mensualidad = Double.parseDouble(row[7+1].toString());
-            this.apellidos = (String) row[8+1];
-            this.fechaNacimiento = row[9+1].toString();
-            this.email = (String)row[10+1];
-            this.isDeleted = (boolean) row[11+1];
+            this.isDeleted = (boolean) row[9];
+            this.apellidos = (String) row[10];
+            this.fechaNacimiento = row[11].toString();
+            this.email = (String)row[12];
         } else {
             throw new NoSuchElementException("No existe Socio con id: " + id);
         }

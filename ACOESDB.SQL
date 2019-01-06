@@ -151,8 +151,6 @@ alter table usuario with check add constraint [FK_pertenece_proyecto] foreign ke
 alter table Usuario add pertenece_asociacion int;
 alter table Usuario with check add constraint [FK_Pertenece_asociacion] foreign key([pertenece_asociacion]) references Asociacion;
 alter table dbo.Proyecto add constraint [FK_TipoProyecto] foreign key([tipoProyecto]) references TipoProyecto on delete cascade on update cascade;
-alter table Proyecto add pertenece_asociacion int not null;
-alter table Proyecto with check add constraint [FK_Pertenece_asociacion_Proyecto] foreign key([pertenece_asociacion]) references Asociacion;
 alter table Transaccion add proyecto int not null;
 alter table Transaccion with check add constraint [FK_Proyecto] foreign key([proyecto]) references Proyecto on delete cascade;
 alter table Socio add asociacion int not null;

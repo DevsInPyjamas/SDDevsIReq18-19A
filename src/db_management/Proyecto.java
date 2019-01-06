@@ -26,7 +26,6 @@ public class Proyecto {
         this.isDeleted = (boolean) tuples[4];
         coordinadorAsignado = new Usuario((String) tuples[5]);
         responsableEconomico = new Usuario((String) tuples[6]);
-        idAsociacion = (int) tuples[7];
     }
 
     public Proyecto(String nombre, String ubicacion, Usuario coordinadorAsignado, Usuario responsableEconomico,
