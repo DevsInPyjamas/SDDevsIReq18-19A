@@ -40,6 +40,10 @@ public class WelcomeForm {
                 frame.dispose();
             }
         }));
+        economicoButton.addActionListener(e -> {
+            new EconomicSection(loggedUser);
+            frame.dispose();
+        });
     }
 
     private void displayButtons(){

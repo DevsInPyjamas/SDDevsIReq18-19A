@@ -52,5 +52,10 @@ public class GrantManagement {
             new NewMember(loggedUser);
             frame.dispose();
         });
+        buscarSocioButton.addActionListener(e -> {
+            new SearchMember(loggedUser);
+            frame.dispose();
+        });
+
     }
 }

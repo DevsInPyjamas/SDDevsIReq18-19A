@@ -34,7 +34,7 @@
           <text value="Modifica Movimiento Económico"/>
         </properties>
       </component>
-      <component id="4f08b" class="javax.swing.JLabel" binding="EmisorLabel">
+      <component id="4f08b" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -42,7 +42,7 @@
           <text value="Emisor*"/>
         </properties>
       </component>
-      <component id="fe110" class="javax.swing.JLabel" binding="ConceptoLabel">
+      <component id="fe110" class="javax.swing.JLabel">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -50,7 +50,7 @@
           <text value="Concepto"/>
         </properties>
       </component>
-      <component id="7506e" class="javax.swing.JLabel" binding="CantidadLabel">
+      <component id="7506e" class="javax.swing.JLabel">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -58,7 +58,7 @@
           <text value="Cantidad*"/>
         </properties>
       </component>
-      <component id="2b0c7" class="javax.swing.JLabel" binding="tipoGastoLabel">
+      <component id="2b0c7" class="javax.swing.JLabel">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

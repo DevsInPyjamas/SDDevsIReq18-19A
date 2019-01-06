@@ -2,6 +2,9 @@ import db_management.DBManager;
 import db_management.Transaccion;
 import db_management.Usuario;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class ModifyEconomicMovement {
     private JPanel modificarMovEconomico;
     private JButton atrasButton;
@@ -17,7 +20,7 @@ public class ModifyEconomicMovement {
     private boolean modifying = false;
 
 
-    ModifyEconomicMovement(Usuario loggedUser, int idMovEconomic) throws Exception {
+    ModifyEconomicMovement(Usuario loggedUser, int idMovEconomic) {
         this.loggedUser = loggedUser;
         displayButtons(false);
         modificarMovEconomico.setSize(700, 400);
@@ -27,13 +30,13 @@ public class ModifyEconomicMovement {
         frame.setContentPane(modificarMovEconomico);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        for(Object[] tuple : dbManager.select("select nombre from TipoProyecto;")) {
-            tipoProyectoComboBox.addItem(tuple[0]);
+        for(Object[] tuple : dbManager.select("select nombre from TipoGasto;")) {
+            tipoGastoBox.addItem(tuple[0]);
         }
         Transaccion trans = new Transaccion(idMovEconomic);
         emisorTextField.setText(trans.getEmisor());
         conceptoTextField.setText(trans.getConcepto());
-        cantidadTextField.setText(trans.getCantidad());
+        cantidadTextField.setText(Double.toString(trans.getCantidad()));
         tipoGastoBox.setSelectedItem(trans.getTipoGasto());
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
@@ -42,7 +45,8 @@ public class ModifyEconomicMovement {
                         new ModifyEconomicMovement(loggedUser, trans.getId());
                         frame.dispose();
                     } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());                    }
+                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());
+                    }
                 } else {
                     new SearchEconomicMovement(loggedUser);
                     frame.dispose();
@@ -71,7 +75,7 @@ public class ModifyEconomicMovement {
                 frame.setMinimumSize(new Dimension(700, 400));
                 emisorTextField.setText(trans.getEmisor());
                 conceptoTextField.setText(trans.getConcepto());
-                cantidadTextField.setText(trans.getCantidad());
+                cantidadTextField.setText(Double.toString(trans.getCantidad()));
                 tipoGastoBox.setSelectedItem(trans.getTipoGasto());
                 modifying = false;
             }
@@ -83,7 +87,7 @@ public class ModifyEconomicMovement {
                         "¿Estás seguro de que quiere eliminar la transacción?", "Confirmación de Borrado",
                         JOptionPane.YES_NO_OPTION);
                 if (dialogResult == JOptionPane.YES_NO_OPTION) {
-                    trans.setIsDeleted(true);
+                    trans.setDeleted(true);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado la transacción de la base de datos");
                     new SearchEconomicMovement(loggedUser);
                     frame.dispose();
@@ -109,11 +113,11 @@ public class ModifyEconomicMovement {
             trans.setConcepto(conceptoTextField.getText());
         }
         if (!cantidadTextField.getText().equals(trans.getCantidad())) {
-            trans.setCantidad(cantidadTextField.getText());
+            trans.setCantidad(Double.valueOf(cantidadTextField.getText()));
         }
-        if (!Objects.requireNonNull(tipoGastoBox.getSelectedItem()).equals(trans.getTipoGasto())) {
+        /*if (!Objects.requireNonNull(tipoGastoBox.getSelectedItem()).equals(trans.getTipoGasto())) {
             trans.setTipoProyecto(Objects.requireNonNull(tipoGastoBox.getSelectedItem()).toString());
-        }
+        }*/
     }
 
 }

@@ -1,6 +1,11 @@
 import db_management.DBManager;
+import db_management.TipoGasto;
 import db_management.Usuario;
 import db_management.Transaccion;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class NewEconomicMovement {
     private JPanel nuevaTrancision;
@@ -9,17 +14,13 @@ public class NewEconomicMovement {
     private JTextField emisorField;
     private JTextField conceptoField;
     private JTextField cantidadField;
-    private JComboBox tipoGastoField;
-    private JLabel tipoGastoField;
-    private JLabel cantidadField;
-    private JLabel conceptoField;
-    private JLabel emisorField;
-    Usuario loggedUser;
+    private JComboBox tipoGastoComboBox;
+    private Usuario loggedUser;
 
     NewEconomicMovement(Usuario loggedUser) {
         this.loggedUser = loggedUser;
         nuevaTrancision.setSize(700, 250);
-        JFrame frame = new JFramne("Nueva transacción");
+        JFrame frame = new JFrame("Nueva transacción");
         frame.setBounds(400, 400, 300, 200);
         frame.setMinimumSize(new Dimension(700, 600));
         frame.setContentPane(nuevaTrancision);
@@ -27,39 +28,41 @@ public class NewEconomicMovement {
         frame.setVisible(true);
         List<Object[]> queryTuples;
         DBManager dbManager = new DBManager();
-        if (!loggedUser.getRol().isAdmin()) {
-            queryTuples = dbManager.select("select p.nombre from Proyecto p inner join " +
-                    "Usuario u on u.pertenece_proyecto = p.id and u.email = '" + loggedUser.getEmail() + "';");
-
-        } else {
-            queryTuples = dbManager.select("select nombre from Proyecto");
+        queryTuples = dbManager.select("select nombre from TipoGasto;");
+        for(Object[] tuple : queryTuples) {
+            tipoGastoComboBox.addItem(tuple[0]);
         }
         backButton.addActionListener((e) -> {
             if (e.getActionCommand().equals("Atrás")) {
-                new GrantManagement(loggedUser);
+                new EconomicSection(loggedUser);
                 frame.dispose();
             }
         });
-
         addEconomicButton.addActionListener((e) -> {
             if (checkIfThereAreNotBlankFields()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Hay campos obligatorios en blanco");
             } else {
-                new Transaccion(emisorField.getText(), conceptoField.getText(), cantidadField.getText(),
-                        Objects.requireNonNull(tipoGastoField.getSelectedItem()).toString());
-
-                int tipoGasto = (int) dbManager.select("select id from TipoGasto where nombre like '" +
-                        tipoGastoField.getSelectedItem() + "';").get(0)[0];
-                //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                //String entradaToStr = dtf.format(LocalDate.now());
+                Transaccion t = new Transaccion();
+                t.setEmisor(emisorField.getText());
+                t.setConcepto(conceptoField.getText());
+                int tipoGastoID = (int) dbManager.select("select id from TipoGasto where nombre like '" +
+                        tipoGastoComboBox.getSelectedItem() + "';").get(0)[0];
+                t.setTipoGasto(new TipoGasto(tipoGastoID));
+                t.setCantidad(Double.valueOf(cantidadField.getText()));
+                t.setProyecto(loggedUser.getProyecto());
+                t.save();
+                /*
+                emisorField.getText(), conceptoField.getText(), cantidadField.getText(),
+                        Objects.requireNonNull(tipoGastoComboBox.getSelectedItem()).toString()
+                 */
                 JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos son correctos");
-                new GrantManagement(loggedUser);
+                new EconomicSection(loggedUser);
                 frame.dispose();
             }
         });
     }
+
     private boolean checkIfThereAreNotBlankFields() {
-        return fechaNacimientoFIeld.getText().isEmpty() ||
-                apellidosField.getText().isEmpty() || nombreField.getText().isEmpty();
+        return false;
     }
 }

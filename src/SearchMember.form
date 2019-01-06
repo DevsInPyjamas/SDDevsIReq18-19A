@@ -3,12 +3,12 @@
   <grid id="27dc6" binding="searchMemberPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="350" height="400"/>
+      <xy x="20" y="20" width="361" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="8e8c4" class="javax.swing.JButton" binding="atrásButton" default-binding="true">
+      <component id="8e8c4" class="javax.swing.JButton" binding="atrasButton">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

@@ -73,7 +73,7 @@ public class ModifyMember {
                     } catch (Exception e1) {
                         JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());                    }
                 } else {
-                    new SearchMember();
+                    new SearchMember(loggedUser);
                     frame.dispose();
                 }
             }
@@ -122,7 +122,7 @@ public class ModifyMember {
                 if (dialogResult == JOptionPane.YES_NO_OPTION) {
                     soc.setIsDeleted(true);
                     JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado el socio de la base de datos");
-                    new SearchMember();
+                    new SearchMember(loggedUser);
                     frame.dispose();
                 }
             }

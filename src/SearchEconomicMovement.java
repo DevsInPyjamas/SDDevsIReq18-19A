@@ -1,6 +1,11 @@
 import db_management.DBManager;
 import db_management.Usuario;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.List;
+
 public class SearchEconomicMovement {
     private JPanel searchEconomicMovement;
     private JButton atrasButton;
@@ -21,17 +26,17 @@ public class SearchEconomicMovement {
         frame.setVisible(true);
         seachMovEconomicTable.setModel(new DefaultTableModel(new Object[]{"id", "Emisor", "Cantidad", "Tipo de Gasto"}, 6));
         DefaultTableModel model = (DefaultTableModel) seachMovEconomicTable.getModel();
-        atrásButton.addActionListener((e)->{
+        atrasButton.addActionListener((e)->{
             if(e.getActionCommand().equals("Atrás")){
-                new AdminArea(loggedUser);
+                new EconomicSection(loggedUser);
                 frame.dispose();
             }
         });
 
-        buscarButton.addActionListener((e)->{
+        searchButton.addActionListener((e)->{
             if(e.getActionCommand().equals("Buscar")){
                 model.setRowCount(0);
-                List<Object[]> queryTuples;
+                java.util.List<Object[]> queryTuples;
                 if (searchMovEconimicTextField.getText().isEmpty()) {
                     queryTuples = processWhenSearchWithoutValue();
                 } else {
@@ -49,11 +54,10 @@ public class SearchEconomicMovement {
                 }
             }
         });
-
         seachMovEconomicTable.getSelectionModel().addListSelectionListener(e -> {
             try {
                 int idEcMov = (int) seachMovEconomicTable.getValueAt(seachMovEconomicTable.getSelectedRow(), 0);
-                new ModifyEconomicMovement(loggedUser, idProject);
+                new ModifyEconomicMovement(loggedUser, idEcMov);
                 frame.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
@@ -66,9 +70,7 @@ public class SearchEconomicMovement {
                 "where emisor like '" + searchMovEconimicTextField.getText() + "';");
     }
 
-    private List<Object[]> processWhenSearchWithoutValue() {
+    private java.util.List<Object[]> processWhenSearchWithoutValue() {
         return dbManager.select("select isDeleted, id, emisor, concepto, cantidad, tipoGasto from transaccion");
     }
-
-
 }
