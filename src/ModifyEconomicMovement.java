@@ -39,27 +39,23 @@ public class ModifyEconomicMovement {
         cantidadTextField.setText(Double.toString(trans.getCantidad()));
         tipoGastoBox.setSelectedItem(trans.getTipoGasto());
         atrasButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Atras")) {
-                if (modifying) {
-                    try {
-                        new ModifyEconomicMovement(loggedUser, trans.getId());
-                        frame.dispose();
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());
-                    }
-                } else {
-                    new SearchEconomicMovement(loggedUser);
+            if (modifying) {
+                try {
+                    new ModifyEconomicMovement(loggedUser, trans.getId());
                     frame.dispose();
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());
                 }
+            } else {
+                new SearchEconomicMovement(loggedUser);
+                frame.dispose();
             }
         });
 
         modificarMovimientoButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Modificar Movimento Económico")) {
-                modifying = true;
-                frame.setMinimumSize(new Dimension(700, 400));
-                displayButtons(true);
-            }
+            modifying = true;
+            frame.setMinimumSize(new Dimension(700, 400));
+            displayButtons(true);
         });
         actualizarButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Actualizar")) {
@@ -82,16 +78,15 @@ public class ModifyEconomicMovement {
         });
 
         borrarMovimientoButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Borrar Movimiento Económico")) {
-                int dialogResult = JOptionPane.showConfirmDialog(null,
-                        "¿Estás seguro de que quiere eliminar la transacción?", "Confirmación de Borrado",
-                        JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_NO_OPTION) {
-                    trans.setDeleted(true);
-                    JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado la transacción de la base de datos");
-                    new SearchEconomicMovement(loggedUser);
-                    frame.dispose();
-                }
+            int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro de que quiere eliminar la transacción?", "Confirmación de Borrado",
+                    JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_NO_OPTION) {
+                trans.setDeleted(true);
+                trans.save();
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado la transacción de la base de datos");
+                new SearchEconomicMovement(loggedUser);
+                frame.dispose();
             }
         });
 

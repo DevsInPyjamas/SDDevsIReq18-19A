@@ -124,16 +124,17 @@ public class Transaccion {
         Object isIdEmpresaNull = (this.id_empresa == null || this.id_empresa == 0) ? null : this.id_empresa;
         Object isIdSocioNull = (this.id_socio == null || this.id_socio == 0) ? null : this.id_socio;
         if (this.id != 0) {
+            int integerValueOfABoolean = (this.isDeleted) ? 1 : 0;
             dbManager.execute("update Transaccion set " +
                     "emisor = '" + this.emisor + "', " +
-                    "concepto = '" + this.concepto + ", " +
-                    "cantidad = '" + this.cantidad + ", " +
-                    "isDeleted = '" + this.isDeleted + ", " +
-                    "proyecto = '" + this.idProyecto + "," +
+                    "concepto = '" + this.concepto + "', " +
+                    "cantidad = " + this.cantidad + ", " +
+                    "isDeleted = " + integerValueOfABoolean + ", " +
+                    "proyecto = " + this.idProyecto + "," +
                     "id_empresa = " + isIdEmpresaNull + "," +
-                    "tipoGasto = '" + this.tipoGasto.getNombre() + "', "+
-                    "socio_donante = " + isIdSocioNull + ", " +
-                    "where id = '" + this.id + "';");
+                    "tipoGasto = " + this.tipoGasto.getId() + ", "+
+                    "socio_donante = " + isIdSocioNull + " " +
+                    "where id = " + this.id + ";");
         }
         else {
             dbManager.execute("Insert into Transaccion(" +

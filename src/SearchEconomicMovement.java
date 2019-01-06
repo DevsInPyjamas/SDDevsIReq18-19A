@@ -27,30 +27,26 @@ public class SearchEconomicMovement {
         seachMovEconomicTable.setModel(new DefaultTableModel(new Object[]{"id", "Emisor", "Cantidad", "Tipo de Gasto"}, 6));
         DefaultTableModel model = (DefaultTableModel) seachMovEconomicTable.getModel();
         atrasButton.addActionListener((e)->{
-            if(e.getActionCommand().equals("Atrás")){
-                new EconomicSection(loggedUser);
-                frame.dispose();
-            }
+            new EconomicSection(loggedUser);
+            frame.dispose();
         });
 
         searchButton.addActionListener((e)->{
-            if(e.getActionCommand().equals("Buscar")){
-                model.setRowCount(0);
-                java.util.List<Object[]> queryTuples;
-                if (searchMovEconimicTextField.getText().isEmpty()) {
-                    queryTuples = processWhenSearchWithoutValue();
-                } else {
-                    queryTuples = normalSearchProcess();
-                }
-                for(Object[] tuple : queryTuples) {
-                    if(!(boolean) tuple[0]) {
-                        Object[] row = new Object[tuple.length];
-                        row[0] = tuple[1];
-                        row[1] = tuple[2];
-                        row[2] = tuple[3];
-                        row[3] = tuple[3];
-                        model.addRow(row);
-                    }
+            model.setRowCount(0);
+            java.util.List<Object[]> queryTuples;
+            if (searchMovEconimicTextField.getText().isEmpty()) {
+                queryTuples = processWhenSearchWithoutValue();
+            } else {
+                queryTuples = normalSearchProcess();
+            }
+            for(Object[] tuple : queryTuples) {
+                if(!(boolean) tuple[0]) {
+                    Object[] row = new Object[tuple.length];
+                    row[0] = tuple[1];
+                    row[1] = tuple[2];
+                    row[2] = tuple[3];
+                    row[3] = tuple[4];
+                    model.addRow(row);
                 }
             }
         });
@@ -66,11 +62,14 @@ public class SearchEconomicMovement {
     }
 
     private List<Object[]> normalSearchProcess() {
-        return dbManager.select("select isDeleted, id, emisor, concepto, cantidad, tipoGasto from transaccion " +
-                "where emisor like '" + searchMovEconimicTextField.getText() + "';");
+        String currentValue = this.searchMovEconimicTextField.getText();
+        return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                "inner join TipoGasto TG on t.tipoGasto = TG.id where t.emisor like '%" +
+                currentValue + "%' or tg.nombre like '%" + currentValue + "%';");
     }
 
     private java.util.List<Object[]> processWhenSearchWithoutValue() {
-        return dbManager.select("select isDeleted, id, emisor, concepto, cantidad, tipoGasto from transaccion");
+        return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                "inner join TipoGasto TG on t.tipoGasto = TG.id;");
     }
 }
