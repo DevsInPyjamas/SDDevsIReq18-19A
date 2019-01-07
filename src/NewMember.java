@@ -52,7 +52,7 @@ public class NewMember {
         DBManager dbManager = new DBManager();
         if(!loggedUser.getRol().isAdmin()) {
             queryTuples = dbManager.select("select a.nombre from Asociacion a inner join " +
-                    "Usuario u on u.pertenece_asociacion = p.id and u.email = '" + loggedUser.getEmail() + "';");
+                    "Usuario u on u.pertenece_asociacion = a.id where u.email = '" + loggedUser.getEmail() + "';");
         } else {
             queryTuples = dbManager.select("select nombre from Asociacion");
         }

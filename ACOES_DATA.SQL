@@ -154,13 +154,13 @@ insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('av@a.es', 'av', '1234', 'Antonio', 7);
 
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Alejandro', '76767676K', 200, 20002, 'apellido1', '20-01-1998');
+values('Alejandro', '76767676K', 200, 20002, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('WanGarcia', '67676767K', 150, 20001, 'apellido1', '20-01-1998');
+values('WanGarcia', '67676767K', 150, 20001, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Pedro', '123456789', 100, 20003, 'apellido1', '20-01-1998');
+values('Pedro', '123456789', 100, 20003, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '20-01-1998');
+values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '1998-01-20');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
 values(15000, 5000, 15, '20-01-2010');

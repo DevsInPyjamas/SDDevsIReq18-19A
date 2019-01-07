@@ -45,86 +45,85 @@ public class ModifyMember {
     ModifyMember(Usuario loggedUser, Integer memberId){
         this.loggedUser = loggedUser;
         displayButtons(false);
-        modificarSocioPanel.setSize(700, 400);
+        modificarSocioPanel.setSize(700, 700);
         JFrame frame = new JFrame("Información Proyecto");
-        frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 400));
+        frame.setBounds(400, 400, 300, 250);
+        frame.setMinimumSize(new Dimension(700, 700));
         frame.setContentPane(modificarSocioPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        actualizarButton.setVisible(false);
 
         Socio soc = new Socio(memberId);
+        asociacionComboBox.addItem(soc.getAsociacion().getNombre());
+        asociacionComboBox.setEditable(false);
         nombreField.setText(soc.getNombre());
         apellidosField.setText(soc.getApellidos());
         dniField.setText(soc.getDni());
-        telefonoField.setText(Integer.toString(soc.getTelefono()));
+        telefonoField.setText((soc.getTelefono() == null) ? null : Integer.toString(soc.getTelefono()));
         direccionField.setText(soc.getDireccion());
         poblacionField.setText(soc.getPoblacion());
         provinciaField.setText(soc.getProvincia());
         fechaNacimientoField.setText(soc.getFechaNacimiento());
         emailField.setText(soc.getEmail());
-
+        mensualidadField.setText((soc.getMensualidad() == null) ? null : Double.toString(soc.getMensualidad()));
+        codigoPostalField.setText((soc.getCodigoPostal() == null) ? null : Integer.toString(soc.getCodigoPostal()));
         backButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Atras")) {
-                if (modifying) {
-                    try {
-                        new ModifyMember(loggedUser, soc.getId());
-                        frame.dispose();
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());                    }
-                } else {
-                    new SearchMember(loggedUser);
+            if (modifying) {
+                try {
+                    new ModifyMember(loggedUser, soc.getId());
                     frame.dispose();
-                }
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Error: " + e1.getMessage());                    }
+            } else {
+                new SearchMember(loggedUser);
+                frame.dispose();
             }
         });
 
         modificarButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Modificar Socio")) {
-                modifying = true;
-                frame.setMinimumSize(new Dimension(700, 400));
-                displayButtons(true);
-            }
+            modifying = true;
+            actualizarButton.setVisible(modifying);
+            frame.setMinimumSize(new Dimension(700, 400));
+            displayButtons(true);
         });
 
         actualizarButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Actualizar")) {
-                try {
-                    this.modifyMemberDB(soc);
-                    JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el proyecto...");
-                } catch (Exception p) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " +
-                            p.getMessage());
-                }
-                displayButtons(false);
-                modificarSocioPanel.setSize(700, 400);
-                frame.setMinimumSize(new Dimension(700, 400));
-                nombreField.setText(soc.getNombre());
-                apellidosField.setText(soc.getApellidos());
-                dniField.setText(soc.getDni());
-                telefonoField.setText(Integer.toString(soc.getTelefono()));
-                direccionField.setText(soc.getDireccion());
-                poblacionField.setText(soc.getPoblacion());
-                provinciaField.setText(soc.getProvincia());
-                codigoPostalField.setText(Integer.toString(soc.getCodigoPostal()));
-                fechaNacimientoField.setText(soc.getFechaNacimiento());
-                emailField.setText(soc.getEmail());
-
-                modifying = false;
+            try {
+                this.modifyMemberDB(soc);
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el socio...");
+            } catch (Exception p) {
+                JOptionPane.showMessageDialog(new JFrame(), "Algo ha fallado al modificar los datos... " +
+                        p.getMessage());
             }
+            displayButtons(false);
+            modificarSocioPanel.setSize(700, 400);
+            frame.setMinimumSize(new Dimension(700, 400));
+            nombreField.setText(soc.getNombre());
+            apellidosField.setText(soc.getApellidos());
+            dniField.setText(soc.getDni());
+            telefonoField.setText(Integer.toString(soc.getTelefono()));
+            direccionField.setText(soc.getDireccion());
+            poblacionField.setText(soc.getPoblacion());
+            provinciaField.setText(soc.getProvincia());
+            codigoPostalField.setText(Integer.toString(soc.getCodigoPostal()));
+            fechaNacimientoField.setText(soc.getFechaNacimiento());
+            emailField.setText(soc.getEmail());
+
+            modifying = false;
+            actualizarButton.setVisible(false);
         });
 
         borrarSocioButton.addActionListener(e -> {
-            if (e.getActionCommand().equals("Borrar Socio")) {
-                int dialogResult = JOptionPane.showConfirmDialog(null,
-                        "¿Estás seguro de que quiere eliminar el socio?", "Confirmación de Borrado",
-                        JOptionPane.YES_NO_OPTION);
-                if (dialogResult == JOptionPane.YES_NO_OPTION) {
-                    soc.setIsDeleted(true);
-                    JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado el socio de la base de datos");
-                    new SearchMember(loggedUser);
-                    frame.dispose();
-                }
+            int dialogResult = JOptionPane.showConfirmDialog(null,
+                    "¿Estás seguro de que quiere eliminar el socio?", "Confirmación de Borrado",
+                    JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_NO_OPTION) {
+                soc.setIsDeleted(true);
+                soc.save();
+                JOptionPane.showMessageDialog(new JFrame(), "Se ha eliminado el socio de la base de datos");
+                new SearchMember(loggedUser);
+                frame.dispose();
             }
         });
     }

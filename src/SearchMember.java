@@ -69,7 +69,7 @@ public class SearchMember {
         // los usuarios
         int loggedUserAssociationID = loggedUser.getAsociacion().getId();
         return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
-                "socio s inner join asociacion a on s.asocciacion = a.id where s.asociacion = '"
+                " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
                 + loggedUserAssociationID + "';");
     }
 
@@ -79,7 +79,7 @@ public class SearchMember {
         String searchInput = searchMemberTextField.getText();
         int loggedUserAssociationID = loggedUser.getAsociacion().getId();
         return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
-                "socio s inner join asociacion a on s.asocciacion = a.id where s.asociacion = '"
+                " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
                 + loggedUserAssociationID + "' and (concat(s.nombre, ' ', s.apellidos) like '" +
                 searchInput + "' or s.dni like '" + searchInput + "');");
     }

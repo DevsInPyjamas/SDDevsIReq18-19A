@@ -16,7 +16,7 @@ public class Socio {
     private Integer codigoPostal;
     private String provincia;
     private String poblacion;
-    private double mensualidad;
+    private Double mensualidad;
     private String email;
     private boolean isDeleted;
     private int idAsociacion;
@@ -43,6 +43,7 @@ public class Socio {
             this.apellidos = (String) row[10];
             this.fechaNacimiento = row[11].toString();
             this.email = (String)row[12];
+            this.idAsociacion = (int) row[13];
         } else {
             throw new NoSuchElementException("No existe Socio con id: " + id);
         }
@@ -62,7 +63,7 @@ public class Socio {
 
     public String getFechaNacimiento() { return fechaNacimiento; }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
@@ -70,7 +71,7 @@ public class Socio {
         return direccion;
     }
 
-    public int getCodigoPostal() {
+    public Integer getCodigoPostal() {
         return codigoPostal;
     }
 
@@ -82,7 +83,7 @@ public class Socio {
         return poblacion;
     }
 
-    public double getMensualidad() {
+    public Double getMensualidad() {
         return mensualidad;
     }
 
@@ -110,10 +111,6 @@ public class Socio {
     }
 
     public void setFechaNacimiento(String fechaNacimiento) {
-        if (fechaNacimiento != null) {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            String nacimientoToStr = format.format(fechaNacimiento);
-        }
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -154,7 +151,6 @@ public class Socio {
         this.idAsociacion = asociacion.getId();
     }
 
-    //TODO añadir apellidos, email, fecha nacimiento
     public void save() {
         DBManager dbManager = new DBManager();
         if(id != 0) {
@@ -163,13 +159,16 @@ public class Socio {
                     "nombre =  '" + this.nombre +"', dni ='" +  this.dni + "', telefono = " + this.telefono + "," +
                     "direccion =  '" + this.direccion + "', codigo_postal = " + this.codigoPostal + ", provincia = " +
                     "'" + this.provincia + "', poblacion = '" + this.poblacion + "', mensualidad = " + this.mensualidad +
-                    ", asociacion = " + this.idAsociacion + ", isDeleted = " + isDeletedToInt + ";");
+                    ", asociacion = " + this.idAsociacion + ", isDeleted = " + isDeletedToInt + ", fecha_nacimiento = '"
+                     + this.fechaNacimiento + "', email = '" + this.email + "', apellidos = '"+
+                     this.apellidos + "' where id = " + this.id + ";");
         } else {
             dbManager.execute("insert into Socio(nombre, dni, telefono," +
-                    "direccion, codigo_postal, provincia, poblacion, mensualidad, asociacion) " +
+                    "direccion, codigo_postal, provincia, poblacion, mensualidad, asociacion, apellidos, email, fecha_nacimiento) " +
                     "values ('" + this.nombre +"', '" +  this.dni + "'," + this.telefono + ", '" + this.direccion + "'," +
                     "" + this.codigoPostal + ", '" + this.provincia + "','" + this.poblacion + "'," + this.mensualidad +
-                    "," + this.idAsociacion + ");");
+                    "," + this.idAsociacion + ", '" + this.apellidos + "', '" + this.email + "','" +
+                    this.fechaNacimiento + "');");
             // @@IDENTITY returns the id from the last inserted row
             this.id = Integer.parseInt(((BigDecimal) dbManager.select("select @@IDENTITY;").get(0)[0]).toBigInteger()
                     .toString());
