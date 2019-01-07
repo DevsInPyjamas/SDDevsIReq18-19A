@@ -30,15 +30,9 @@ values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1, (select id from Asociaci
       ('c@c.com', 'rajoy', '1234', 'Mariano', 3, (select id from Asociacion where nombre like '%honduras')),
       ('d@d.com', 'albert', '1234', 'Albert', 3, (select id from Asociacion where nombre like '%honduras')),
       ('pablo@Casado.com', 'Pablo', '1234', 'Casado', 3, (select id from Asociacion where nombre like '%honduras')),
-      ('hmm@hmm', 'Ala', '1234', 'EsGrande', 3, (select id from Asociacion where nombre like '%honduras')),
-      ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', 3, (select id from Asociacion where nombre like '%honduras')),
-      ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', 3, (select id from Asociacion where nombre like '%honduras')),
       ('wan@uma.es', 'wan', '1234', 'Juan', 4, (select id from Asociacion where nombre like '%honduras')),
       ('hola@hola.com', 'Bienvenido', '1234', 'Bienvenido', 4, (select id from Asociacion where nombre like '%honduras')),
       ('lol@lol.es', 'LolSer', '1234', 'Sergio', 4, (select id from Asociacion where nombre like '%honduras')),
-      ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', 4, (select id from Asociacion where nombre like '%honduras')),
-      ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', 4, (select id from Asociacion where nombre like '%honduras')),
-      ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', 4, (select id from Asociacion where nombre like '%honduras')),
       ('balears@acoes.com', 'kekes', '1234', 'Juan G.', 8, (select id from Asociacion where localizacion like 'illes balears')),
       ('ppcc@acoes.com', 'jejes', '1234', 'Carlos G.', 8, (select id from Asociacion where localizacion like 'catalunya')),
       ('malaga@acoes.com', 'malaga', '1234', 'Malaga User', 8, (select id from Asociacion where localizacion like 'malaga')),
@@ -109,12 +103,27 @@ insert into TipoProyecto values ('Colegio');
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
 ('Hombre', 'Tegulcipaga', 'CCJ', 'pablo@Casado.com', 'wan@uma.es', 'a@a.com', 'b@b.com');
+update Usuario set pertenece_proyecto = 1 where email = 'pablo@casado.com';
+update Usuario set pertenece_proyecto = 1 where email = 'wan@uma.es';
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
 ('Escuela Tegulcipaga', 'Tegulcipaga', 'Colegio', 'd@d.com', 'hola@hola.com', 'a@a.com', 'b@b.com');
+update Usuario set pertenece_proyecto = 2 where email = 'd@d.com';
+update Usuario set pertenece_proyecto = 2 where email = 'hola@hola.com';
 insert into Proyecto (nombre, ubicacion, tipoProyecto, project_coordinator, project_responsable, general_project_coordinator,
                       general_project_responsable) values
 ('Casa Tegulcipaga', 'Tegulcipaga', 'Casa Populorum', 'c@c.com', 'lol@lol.es', 'a@a.com', 'b@b.com');
+update Usuario set pertenece_proyecto = 3 where email = 'c@c.com';
+update Usuario set pertenece_proyecto = 3 where email = 'lol@lol.es';
+
+insert into Usuario(email, usuario, password, nombre, rol_id, pertenece_asociacion, pertenece_proyecto)
+values ('hmm@hmm', 'Ala', '1234', 'EsGrande', 5, (select id from Asociacion where nombre like '%honduras'), 1),
+       ('bad@bad.com', 'XxxTentation', '1234', 'Muerto', 5, (select id from Asociacion where nombre like '%honduras'), 2),
+       ('bbunny@bbunny.com', 'Amorfoda', '1234', 'Dinero', 5, (select id from Asociacion where nombre like '%honduras'), 3),
+       ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', 6, (select id from Asociacion where nombre like '%honduras'), 1),
+       ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', 6, (select id from Asociacion where nombre like '%honduras'), 2),
+       ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', 6, (select id from Asociacion where nombre like '%honduras'), 3)
+
 
 
 
