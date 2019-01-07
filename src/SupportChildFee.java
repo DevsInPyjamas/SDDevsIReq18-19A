@@ -29,7 +29,7 @@ public class SupportChildFee {
         ApadrinarJoven apadrinarJoven = new ApadrinarJoven();
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")){
-                new SearchSocioToSupporChild(loggedUser, idChild);
+                new SearchMemberToSupporChild(loggedUser, idChild);
                 frame.dispose();
             }
         });

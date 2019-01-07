@@ -45,7 +45,7 @@ public class ChildDataToSupport {
         });
         apadrinarButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Apadrinar")) {
-                new SearchSocioToSupporChild(loggedUser, idChild);
+                new SearchMemberToSupporChild(loggedUser, idChild);
                 frame.dispose();
             }
         });

@@ -1,3 +1,5 @@
+use acoes;
+go
 create procedure NoApadrinados @Filter varchar(MAX) as
   begin
     select j.id, j.fechaEntrada, aj.fecha_fin into #NoApadrinados from Jovenes J left join ApadrinarJoven AJ on J.id = AJ.joven_id

@@ -211,31 +211,32 @@ insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimie
 values ('Ramon',  '43565116K', 440, (select id from Asociacion where localizacion like 'España'), 'Garcia' ,'1954-03-10');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '76767676K', 5001, 15, '19-01-2018');
+values((select id from Socio where dni like '76767676K'), 5001, 15, '19-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '14714714L', 5002, 15, '17-01-2018');
+values((select id from Socio where dni like '14714714L'), 5002, 15, '17-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '22222222M', 5003, 15, '21-01-2018');
+values((select id from Socio where dni like '22222222M'), 5003, 15, '21-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '12345678L', 5004, 15, '20-01-2018');
+values((select id from Socio where dni like '12345678L'), 5004, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '12312312D', 5005, 15, '20-01-2018');
+values((select id from Socio where dni like '12312312D'), 5005, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '1345748L', 5006, 15, '20-01-2018');
+values((select id from Socio where dni like '1345748L'), 5006, 15, '20-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '1516184K', 5007, 15, '20-01-2018');
+values((select id from Socio where dni like '1516184K'), 5007, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '4758691K', 5008, 15, '05-04-2018');
+values((select id from Socio where dni like '4758691K'), 5008, 15, '05-04-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where dni like '43565657K', 5009, 15, '20-01-2018');
+values((select id from Socio where dni like '43565657K'), 5009, 15, '20-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_fin, fecha_inicio)
 values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15000, 5006, 150, '20-01-2005', '20-01-2001'),
       (15002, 5001, 150, '20-01-2018', '20-01-2011');
 
+-- Fallo en este insert.
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
 values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
          , 2, (select id from empresa where nombre = 'INDRA')

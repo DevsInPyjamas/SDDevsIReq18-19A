@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class UncheckChildAsSupported {
+public class SupportedChildList {
     private JPanel ucheckChildAsSupported;
     private JButton atrasButton;
     private JTextField searchChildTextField;
@@ -15,7 +15,7 @@ public class UncheckChildAsSupported {
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
-    UncheckChildAsSupported(Usuario loggedUser) {
+    SupportedChildList(Usuario loggedUser) {
         this.loggedUser = loggedUser;
         ucheckChildAsSupported.setSize(700, 250);
         JFrame frame = new JFrame("Lista de niños para desapadrinar");
@@ -57,7 +57,7 @@ public class UncheckChildAsSupported {
         });
         childrenList.getSelectionModel().addListSelectionListener(e -> {
             String idChild = childrenList.getValueAt(childrenList.getSelectedRow(), 0).toString();
-            new ChildDataToUncheckSupport(loggedUser, idChild);
+            new ChildDataWithSupport(loggedUser, idChild);
             frame.dispose();
         });
     }

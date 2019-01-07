@@ -76,7 +76,7 @@ public class NewMember {
                 soc.setDireccion(direccionField.getText());
                 soc.setPoblacion(poblacionField.getText());
                 soc.setProvincia(provinciaField.getText());
-                soc.setCodigoPostal(Integer.parseInt(codigopostalField.getText()));
+                soc.setCodigoPostal(Integer.valueOf(codigopostalField.getText()));
                 soc.setMensualidad(Double.parseDouble(mensualidadField.getText()));
                 soc.setEmail(emailField.getText());
 

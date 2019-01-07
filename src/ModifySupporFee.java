@@ -2,8 +2,6 @@ import db_management.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class ModifySupporFee {
     private JPanel modifySupportFeePanel;
@@ -38,7 +36,7 @@ public class ModifySupporFee {
                 apadrinarJoven.setCuota(Double.parseDouble(cuotaTextField.getText()));
                 apadrinarJoven.save();
                 JOptionPane.showMessageDialog(new JFrame(), "Cuota modificada correctamente");
-                new UncheckChildAsSupported(loggedUser);
+                new  ChildDataWithSupport(loggedUser, idChild);
                 frame.dispose();
             }
         });

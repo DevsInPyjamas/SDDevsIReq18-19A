@@ -33,7 +33,7 @@ public class SupportChild {
         });
         listaApadrinadosButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Lista de niños apadrinados")) {
-                new UncheckChildAsSupported(loggedUser);
+                new SupportedChildList(loggedUser);
                 frame.dispose();
             }
         });

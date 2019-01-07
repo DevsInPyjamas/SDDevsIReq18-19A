@@ -5,7 +5,7 @@ import db_management.Usuario;
 import java.awt.Dimension;
 import javax.swing.*;
 
-public class ChildDataToUncheckSupport {
+public class ChildDataWithSupport {
     private JPanel childDataToUncheckSupportPanel;
     private JButton atrasButton;
     private JButton desapadrinarButton;
@@ -21,7 +21,7 @@ public class ChildDataToUncheckSupport {
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
-    ChildDataToUncheckSupport(Usuario loggedUser, String idChild) {
+    ChildDataWithSupport(Usuario loggedUser, String idChild) {
         this.loggedUser = loggedUser;
         childDataToUncheckSupportPanel.setSize(700, 600);
         JFrame frame = new JFrame("Información Niño para desapadrinar");
@@ -50,7 +50,7 @@ public class ChildDataToUncheckSupport {
         String idSocio = String.valueOf(query[2]);
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")) {
-                new UncheckChildAsSupported(loggedUser);
+                new SupportedChildList(loggedUser);
                 frame.dispose();
             }
         });
@@ -64,7 +64,7 @@ public class ChildDataToUncheckSupport {
                     apadrinarJoven.save();
                     JOptionPane.showMessageDialog(new JFrame(),
                             "Se ha terminado el apadrinamiento correctamente");
-                    new UncheckChildAsSupported(loggedUser);
+                    new SupportedChildList(loggedUser);
                     frame.dispose();
                 }
             }

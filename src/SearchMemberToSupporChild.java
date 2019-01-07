@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
 import java.util.List;
 
-public class SearchSocioToSupporChild {
+public class SearchMemberToSupporChild {
     private JPanel searchSocioToSupportChildPanel;
     private JButton atrasButton;
     private JTable socioToSupportChild;
@@ -14,7 +14,7 @@ public class SearchSocioToSupporChild {
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
-    SearchSocioToSupporChild(Usuario loggedUser, String idChild){
+    SearchMemberToSupporChild(Usuario loggedUser, String idChild){
         this.loggedUser = loggedUser;
         searchSocioToSupportChildPanel.setSize(700, 250);
         JFrame frame = new JFrame("Busqueda de socio para apadrinar");
