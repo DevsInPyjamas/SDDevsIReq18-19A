@@ -14,6 +14,8 @@ public class Usuario {
     private Rol role;
     private Integer idProyecto;
     private Proyecto proyecto;
+    private int idAsociacion;
+    private Asociacion asociacion;
 
     public List<Usuario> selectAllUsers() throws Exception {
         DBManager dbManager = new DBManager();
@@ -36,6 +38,7 @@ public class Usuario {
         this.idProyecto = (Integer) tuples[5];
         Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
         role = new Rol((int) queryTuple[0]);
+        this.idAsociacion = (int) tuples[6];
     }
 
     public Usuario(String usuario, String password, String nombre, String email) {
@@ -65,6 +68,16 @@ public class Usuario {
 
     public Rol getRol() {
         return role;
+    }
+
+    public Asociacion getAsociacion() {
+        asociacion = new Asociacion(this.idAsociacion);
+        return asociacion;
+    }
+
+    public void setAsociacion(Asociacion asociacion) {
+        this.asociacion = asociacion;
+        this.idAsociacion = asociacion.getId();
     }
 
     public void setPassword(String password) {
