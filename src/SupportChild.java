@@ -7,7 +7,7 @@ public class SupportChild {
     private Usuario loggedUser;
     private JButton atrasButton;
     private JButton apadrinarButton;
-    private JButton desapadrinarButton;
+    private JButton listaApadrinadosButton;
     private JPanel apadrinamientoPanel;
 
     SupportChild(Usuario loggedUser){
@@ -31,8 +31,8 @@ public class SupportChild {
                 frame.dispose();
             }
         });
-        desapadrinarButton.addActionListener(e -> {
-            if(e.getActionCommand().equals("Desapadrinar")) {
+        listaApadrinadosButton.addActionListener(e -> {
+            if(e.getActionCommand().equals("Lista de niños apadrinados")) {
                 new UncheckChildAsSupported(loggedUser);
                 frame.dispose();
             }

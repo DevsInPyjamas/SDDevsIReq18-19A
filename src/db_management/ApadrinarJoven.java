@@ -92,10 +92,10 @@ public class ApadrinarJoven {
     public void save() {
         DBManager dbManager = new DBManager();
         if(this.id != 0) {
-            dbManager.execute("Update ApadrinarJoven set " +
+            dbManager.execute("Update ApadrinarJoven set" +
                     " apadrinador_id = " + this.apadrinador_id +
-                    ", joven_id = " + this.joven_id + ", cuota = " + this.cuota + ", fecha_fin  = '" + this.fecha_fin +
-                    "' where id = " + this.id + ";");
+                    ", joven_id = " + this.joven_id + ", cuota = " + this.cuota + ", fecha_fin  = " + this.fecha_fin +
+                    " where id = " + this.id + ";");
         } else {
             dbManager.execute("Insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)" +
                     "values (" + this.apadrinador_id + ", " + this.joven_id + ", " + this.cuota + ", '" +

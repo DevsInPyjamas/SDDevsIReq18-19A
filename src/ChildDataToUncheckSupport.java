@@ -17,6 +17,7 @@ public class ChildDataToUncheckSupport {
     private JTextField fechaEntradaTextField;
     private JTextField nombreApadrinadorTextField;
     private JTextField mensualidadTextField;
+    private JButton modificarCuotaButton;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
@@ -42,10 +43,11 @@ public class ChildDataToUncheckSupport {
                         + "';").get(0)[0];
         proyectoTextField.setText(text);
         becaTextField.setText(child.getBeca());
-        Object[] query = dbManager.select("select s.nombre, a.cuota from socio s inner join apadrinarjoven a " +
+        Object[] query = dbManager.select("select s.nombre, a.cuota, s.id from socio s inner join apadrinarjoven a " +
                 "on a.apadrinador_id = s.id;").get(0);
         nombreApadrinadorTextField.setText((String) query[0]);
         mensualidadTextField.setText(query[1] + " €");
+        String idSocio = String.valueOf(query[2]);
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")) {
                 new UncheckChildAsSupported(loggedUser);
@@ -65,6 +67,12 @@ public class ChildDataToUncheckSupport {
                     new UncheckChildAsSupported(loggedUser);
                     frame.dispose();
                 }
+            }
+        });
+        modificarCuotaButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Modificar Cuota")) {
+                new ModifySupporFee(loggedUser, idChild, idSocio);
+                frame.dispose();
             }
         });
     }
