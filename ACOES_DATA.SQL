@@ -2,16 +2,19 @@ use acoes;
 go
 insert into Rol values('Coordinador General Proyectos', 1);
 insert into Rol values('Responsable General Proyectos', 2);
-insert into Rol values('Coordinador Proyecto',3);
-insert into Rol values('Responsable Economico',4);
-insert into Rol values('Becas',5);
-insert into Rol values('Economico',6);
-insert into Rol values('Usuario Raso',7);
-insert into Rol values('Gestor España',8);
+insert into Rol values('Coordinador Proyecto', 3);
+insert into Rol values('Responsable Economico', 4);
+insert into Rol values('Becas', 5);
+insert into Rol values('Economico', 6);
+insert into Rol values('Usuario Raso', 7);
+insert into Rol values('Gestor España', 8),
+                      ('Coordinador Asociación España', 9),
+                      ('Coordinador ACOES España', 10)
 
 insert into TipoGasto(nombre) values ('Material Escolar'), ('Infraestructura'), ('Beca'), ('Comida')
 
 insert into Asociacion(nombre, localizacion) values ('ACOES', 'HONDURAS');
+insert into Asociacion(nombre, localizacion) values ('ACOES ESPAÑA', 'España');
 insert into Asociacion(nombre, localizacion) values ('Broasos', 'MALAGA');
 insert into Asociacion(nombre, localizacion) values ('Al·lotets', 'ILLES BALEARS');
 insert into Asociacion(nombre, localizacion) values ('Nins', 'CATALUNYA');
@@ -36,8 +39,14 @@ values('a@a.com', 'alkesst', '1234', 'Alejandro G.', 1, (select id from Asociaci
       ('jajaja@jajaja.com', 'Gracioso', '1234', 'Gracioso', 4, (select id from Asociacion where nombre like '%honduras')),
       ('usuario@facilito.com', 'Xiaomi', '1234', 'NotFound', 4, (select id from Asociacion where nombre like '%honduras')),
       ('cani@cani.es', 'PinPan', '1234', 'TomaLacasitos', 4, (select id from Asociacion where nombre like '%honduras')),
-      ('p@p.com', 'kekes', '1234', 'Juan G.', 8, (select id from Asociacion where localizacion like 'illes balears')),
-      ('c@p.com', 'jejes', '1234', 'Carlos G.', 8, (select id from Asociacion where localizacion like 'illes balears'));
+      ('balears@acoes.com', 'kekes', '1234', 'Juan G.', 8, (select id from Asociacion where localizacion like 'illes balears')),
+      ('ppcc@acoes.com', 'jejes', '1234', 'Carlos G.', 8, (select id from Asociacion where localizacion like 'catalunya')),
+      ('malaga@acoes.com', 'malaga', '1234', 'Malaga User', 8, (select id from Asociacion where localizacion like 'malaga')),
+      ('españa@acoes.com', 'españa', '1234', 'España user', 8, (select id from Asociacion where localizacion like 'españa')),
+      ('cbaleares@a.com', 'mallorca', '1234', 'Joan Dot', 9, (select id from Asociacion where localizacion like 'illes balears')),
+      ('cppcc@acoes.com', 'catalunya', '1234', 'CatCoord', 9, (select id from Asociacion where localizacion like 'catalunya')),
+      ('cmalaga@acoes.com', 'malaga', '1234', 'MalagaCord', 9, (select id from Asociacion where localizacion like 'malaga')),
+      ('cespaña@acoes.com', 'jj2019', '1234', 'Juan Jimenez', 10, (select id from Asociacion where nombre like 'acoes españa'))
 
 insert into Jovenes (nombre, nombreMadre, nombrePadre, apellidos, fechaEntrada, fechaNacimiento, notaMedia, isDeleted) values
 ('alejandro', 'Paco', 'Paca', 'Menendez', '17-09-09', '17-09-00', 0.0, 0);

@@ -29,13 +29,15 @@ public class NewEconomicMovement {
         frame.setVisible(true);
         List<Object[]> queryTuples;
         DBManager dbManager = new DBManager();
-        if(loggedUser.getRol().isSuperAdmin()) {
+        comboBoxProyecto.setVisible(true);
+        if(loggedUser.getRol().isSuperAdmin() || loggedUser.getRol().spanishBoy()) {
             comboBoxProyecto.setVisible(true);
             queryTuples = dbManager.select("select nombre from Proyecto;");
             for(Object[] tuple : queryTuples) {
                 comboBoxProyecto.addItem(tuple[0]);
             }
         }
+        comboBoxProyecto.setEditable(false);
         queryTuples = dbManager.select("select nombre from TipoGasto;");
         for(Object[] tuple : queryTuples) {
             tipoGastoComboBox.addItem(tuple[0]);
@@ -45,9 +47,9 @@ public class NewEconomicMovement {
         for(Object[] tuple : queryTuples) {
             empresaComboBox.addItem(tuple[0]);
         }
-        if(!loggedUser.getRol().isSuperAdmin()) {
+        if (!loggedUser.getRol().isSuperAdmin()) {
             queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
-                    "where asociation = '" + loggedUser.getProyecto().getId() + "';");
+                    "where asociacion = '" + loggedUser.getAsociacion().getId() + "';");
         } else {
             queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;");
         }
@@ -58,10 +60,8 @@ public class NewEconomicMovement {
             }
         }
         backButton.addActionListener((e) -> {
-            if (e.getActionCommand().equals("Atrás")) {
-                new EconomicSection(loggedUser);
-                frame.dispose();
-            }
+            new EconomicSection(loggedUser);
+            frame.dispose();
         });
         addEconomicButton.addActionListener((e) -> {
             if (!everyMandatoryFieldIsFilled()) {
@@ -74,7 +74,7 @@ public class NewEconomicMovement {
                         tipoGastoComboBox.getSelectedItem() + "';").get(0)[0];
                 t.setTipoGasto(new TipoGasto(tipoGastoID));
                 t.setCantidad(Double.valueOf(cantidadField.getText()));
-                if(!loggedUser.getRol().isSuperAdmin()) {
+                if(!loggedUser.getRol().isSuperAdmin() && !loggedUser.getRol().spanishBoy()) {
                     t.setProyecto(loggedUser.getProyecto());
                 } else {
                     int proyectoID = (int) dbManager.select("select id from proyecto where nombre like '" +

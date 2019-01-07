@@ -49,7 +49,7 @@ public class Rol {
     }
 
     public boolean hasAccessEconomic() {
-        return this.isAdmin() || nombre.contains("Economico");
+        return this.isAdmin() || nombre.contains("Economico") || this.spanishBoy();
     }
 
     public boolean hasAccessGrants() {
@@ -58,5 +58,7 @@ public class Rol {
 
     public boolean spanishBoy() { return nombre.contains("España"); }
 
-    public boolean isLocalAdmin() { return true; }
+    public boolean isLocalAdmin() { return nombre.contains("Coordinador Asociación España"); }
+
+    public boolean isSuperSpanishAdmin() { return nombre.contains("Coordinador ACOES España"); }
 }
