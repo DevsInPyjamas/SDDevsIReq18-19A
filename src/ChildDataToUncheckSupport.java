@@ -43,8 +43,8 @@ public class ChildDataToUncheckSupport {
                         + "';").get(0)[0];
         proyectoTextField.setText(text);
         becaTextField.setText(child.getBeca());
-        Object[] query = dbManager.select("select s.nombre, a.cuota, s.id from socio s inner join apadrinarjoven a " +
-                "on a.apadrinador_id = s.id;").get(0);
+        Object[] query = dbManager.select("select concat(s.nombre, ' ', s.apellidos), a.cuota, s.id from socio s inner join apadrinarjoven a " +
+                "on a.apadrinador_id = s.id where a.joven_id = " + idChild + ";").get(0);
         nombreApadrinadorTextField.setText((String) query[0]);
         mensualidadTextField.setText(query[1] + " €");
         String idSocio = String.valueOf(query[2]);

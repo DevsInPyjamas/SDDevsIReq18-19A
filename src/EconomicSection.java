@@ -20,6 +20,8 @@ public class EconomicSection {
         frame.setContentPane(gestionEconomicaPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        if(loggedUser.getRol().spanishBoy())
+            historialButton.setVisible(false);
         newTransactionButton.addActionListener(e -> {
             new NewEconomicMovement(loggedUser);
             frame.dispose();

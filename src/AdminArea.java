@@ -28,6 +28,9 @@ public class AdminArea {
         frame.setContentPane(adminWindow);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        if(loggedUser.getRol().spanishBoy()) {
+            nuevoTipoDeProyectoButton.setVisible(false);
+        }
         backButton.addActionListener((e) -> {
             if (e.getActionCommand().equals("Atrás")) {
                 new WelcomeForm(loggedUser);

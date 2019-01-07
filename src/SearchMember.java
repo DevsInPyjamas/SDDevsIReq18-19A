@@ -68,9 +68,14 @@ public class SearchMember {
         //TODO hacer que si el notas es super admin de españa tenga acceso a todos
         // los usuarios
         int loggedUserAssociationID = loggedUser.getAsociacion().getId();
-        return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
-                " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
-                + loggedUserAssociationID + "';");
+        if(loggedUser.getRol().isSuperSpanishAdmin()) {
+            return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
+                    " socio s inner join asociacion a on s.asociacion = a.id;");
+        } else {
+            return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
+                    " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
+                    + loggedUserAssociationID + "';");
+        }
     }
 
     private List<Object[]> normalSearchProcess() {
@@ -78,9 +83,16 @@ public class SearchMember {
         // los usuarios
         String searchInput = searchMemberTextField.getText();
         int loggedUserAssociationID = loggedUser.getAsociacion().getId();
-        return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
-                " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
-                + loggedUserAssociationID + "' and (concat(s.nombre, ' ', s.apellidos) like '" +
-                searchInput + "' or s.dni like '" + searchInput + "');");
+        if(loggedUser.getRol().isSuperSpanishAdmin()) {
+            return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
+                    " socio s inner join asociacion a on s.asociacion = a.id where"
+                     + " (concat(s.nombre, ' ', s.apellidos) like '" +
+                    searchInput + "' or s.dni like '" + searchInput + "');");
+        } else {
+            return dbManager.select("select s.isDeleted, s.id, concat(s.nombre, ' ', s.apellidos), s.dni, a.nombre from" +
+                    " socio s inner join asociacion a on s.asociacion = a.id where s.asociacion = '"
+                    + loggedUserAssociationID + "' and (concat(s.nombre, ' ', s.apellidos) like '" +
+                    searchInput + "' or s.dni like '" + searchInput + "');");
+        }
     }
 }

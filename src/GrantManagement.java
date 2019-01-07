@@ -24,6 +24,10 @@ public class GrantManagement {
         frame.setContentPane(gestionBecasPanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        if(loggedUser.getRol().spanishBoy()) {
+            addNewKidButton.setVisible(false);
+            searchKidButton.setVisible(false);
+        }
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
                 new WelcomeForm(loggedUser);

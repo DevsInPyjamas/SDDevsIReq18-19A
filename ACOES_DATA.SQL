@@ -169,7 +169,8 @@ values('WanGarcia', '67676767K', 150, 20001, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
 values('Pedro', '123456789', 100, 20003, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '1998-01-20');
+values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '1998-01-20'),
+      ('Manel',  '43565656K', 0, (select id from Asociacion where localizacion like 'cat%'), 'Garau Fons' ,'1959-01-10');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
 values(15000, 5000, 15, '20-01-2010');

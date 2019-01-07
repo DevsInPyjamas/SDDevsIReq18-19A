@@ -67,21 +67,31 @@ public class UncheckChildAsSupported {
                 loggedUser.getEmail() + "';");
         List<Object[]> queryTuples;
         int idProyecto;
-        if (query.get(0)[0] != null) {
-            idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' and " +
-                    "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
-                    "and ap.fecha_fin is null;");
+        if(loggedUser.getRol().spanishBoy() || loggedUser.getRol().isSuperSpanishAdmin()) {
+            if (query.get(0)[0] != null) {
+                idProyecto = (int) query.get(0)[0];
+                queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                        "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
+                        "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
+                        "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' and " +
+                        "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
+                        "and ap.fecha_fin is null;");
+            } else {
+                queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                        "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
+                        "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
+                        "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 and " +
+                        "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
+                        "and ap.fecha_fin is null;");
+            }
         } else {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
                     "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id "+
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.isDeleted = 0 and " +
+                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
+                    "inner join Socio s on s.id = ap.apadrinador_id inner join Asociacion A2 on " +
+                    " s.asociacion = a2.id where p.isDeleted = 0 and " +
                     "concat(j.nombre, ' ', j.apellidos) like '%" + searchChildTextField.getText() + "%' " +
-                    "and ap.fecha_fin is null;");
+                    "and ap.fecha_fin is null and a2.id = " + this.loggedUser.getAsociacion().getId() + ";");
         }
         return queryTuples;
     }
@@ -91,20 +101,29 @@ public class UncheckChildAsSupported {
                 loggedUser.getEmail() + "';");
         List<Object[]> queryTuples;
         int idProyecto;
-        if (query.get(0)[0] != null) {
-            idProyecto = (int) query.get(0)[0];
-            queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
-                    "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
-                    "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' " +
-                    "and ap.fecha_fin is null;");
+        if(!loggedUser.getRol().spanishBoy() || loggedUser.getRol().isSuperSpanishAdmin()) {
+            if (query.get(0)[0] != null) {
+                idProyecto = (int) query.get(0)[0];
+                queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                        "from proyecto p left outer join Accion a on a.id_proyecto = p.id left outer join " +
+                        "jovenes j on j.id = a.id_joven inner join apadrinarjoven ap on ap.joven_id = j.id " +
+                        "inner join Socio s on s.id = ap.apadrinador_id where p.id = '" + idProyecto + "' " +
+                        "and ap.fecha_fin is null;");
+            } else {
+                queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
+                        "from Jovenes j inner join ApadrinarJoven ap on ap.joven_id = j.id " +
+                        "inner join Socio s on ap.apadrinador_id = S.id " +
+                        "left outer join Accion ac on ac.id_joven = j.id " +
+                        "left outer join Proyecto p on ac.id_proyecto = P.id " +
+                        "where p.isDeleted = 0 and ap.fecha_fin is null;");
+            }
         } else {
             queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre, s.nombre " +
-                    "from Jovenes j inner join ApadrinarJoven ap on ap.joven_id = j.id " +
-                    "inner join Socio s on ap.apadrinador_id = S.id " +
-                    "left outer join Accion ac on ac.id_joven = j.id " +
-                    "left outer join Proyecto p on ac.id_proyecto = P.id " +
-                    "where p.isDeleted = 0 and ap.fecha_fin is null;");
+                    "from proyecto p left outer join Accion a on a.id_proyecto = p.id " +
+                    "  left outer join jovenes j on j.id = a.id_joven inner join " +
+                    "  apadrinarjoven ap on ap.joven_id = j.id inner join Socio s on s.id = ap.apadrinador_id inner join " +
+                    "  Asociacion A2 on s.asociacion = A2.id " +
+                    "where ap.fecha_fin is null and a2.id = " + this.loggedUser.getAsociacion().getId() + ";");
         }
         return queryTuples;
     }

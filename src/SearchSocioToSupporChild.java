@@ -67,20 +67,28 @@ public class SearchSocioToSupporChild {
 
     private List<Object[]> processWhenSearchWithoutValue() {
         List<Object[]> queryTuples;
-
-        queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
-                "left outer join asociacion a on a.id = s.asociacion");
-
+        if(!loggedUser.getRol().isSuperSpanishAdmin()) {
+            queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
+                    "left outer join asociacion a on a.id = s.asociacion where a.id = " +
+                    this.loggedUser.getAsociacion().getId() + ";");
+        } else {
+            queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
+                    "left outer join asociacion a on a.id = s.asociacion");
+        }
         return queryTuples;
     }
 
     private List<Object[]> normalSearchProcess() {
         List<Object[]> queryTuples;
-
-        queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
-                "left outer join asociacion a on a.id = s.asociacion where s.nombre like '%" +
-                buscarSocioTextField.getText() + "%';");
-
+        if(!loggedUser.getRol().isSuperSpanishAdmin()) {
+            queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
+                    "left outer join asociacion a on a.id = s.asociacion where s.nombre like '%" +
+                    buscarSocioTextField.getText() + "%' and a.id = " + this.loggedUser.getAsociacion().getId() + ";");
+        } else {
+            queryTuples = dbManager.select("select s.isDeleted, s.id, s.nombre, a.nombre from socio s " +
+                    "left outer join asociacion a on a.id = s.asociacion where s.nombre like '%" +
+                    buscarSocioTextField.getText() + "%';");
+        }
         return queryTuples;
     }
 }

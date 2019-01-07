@@ -60,10 +60,8 @@ public class NewMember {
             asociacionComboBox.addItem(tuple[0]);
         }
         backButton.addActionListener((e) -> {
-            if(e.getActionCommand().equals("Atrás")) {
-                new GrantManagement(loggedUser);
-                frame.dispose();
-            }
+            new GrantManagement(loggedUser);
+            frame.dispose();
         });
         anadirButton.addActionListener((e) -> {
             if(checkIfThereAreNotBlankFields()) {
