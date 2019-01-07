@@ -27,6 +27,10 @@ public class GrantManagement {
         if(loggedUser.getRol().spanishBoy()) {
             addNewKidButton.setVisible(false);
             searchKidButton.setVisible(false);
+        } else {
+            buscarSocioButton.setVisible(false);
+            apadrinamientoButton.setVisible(false);
+            addNewSocioButton.setVisible(false);
         }
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {

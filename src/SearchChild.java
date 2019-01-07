@@ -70,7 +70,7 @@ public class SearchChild {
                         loggedUser.getEmail() + "';");
         int idProyecto;
         List<Object[]> queryTuples;
-        if (query.get(0)[0] != null) {
+        if (!loggedUser.getRol().isSuperAdmin()) {
              idProyecto = (int) query.get(0)[0];
              queryTuples = dbManager.select("select j.isDeleted, j.id, j.nombre, j.apellidos, p.nombre " +
                     "from proyecto p left outer join Accion A on " +
