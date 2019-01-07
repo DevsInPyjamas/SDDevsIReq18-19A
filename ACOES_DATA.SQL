@@ -163,27 +163,71 @@ insert into Usuario (email, usuario, password, nombre, rol_id)
 values ('av@a.es', 'av', '1234', 'Antonio', 7);
 
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Alejandro', '76767676K', 200, 20002, 'apellido1', '1998-01-20');
+values('Alejandro', '76767676K', 200, (select id from Asociacion where localizacion like 'MALAGA'), 'apellido1', '1998-01-20');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Mario', '14714714L', 250, (select id from Asociacion where localizacion like 'MALAGA'), 'Gomez', '1996-10-2');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Marta', '22222222M', 300, (select id from Asociacion where localizacion like 'MALAGA'), 'Rodriguez', '1990-08-20');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Rosa', '87767647L', 200, (select id from Asociacion where localizacion like 'MALAGA'), 'Rodriguez', '1996-07-21');
+
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
 values('WanGarcia', '67676767K', 150, 20001, 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Pedro', '123456789', 100, 20003, 'apellido1', '1998-01-20');
+values('Maria Jose', '8989896K', 150, 20001, 'Floren', '1995-03-17');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
-values('Manuel', 'DeFalla:)', 150, 20002, 'apellido1', '1998-01-20'),
-      ('Manel',  '43565656K', 0, (select id from Asociacion where localizacion like 'cat%'), 'Garau Fons' ,'1959-01-10');
+values('Emilio', '1245786D', 560, 20001, 'Poveda', '1989-09-09');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Sergio', '1111111K', 450, 20001, 'Peluz', '1995-05-26');
+
+
+
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Pedro', '12345678L', 100, (select id from Asociacion where localizacion like 'ILLES BALEARS'), 'apellido1', '1998-01-20');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Rocio', '12312312D', 180, (select id from Asociacion where localizacion like 'ILLES BALEARS'), 'Hidalgo', '1996-01-20');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Julio', '1345748L', 470, (select id from Asociacion where localizacion like 'ILLES BALEARS'), 'Hinojosa', '1998-01-20');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values('Alejandro', '1347478L', 350, (select id from Asociacion where localizacion like 'ILLES BALEARS'), 'Arenas', '1999-08-24');
+
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values ('Manuel',  '1516184K', 0, (select id from Asociacion where localizacion like 'CATALUNYA'), 'Garau Fons' ,'1959-01-10');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values ('Enrique',  '4758691K', 20, (select id from Asociacion where localizacion like 'CATALUNYA'), 'Jabatop' ,'1986-01-10');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values ('Miro',  '43565657K', 30, (select id from Asociacion where localizacion like 'CATALUNYA'), 'Fuente' ,'1999-04-10');
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values ('Joan',  '43565656K', 40, (select id from Asociacion where localizacion like 'CATALUNYA'), 'Rix' ,'1974-03-10');
+
+insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
+values ('Ramon',  '43565116K', 440, (select id from Asociacion where localizacion like 'España'), 'Garcia' ,'1954-03-10');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15000, 5000, 15, '20-01-2010');
+values((select id from Socio where localizacion like '76767676K', 5001, 15, '19-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15001, 5001, 15, '20-01-2010');
+values((select id from Socio where localizacion like '14714714L', 5002, 15, '17-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15002, 5002, 15, '20-01-2008');
+values((select id from Socio where localizacion like '22222222M', 5003, 15, '21-01-2018');
+
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values(15003, 5003, 15, '20-01-2018');
+values((select id from Socio where localizacion like '12345678L', 5004, 15, '20-01-2018');
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
+values((select id from Socio where localizacion like '12312312D', 5005, 15, '20-01-2018');
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
+values((select id from Socio where localizacion like '1345748L', 5006, 15, '20-01-2018');
+
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
+values((select id from Socio where localizacion like '1516184K', 5007, 15, '20-01-2018');
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
+values((select id from Socio where localizacion like '4758691K', 5008, 15, '05-04-2018');
+insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
+values((select id from Socio where localizacion like '43565657K', 5009, 15, '20-01-2018');
+
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_fin, fecha_inicio)
 values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15000, 5006, 150, '20-01-2005', '20-01-2001'),
-      (15002, 5017, 150, '20-01-2018', '20-01-2011');
+      (15002, 5001, 150, '20-01-2018', '20-01-2011');
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
 values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
