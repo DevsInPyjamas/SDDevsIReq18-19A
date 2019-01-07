@@ -189,8 +189,6 @@ values('Emilio', '1245786D', 560, 20001, 'Poveda', '1989-09-09');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
 values('Sergio', '1111111K', 450, 20001, 'Peluz', '1995-05-26');
 
-
-
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
 values('Pedro', '12345678L', 100, (select id from Asociacion where localizacion like 'ILLES BALEARS'), 'apellido1', '1998-01-20');
 insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimiento)
@@ -213,25 +211,25 @@ insert into socio(nombre, dni, mensualidad, asociacion, apellidos, fecha_nacimie
 values ('Ramon',  '43565116K', 440, (select id from Asociacion where localizacion like 'España'), 'Garcia' ,'1954-03-10');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '76767676K', 5001, 15, '19-01-2018');
+values((select id from Socio where dni like '76767676K', 5001, 15, '19-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '14714714L', 5002, 15, '17-01-2018');
+values((select id from Socio where dni like '14714714L', 5002, 15, '17-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '22222222M', 5003, 15, '21-01-2018');
+values((select id from Socio where dni like '22222222M', 5003, 15, '21-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '12345678L', 5004, 15, '20-01-2018');
+values((select id from Socio where dni like '12345678L', 5004, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '12312312D', 5005, 15, '20-01-2018');
+values((select id from Socio where dni like '12312312D', 5005, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '1345748L', 5006, 15, '20-01-2018');
+values((select id from Socio where dni like '1345748L', 5006, 15, '20-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '1516184K', 5007, 15, '20-01-2018');
+values((select id from Socio where dni like '1516184K', 5007, 15, '20-01-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '4758691K', 5008, 15, '05-04-2018');
+values((select id from Socio where dni like '4758691K', 5008, 15, '05-04-2018');
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_inicio)
-values((select id from Socio where localizacion like '43565657K', 5009, 15, '20-01-2018');
+values((select id from Socio where dni like '43565657K', 5009, 15, '20-01-2018');
 
 insert into ApadrinarJoven(apadrinador_id, joven_id, cuota, fecha_fin, fecha_inicio)
 values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
