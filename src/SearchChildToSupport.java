@@ -27,6 +27,8 @@ public class SearchChildToSupport {
         childrenList.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Proyecto", "Fecha Entrada"},
                 5));
         DefaultTableModel model = (DefaultTableModel) childrenList.getModel();
+        childrenList.setFocusable(false);
+        childrenList.setRowSelectionAllowed(false);
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")){
                 new SupportChild(loggedUser);
@@ -54,6 +56,8 @@ public class SearchChildToSupport {
                     }
                 }
             }
+            childrenList.setFocusable(true);
+            childrenList.setRowSelectionAllowed(true);
         });
         childrenList.getSelectionModel().addListSelectionListener(e -> {
             String idChild = childrenList.getValueAt(childrenList.getSelectedRow(), 0).toString();

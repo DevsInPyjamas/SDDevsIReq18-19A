@@ -26,11 +26,12 @@ public class SearchEconomicMovement {
         frame.setVisible(true);
         seachMovEconomicTable.setModel(new DefaultTableModel(new Object[]{"id", "Emisor", "Cantidad", "Tipo de Gasto"}, 6));
         DefaultTableModel model = (DefaultTableModel) seachMovEconomicTable.getModel();
+        seachMovEconomicTable.setFocusable(false);
+        seachMovEconomicTable.setRowSelectionAllowed(false);
         atrasButton.addActionListener((e)->{
             new EconomicSection(loggedUser);
             frame.dispose();
         });
-
         searchButton.addActionListener((e)->{
             model.setRowCount(0);
             java.util.List<Object[]> queryTuples;
@@ -49,6 +50,8 @@ public class SearchEconomicMovement {
                     model.addRow(row);
                 }
             }
+            seachMovEconomicTable.setFocusable(true);
+            seachMovEconomicTable.setRowSelectionAllowed(true);
         });
         seachMovEconomicTable.getSelectionModel().addListSelectionListener(e -> {
             try {

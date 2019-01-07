@@ -61,7 +61,7 @@ public class ModifyEconomicMovement {
         if(loggedUser.getRol().isSuperAdmin()) {
             proyectoComboBox.setSelectedItem(trans.getProyecto().getNombre());
         }
-        if(trans.getSocio().getId() != 0) {
+        if(trans.getSocio() != null) {
             socioComboBox.setSelectedItem(trans.getSocio().getNombre() + " " + trans.getSocio().getApellidos());
         } else {
             socioComboBox.setSelectedItem(null);
@@ -73,7 +73,7 @@ public class ModifyEconomicMovement {
         }
         conceptoTextField.setText(trans.getConcepto());
         cantidadTextField.setText(Double.toString(trans.getCantidad()));
-        tipoGastoBox.setSelectedItem(trans.getTipoGasto());
+        tipoGastoBox.setSelectedItem(trans.getTipoGasto().getNombre());
         atrasButton.addActionListener(e -> {
             if (modifying) {
                 try {

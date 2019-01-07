@@ -25,6 +25,8 @@ public class SearchProject {
         frame.setVisible(true);
         searchProjectTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Coordinador", "Responsable"}, 5));
         DefaultTableModel model = (DefaultTableModel) searchProjectTable.getModel();
+        searchProjectTable.setFocusable(false);
+        searchProjectTable.setRowSelectionAllowed(false);
         atrásButton.addActionListener((e)->{
             if(e.getActionCommand().equals("Atrás")){
                 new AdminArea(loggedUser);
@@ -51,6 +53,8 @@ public class SearchProject {
                     }
                 }
             }
+            searchProjectTable.setFocusable(true);
+            searchProjectTable.setRowSelectionAllowed(true);
         });
         searchProjectTable.getSelectionModel().addListSelectionListener(e -> {
             try {

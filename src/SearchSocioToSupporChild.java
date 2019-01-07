@@ -26,6 +26,8 @@ public class SearchSocioToSupporChild {
         socioToSupportChild.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Asociacion"},
                 5));
         DefaultTableModel model = (DefaultTableModel) socioToSupportChild.getModel();
+        socioToSupportChild.setFocusable(false);
+        socioToSupportChild.setRowSelectionAllowed(false);
         atrasButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
                 new ChildDataToSupport(loggedUser, idChild);
@@ -52,6 +54,8 @@ public class SearchSocioToSupporChild {
                     }
                 }
             }
+            socioToSupportChild.setFocusable(true);
+            socioToSupportChild.setRowSelectionAllowed(true);
         });
         socioToSupportChild.getSelectionModel().addListSelectionListener(e -> {
             String idSocio = socioToSupportChild.getValueAt(socioToSupportChild.getSelectedRow(), 0).toString();

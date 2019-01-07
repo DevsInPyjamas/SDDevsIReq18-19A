@@ -26,6 +26,8 @@ public class SearchChild {
         frame.setVisible(true);
         searchChildTable.setModel(new DefaultTableModel(new Object[]{"id", "Nombre", "Apellidos", "Proyecto"}, 10));
         DefaultTableModel model = (DefaultTableModel) searchChildTable.getModel();
+        searchChildTable.setFocusable(false);
+        searchChildTable.setRowSelectionAllowed(false);
         backButton.addActionListener((e) -> {
             if(e.getActionCommand().equals("Atrás")) {
                 new GrantManagement(loggedUser);
@@ -52,6 +54,8 @@ public class SearchChild {
                     }
                 }
             }
+            searchChildTable.setFocusable(true);
+            searchChildTable.setRowSelectionAllowed(true);
         });
         searchChildTable.getSelectionModel().addListSelectionListener(e -> {
             String idChild = searchChildTable.getValueAt(searchChildTable.getSelectedRow(), 0).toString();

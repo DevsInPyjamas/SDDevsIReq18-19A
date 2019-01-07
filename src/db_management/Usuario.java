@@ -14,7 +14,7 @@ public class Usuario {
     private Rol role;
     private Integer idProyecto;
     private Proyecto proyecto;
-    private int idAsociacion;
+    private Integer idAsociacion;
     private Asociacion asociacion;
 
     public List<Usuario> selectAllUsers() throws Exception {
@@ -38,7 +38,7 @@ public class Usuario {
         this.idProyecto = (Integer) tuples[5];
         Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
         role = new Rol((int) queryTuple[0]);
-        this.idAsociacion = (int) tuples[6];
+        this.idAsociacion = (Integer) tuples[6];
     }
 
     public Usuario(String usuario, String password, String nombre, String email) {
