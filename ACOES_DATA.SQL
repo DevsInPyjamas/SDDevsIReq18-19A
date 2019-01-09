@@ -241,6 +241,6 @@ insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empr
 values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
          , 2, (select id from empresa where nombre = 'INDRA')
          , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
-                   (select id from socio where nombre = 'Alejandro')),
+                   (select id from socio where nombre = 'Alejandro' and apellidos = 'Arenas')),
        ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),
         1, (select id from empresa where nombre = 'MEFJUS'), null)
