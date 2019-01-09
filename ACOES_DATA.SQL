@@ -243,4 +243,16 @@ values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.Tip
          , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
                    (select id from socio where nombre = 'Alejandro' and apellidos = 'Arenas')),
        ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),
-        1, (select id from empresa where nombre = 'MEFJUS'), null)
+        1, (select id from empresa where nombre = 'MEFJUS'), null),
+('Marc Marquez Representante', 'Motos de juguete', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar',1, (select id from empresa where nombre = 'Ebury', (select id from Socio where dni like '1345748L')),
+('Roca', 'WC', 1500, (select id from dbo.TipoGasto where nombre like 'infraestructura',1, null,(select id from Socio where dni like '43565657K')),
+('Sequel', 'PCs', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar',1, (select id from empresa where nombre = 'SEQUEL', null),
+('Ejercito', 'Comida', 10000, (select id from dbo.TipoGasto where nombre like 'Comida'),2, null, null),
+('Donacion', 'Dinero', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar'),2, (select id from empresa where nombre = 'Ebury'), null),
+('Donacion', 'Ropa', 100, (select id from dbo.TipoGasto where nombre like 'Material escolar',2, null, (select id from Socio where dni like '12312312D')),
+('Florentino Perez Arreglos', 'Construccion', 15500, (select id from dbo.TipoGasto where nombre like 'infraestructura',3, null, (select id from Socio where dni like '12312312D')),
+('Amancio Ortega Representante', 'Ropa', 1580, (select id from dbo.TipoGasto where nombre like 'Material escolar',3, null, (select id from Socio where dni like '14714714L')),
+('Malaga CF', 'Balones de futebol', 1000, (select id from dbo.TipoGasto where nombre like 'Material escolar',3, (select id from empresa where nombre = 'UMA'), null)
+
+
+
