@@ -18,6 +18,7 @@ public class ChildDataWithSupport {
     private JTextField nombreApadrinadorTextField;
     private JTextField mensualidadTextField;
     private JButton modificarCuotaButton;
+    private JTextField fechaApadrinamientoTextField;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
@@ -43,11 +44,12 @@ public class ChildDataWithSupport {
                         + "';").get(0)[0];
         proyectoTextField.setText(text);
         becaTextField.setText(child.getBeca());
-        Object[] query = dbManager.select("select concat(s.nombre, ' ', s.apellidos), a.cuota, s.id from socio s inner join apadrinarjoven a " +
+        Object[] query = dbManager.select("select concat(s.nombre, ' ', s.apellidos), a.cuota, a.fecha_inicio, s.id from socio s inner join apadrinarjoven a " +
                 "on a.apadrinador_id = s.id where a.joven_id = " + idChild + ";").get(0);
-        nombreApadrinadorTextField.setText((String) query[0]);
+        nombreApadrinadorTextField.setText(String.valueOf(query[0]));
         mensualidadTextField.setText(query[1] + " €");
-        String idSocio = String.valueOf(query[2]);
+        fechaApadrinamientoTextField.setText(query[2].toString());
+        String idSocio = String.valueOf(query[3]);
         atrasButton.addActionListener(e -> {
             if(e.getActionCommand().equals("Atras")) {
                 new SupportedChildList(loggedUser);

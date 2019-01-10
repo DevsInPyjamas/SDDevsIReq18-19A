@@ -36,6 +36,8 @@ public class NewEconomicMovement {
             for(Object[] tuple : queryTuples) {
                 comboBoxProyecto.addItem(tuple[0]);
             }
+        } else {
+            comboBoxProyecto.addItem(loggedUser.getProyecto().getNombre());
         }
         comboBoxProyecto.setEditable(false);
         queryTuples = dbManager.select("select nombre from TipoGasto;");
@@ -47,11 +49,15 @@ public class NewEconomicMovement {
         for(Object[] tuple : queryTuples) {
             empresaComboBox.addItem(tuple[0]);
         }
-        if (!loggedUser.getRol().isSuperAdmin()) {
-            queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
-                    "where asociacion = '" + loggedUser.getAsociacion().getId() + "';");
+        if(loggedUser.getRol().spanishBoy()) {
+            if (!loggedUser.getRol().isSuperAdmin() && !loggedUser.getRol().isSuperSpanishAdmin()) {
+                queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
+                        "where asociacion = '" + loggedUser.getAsociacion().getId() + "';");
+            } else {
+                queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;");
+            }
         } else {
-            queryTuples = dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;");
+            queryTuples = dbManager.select("select * from Socio where nombre like 'Jesucristosuperestrellalol12345';");
         }
         socioComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
