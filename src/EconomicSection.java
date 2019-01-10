@@ -9,6 +9,8 @@ public class EconomicSection {
     private JButton newTransactionButton;
     private JButton historialButton;
     private JButton atrasButton;
+    private JButton validarTransaccionesButton;
+    private JButton balanceButton;
     private Usuario loggedUser;
 
     public EconomicSection(Usuario loggedUser) {
@@ -32,6 +34,14 @@ public class EconomicSection {
         });
         historialButton.addActionListener(e -> {
             new SearchEconomicMovement(loggedUser);
+            frame.dispose();
+        });
+        validarTransaccionesButton.addActionListener(e -> {
+            new ValidarTransacciones(loggedUser);
+            frame.dispose();
+        });
+        balanceButton.addActionListener(e -> {
+            new EconomicBalanceSection(loggedUser);
             frame.dispose();
         });
     }
