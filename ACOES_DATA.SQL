@@ -236,23 +236,35 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15000, 5006, 150, '20-01-2005', '20-01-2001'),
       (15002, 5001, 150, '20-01-2018', '20-01-2011');
 
--- Fallo en este insert.
-insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
-values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
-       , 2, (select id from empresa where nombre = 'INDRA')
-       , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
-                 (select id from socio where nombre = 'Alejandro' and apellidos = 'Arenas')),
-       ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),
-        1, (select id from empresa where nombre = 'MEFJUS'), null),
-       ('Marc Marquez Representante', 'Motos de juguete', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar'),1, (select id from empresa where nombre = 'Ebury'), null),
-       ('Roca', 'WC', 1500, (select id from dbo.TipoGasto where nombre like 'infraestructura'),1, null,(select id from Socio where dni like '43565657K')),
-       ('Sequel', 'PCs', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar'),1, (select id from empresa where nombre = 'SEQUEL'), null),
-       ('Ejercito', 'Comida', 10000, (select id from dbo.TipoGasto where nombre like 'Comida'),2, null, null),
-       ('Donacion', 'Dinero', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar'),2, (select id from empresa where nombre = 'Ebury'), null),
-       ('Donacion', 'Ropa', 100, (select id from dbo.TipoGasto where nombre like 'Material escolar'),2, null, (select id from Socio where dni like '12312312D')),
-       ('Florentino Perez Arreglos', 'Construccion', 15500, (select id from dbo.TipoGasto where nombre like 'infraestructura'),3, null, (select id from Socio where dni like '12312312D')),
-       ('Amancio Ortega Representante', 'Ropa', 1580, (select id from dbo.TipoGasto where nombre like 'Material escolar'),3, null, (select id from Socio where dni like '14714714L')),
-       ('Malaga CF', 'Balones de futebol', 1000, (select id from dbo.TipoGasto where nombre like 'Material escolar'),3, (select id from empresa where nombre = 'UMA'), null)
+
+insert into Transaccion(emisor, concepto, cantidad, tipoGasto,
+                        beneficiario, tablaBeneficiario, fecha, proyecto)
+values ('Emisor', 'Concepto', +120, (select id from dbo.TipoGasto where nombre like 'material%'),
+        (select id from Socio where apellidos like 'Arenas'), 'Socio', '2019-01-10', 1),
+       ('Juan', 'Mochilas', -2500, (select id from dbo.TipoGasto where nombre like 'material%'),
+        (select id from dbo.Empresa where nombre like 'ind%'), 'Empresa', '2009-01-10', 3),
+       ('Juan Escarcena', 'Reforma', -10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
+        (select id from dbo.Empresa where nombre like 'mefjus'), 'Empresa', '2009-01-10', 2),
+       ('Juan García', 'Donacion', +10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
+        (select id from Socio where id = 15016), 'Socio', '2000-01-10', 3);
+
+-- Old Transaction version
+-- insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
+--values ('Juan Castilla', 'Nuevo material escolar', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar')
+--       , 2, (select id from empresa where nombre = 'INDRA')
+--       , null), ('Ks', 'Comida', 150, (select id from dbo.TipoGasto where nombre like 'comida'), 3, null,
+--                 (select id from socio where nombre = 'Alejandro' and apellidos = 'Arenas')),
+--       ('MEFJUS', 'Infraestructura', 250000, (select id from tipoGasto where nombre like 'infraestructura'),
+--        1, (select id from empresa where nombre = 'MEFJUS'), null),
+--       ('Marc Marquez Representante', 'Motos de juguete', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar'),1, (select id from empresa where nombre = 'Ebury'), null),
+--       ('Roca', 'WC', 1500, (select id from dbo.TipoGasto where nombre like 'infraestructura'),1, null,(select id from Socio where dni like '43565657K')),
+--       ('Sequel', 'PCs', 7420, (select id from dbo.TipoGasto where nombre like 'Material escolar'),1, (select id from empresa where nombre = 'SEQUEL'), null),
+--       ('Ejercito', 'Comida', 10000, (select id from dbo.TipoGasto where nombre like 'Comida'),2, null, null),
+--       ('Donacion', 'Dinero', 2500, (select id from dbo.TipoGasto where nombre like 'Material escolar'),2, (select id from empresa where nombre = 'Ebury'), null),
+--       ('Donacion', 'Ropa', 100, (select id from dbo.TipoGasto where nombre like 'Material escolar'),2, null, (select id from Socio where dni like '12312312D')),
+--       ('Florentino Perez Arreglos', 'Construccion', 15500, (select id from dbo.TipoGasto where nombre like 'infraestructura'),3, null, (select id from Socio where dni like '12312312D')),
+--       ('Amancio Ortega Representante', 'Ropa', 1580, (select id from dbo.TipoGasto where nombre like 'Material escolar'),3, null, (select id from Socio where dni like '14714714L')),
+--       ('Malaga CF', 'Balones de futebol', 1000, (select id from dbo.TipoGasto where nombre like 'Material escolar'),3, (select id from empresa where nombre = 'UMA'), null)
 
 
 

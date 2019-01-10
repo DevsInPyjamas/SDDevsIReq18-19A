@@ -104,6 +104,10 @@ create table Transaccion(
   cantidad money not null,
   isDeleted bit not null default 0,
   tipoGasto int not null,
+  isValidated bit not null default 0,
+  beneficiario int not null,
+  tablaBeneficiario varchar(50) not null,
+  fecha date not null,
   constraint Pk_Transaccion primary key clustered (id)
 );
 
@@ -129,6 +133,14 @@ create table TipoGasto(
   id int not null identity(35000, 1),
   nombre varchar(50) not null,
   constraint Pk_TipoGasto primary key clustered (id)
+);
+
+create table Colaborador(
+  id int not null identity(40000, 1),
+  nombre varchar(50),
+  pertenece_proyecto int not null,
+  constraint pk_colaborador PRIMARY KEY clustered (id),
+  constraint [FK_Colaborador_asociacion] foreign key([pertenece_proyecto]) references Proyecto
 );
 -- relations
 
@@ -158,7 +170,3 @@ alter table Socio with check add constraint [FK_Asociacion_Socio] foreign key([a
 alter table ApadrinarJoven with check add constraint [FK_Apadrinador_Apadrinar] foreign key ([apadrinador_id]) references Socio;
 alter table ApadrinarJoven with check add constraint [FK_Joven_Apadrinar] foreign key ([joven_id]) references Jovenes;
 alter table Transaccion with check add constraint [FK_Transaccion_TipoGasto] foreign key ([tipoGasto]) references TipoGasto;
-alter table Transaccion add id_empresa int;
-alter table Transaccion add socio_donante int;
-alter table Transaccion with check add constraint [FK_Transaccion_Socio] foreign key ([socio_donante]) references Socio;
-alter table Transaccion with check add constraint [FK_Transaccion_Empresa] foreign key ([id_empresa]) references Empresa;

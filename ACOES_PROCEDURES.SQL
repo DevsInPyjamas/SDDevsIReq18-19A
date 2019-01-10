@@ -11,3 +11,18 @@ create procedure NoApadrinados @Filter varchar(MAX) as
 	  inner join #NoApadrinados nap on nap.id = j.id where @Filter is null or (j.nombre + ' ' + j.apellidos) like '%' + @Filter + '%'
     order by j.fechaEntrada;
   end
+create procedure DatosBeneficiario @IDTransaccion int as
+begin
+  declare @queryTable varchar(50);
+  declare @idBeneficiario int;
+  select @queryTable = tablaBeneficiario from Transaccion where id = CONVERT(VARCHAR(MAX), @IDTransaccion);
+  select @idBeneficiario = beneficiario from Transaccion where id = CONVERT(VARCHAR(MAX), @IDTransaccion);
+  DECLARE @query NVARCHAR(MAX) = 'select * from ' + @queryTable + ' where id = ' + CONVERT(VARCHAR(MAX), @idBeneficiario);
+  EXEC sp_executesql @query;
+end
+  create procedure TransaccionesRango @FechaInicio date, @FechaFin date, @IDProyecto int as
+  begin
+    select * from Transaccion where (@FechaFin is null or fecha <= @FechaFin) and
+      (@FechaInicio is null or fecha >= @FechaInicio) and
+      (proyecto = @IDProyecto)
+  end
