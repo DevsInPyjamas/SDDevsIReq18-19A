@@ -46,7 +46,7 @@ public class ModifyEconomicMovement {
         List<Object[]> queryTuples = (loggedUser.getRol().isSuperAdmin()) ?
                 dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;") :
                 dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
-                "where asociation = '" + loggedUser.getProyecto().getId() + "';");
+                "where asociacion = '" + loggedUser.getProyecto().getId() + "';");
         socioComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
             if(!(boolean) tuple[0]) {
