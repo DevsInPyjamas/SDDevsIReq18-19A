@@ -66,13 +66,24 @@ public class SearchEconomicMovement {
 
     private List<Object[]> normalSearchProcess() {
         String currentValue = this.searchMovEconimicTextField.getText();
-        return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
-                "inner join TipoGasto TG on t.tipoGasto = TG.id where t.emisor like '%" +
-                currentValue + "%' or tg.nombre like '%" + currentValue + "%';");
+        if(loggedUser.getRol().isSuperAdmin()) {
+            return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                    "inner join TipoGasto TG on t.tipoGasto = TG.id where t.emisor like '%" +
+                    currentValue + "%' or tg.nombre like '%" + currentValue + "%';");
+        } else {
+            return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                    "inner join TipoGasto TG on t.tipoGasto = TG.id where t.emisor like '%" +
+                    currentValue + "%' or tg.nombre like '%" + currentValue + "%' and t.proyecto = " + loggedUser.getProyecto().getId() + ";");
+        }
     }
 
     private java.util.List<Object[]> processWhenSearchWithoutValue() {
-        return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
-                "inner join TipoGasto TG on t.tipoGasto = TG.id;");
+        if(loggedUser.getRol().isSuperAdmin()) {
+            return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                    "inner join TipoGasto TG on t.tipoGasto = TG.id;");
+        } else {
+            return dbManager.select("select t.isDeleted, t.id, t.emisor, t.cantidad, tg.nombre from transaccion t " +
+                    "inner join TipoGasto TG on t.tipoGasto = TG.id and t.proyecto = " + loggedUser.getProyecto().getId() + ";");
+        }
     }
 }
