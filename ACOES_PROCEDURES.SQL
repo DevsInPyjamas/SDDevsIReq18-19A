@@ -22,7 +22,11 @@ begin
 end
 create procedure TransaccionesRango @FechaInicio date, @FechaFin date, @IDProyecto int as
 begin
-  select * from Transaccion where (@FechaFin is null or fecha <= @FechaFin) and
-    (@FechaInicio is null or fecha >= @FechaInicio) and
-    (@IDProyecto = 0 or proyecto = @IDProyecto)
+  if @IDProyecto is not null
+    select * from Transaccion where (@FechaFin is null or fecha <= @FechaFin) and
+      (@FechaInicio is null or fecha >= @FechaInicio) and
+      (@IDProyecto is null or proyecto = @IDProyecto)
+  else
+    select * from Transaccion where (@FechaFin is null or fecha <= @FechaFin) and
+      (@FechaInicio is null or fecha >= @FechaInicio)
 end
