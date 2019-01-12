@@ -23,6 +23,7 @@ public class ValidarTransacciones {
         DefaultTableModel model = (DefaultTableModel) validateTransactionTable.getModel();
         validateTransactionTable.setFocusable(false);
         validateTransactionTable.setRowSelectionAllowed(false);
+
         atrasButton.addActionListener(e -> {
             new EconomicSection(loggedUser);
             frame.dispose();

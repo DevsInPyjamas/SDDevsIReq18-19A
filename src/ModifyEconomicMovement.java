@@ -13,10 +13,10 @@ public class ModifyEconomicMovement {
     private JTextField conceptoTextField;
     private JTextField cantidadTextField;
     private JComboBox tipoGastoBox;
-    private JComboBox socioComboBox;
-    private JComboBox empresaComboBox;
+    private JComboBox tipoBeneficiarioComboBox;
     private JComboBox proyectoComboBox;
     private JButton modificarMovimientoButton;
+    private JComboBox beneficiarioComboBox;
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
     private boolean modifying = false;
@@ -39,37 +39,37 @@ public class ModifyEconomicMovement {
                 proyectoComboBox.addItem(tuple[0]);
             }
         }
-        empresaComboBox.addItem(null);
-        for(Object[] tuple : dbManager.select("select nombre from Empresa;")) {
-            empresaComboBox.addItem(tuple[0]);
-        }
-        List<Object[]> queryTuples = (loggedUser.getRol().isSuperAdmin()) ?
-                dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio;") :
-                dbManager.select("select isDeleted, concat(nombre, ' ', apellidos)" + " from Socio " +
-                "where asociacion = '" + loggedUser.getProyecto().getId() + "';");
-        socioComboBox.addItem(null);
-        for(Object[] tuple : queryTuples) {
-            if(!(boolean) tuple[0]) {
-                socioComboBox.addItem(tuple[1]);
-            }
-        }
+        tipoBeneficiarioComboBox.addItem(null);
+        tipoBeneficiarioComboBox.addItem("Empresa");
+        tipoBeneficiarioComboBox.addItem("Colaborador");
+        List<Object[]> queryTuples = null;
+        tipoBeneficiarioComboBox.addItem(null);
         for(Object[] tuple : dbManager.select("select nombre from TipoGasto;")) {
             tipoGastoBox.addItem(tuple[0]);
         }
         Transaccion trans = new Transaccion(idMovEconomic);
         emisorTextField.setText(trans.getEmisor());
+        //Consulta
+        beneficiarioComboBox.setSelectedItem(null);
         if(loggedUser.getRol().isSuperAdmin()) {
             proyectoComboBox.setSelectedItem(trans.getProyecto().getNombre());
         }
-        if(trans.getSocio() != null) {
-            socioComboBox.setSelectedItem(trans.getSocio().getNombre() + " " + trans.getSocio().getApellidos());
-        } else {
-            socioComboBox.setSelectedItem(null);
-        }
-        if(trans.getEmpresa() != null) {
-            empresaComboBox.setSelectedItem(trans.getEmpresa().getNombre());
-        } else {
-            empresaComboBox.setSelectedItem(null);
+        tipoBeneficiarioComboBox.setSelectedItem(trans.getTablaBeneficiario());
+        if (tipoBeneficiarioComboBox.getSelectedItem().equals("Empresa")) {
+            queryTuples = dbManager.select("select nombre from Empresa");
+            for (Object[] tuple : queryTuples) {
+                tipoBeneficiarioComboBox.addItem(tuple[0]);
+            }
+        } else if (tipoBeneficiarioComboBox.getSelectedItem().equals("Colaborador")){
+            queryTuples = (loggedUser.getRol().isSuperAdmin()) ?
+                    dbManager.select("select nombre from Colaborador;") :
+                    dbManager.select("select nombre from Colaborador " +
+                            "where pertenece_proyecto = '" + loggedUser.getProyecto().getId() + "';");
+            for (Object[] tuple : queryTuples) {
+                if (!(boolean) tuple[0]) {
+                    tipoBeneficiarioComboBox.addItem(tuple[1]);
+                }
+            }
         }
         conceptoTextField.setText(trans.getConcepto());
         cantidadTextField.setText(Double.toString(trans.getCantidad()));
@@ -134,25 +134,19 @@ public class ModifyEconomicMovement {
         cantidadTextField.setEditable(siONo);
         tipoGastoBox.setEnabled(siONo);
         actualizarButton.setVisible(siONo);
-        socioComboBox.setEnabled(siONo);
+        tipoBeneficiarioComboBox.setEnabled(siONo);
         proyectoComboBox.setEnabled(siONo);
-        empresaComboBox.setEnabled(siONo);
+        beneficiarioComboBox.setEnabled(siONo);
     }
 
     private void modifyEconomicMovementDB(Transaccion trans) {
-        int idEmpresa, idSocio, idProyecto, idTipoGasto;
+        int idBeneficiario, idProyecto, idTipoGasto;
         trans.setCantidad(Double.valueOf(cantidadTextField.getText()));
         trans.setConcepto(conceptoTextField.getText());
         trans.setEmisor(emisorTextField.getText());
-        if(socioComboBox.getSelectedItem() != null) {
-            idSocio = (int) dbManager.select("select id from Socio where concat(nombre, ' ', apellidos) = '"
-                    + this.socioComboBox.getSelectedItem() + "';").get(0)[0];
-            trans.setSocio(new Socio(idSocio));
-        }
-        if(empresaComboBox.getSelectedItem() != null) {
-            idEmpresa = (int) dbManager.select("select id from Empresa where nombre = '" +
-                    this.empresaComboBox.getSelectedItem() + "';").get(0)[0];
-            trans.setEmpresa(new Empresa(idEmpresa));
+        if(tipoBeneficiarioComboBox.getSelectedItem() != null) {
+            idBeneficiario = (int) dbManager.select("exec DatosBeneficiario " + trans.getId()).get(0)[0];
+            trans.setBeneficiario(idBeneficiario);
         }
         idProyecto = (int) dbManager.select("select id from Proyecto where nombre = '" +
                 this.proyectoComboBox.getSelectedItem() + "';").get(0)[0];

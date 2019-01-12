@@ -12,11 +12,11 @@ public class Transaccion {
     private boolean isDeleted;
     private Proyecto proyecto;
     private int idProyecto;
-    private Socio socio;
-    private Integer id_socio;
     private TipoGasto tipoGasto;
-    private Integer id_empresa;
-    private Empresa empresa;
+    private boolean isValidated;
+    private int beneficiario;
+    private String tablaBeneficiario;
+    private String fecha;
 
     public Transaccion() {
     }
@@ -32,9 +32,11 @@ public class Transaccion {
             this.cantidad = Double.parseDouble(row[3].toString());
             this.isDeleted = (boolean) row[4];
             this.tipoGasto = new TipoGasto((int) row[5]);
-            this.idProyecto = (int) row[6];
-            this.id_empresa = (Integer) row[7];
-            this.id_socio = (Integer) row[8];
+            this.isValidated = (boolean) row[6];
+            this.beneficiario = (int) row[7];
+            this.tablaBeneficiario = (String) row[8];
+            this.fecha = row[9].toString();
+            this.idProyecto = (int) row[10];
         } else {
             throw new NoSuchElementException("No existe Transacción con la id: " + id);
         }
@@ -87,61 +89,73 @@ public class Transaccion {
         this.idProyecto = proyecto.getId();
     }
 
-    public void setSocio(Socio socio) {
-        this.socio = socio;
-        this.id_socio = socio.getId();
-    }
-
     public void setTipoGasto(TipoGasto tipoGasto) {
         this.tipoGasto = tipoGasto;
-    }
-
-    public Socio getSocio() {
-        if(this.id_socio != null) {
-            this.socio = new Socio(this.id_socio);
-        }
-        return this.socio;
     }
 
     public TipoGasto getTipoGasto() {
         return tipoGasto;
     }
 
-    public Empresa getEmpresa() {
-        if(this.id_empresa != null) {
-            this.empresa = new Empresa(this.id_empresa);
-        }
-        return empresa;
+    public boolean isValidated() {
+        return isValidated;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-        this.id_empresa = empresa.getId();
+    public void setValidated(boolean validated) {
+        isValidated = validated;
+    }
+
+    public int getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(int beneficiario) {
+        this.beneficiario = beneficiario;
+    }
+
+    public String getTablaBeneficiario() {
+        return tablaBeneficiario;
+    }
+
+    public void setTablaBeneficiario(String tablaBeneficiario) {
+        this.tablaBeneficiario = tablaBeneficiario;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public void save() {
         DBManager dbManager = new DBManager();
-        Object isIdEmpresaNull = (this.id_empresa == null || this.id_empresa == 0) ? null : this.id_empresa;
-        Object isIdSocioNull = (this.id_socio == null || this.id_socio == 0) ? null : this.id_socio;
         if (this.id != 0) {
-            int integerValueOfABoolean = (this.isDeleted) ? 1 : 0;
+            int isDeletedAsInt = (this.isDeleted) ? 1 : 0;
+            int isValidatedAsInt = (this.isValidated) ?  1 : 0;
             dbManager.execute("update Transaccion set " +
                     "emisor = '" + this.emisor + "', " +
                     "concepto = '" + this.concepto + "', " +
                     "cantidad = " + this.cantidad + ", " +
-                    "isDeleted = " + integerValueOfABoolean + ", " +
+                    "isDeleted = " + isDeletedAsInt + ", " +
                     "proyecto = " + this.idProyecto + "," +
-                    "id_empresa = " + isIdEmpresaNull + "," +
                     "tipoGasto = " + this.tipoGasto.getId() + ", "+
-                    "socio_donante = " + isIdSocioNull + " " +
+                    "isValidated = " + isValidatedAsInt + ", " +
+                    "beneficiario = " + this.beneficiario + ", " +
+                    "tablaBeneficiario = '" + this.tablaBeneficiario + "', " +
+                    "fecha= '" + this.fecha + "' " +
                     "where id = " + this.id + ";");
         }
         else {
             dbManager.execute("Insert into Transaccion(" +
-                    "emisor, concepto, cantidad, isDeleted, proyecto, tipoGasto, id_empresa, socio_donante) values(" +
+                    "emisor, concepto, cantidad, isDeleted, proyecto, tipoGasto, isValidated, beneficiario, " +
+                    "tablaBeneficiario, fecha) values(" +
                     "'" + this.emisor + "', '" + this.concepto + "', " +
                     "" + this.cantidad + ", '" + this.isDeleted + "'," + this.idProyecto + "" +
-                    ",'" + this.tipoGasto.getId() + "', " + isIdEmpresaNull + ", " + isIdSocioNull + ");");
+                    ",'" + this.tipoGasto.getId() + "', " + this.isValidated + ", " +
+                    this.beneficiario + ", '" + this.tablaBeneficiario + "', '" + this.fecha
+                    + "');");
             this.id = Integer.parseInt(((BigDecimal) dbManager.select("select @@IDENTITY;").get(0)[0]).toBigInteger()
                     .toString());
         }
@@ -157,9 +171,11 @@ public class Transaccion {
                 ", isDeleted=" + isDeleted +
                 ", proyecto=" + proyecto +
                 ", idProyecto=" + idProyecto +
-                ", socio=" + socio +
-                ", tipoGasto='" + tipoGasto + '\'' +
-                ", empresa=" + empresa +
+                ", tipoGasto=" + tipoGasto +
+                ", isValidated=" + isValidated +
+                ", beneficiario=" + beneficiario +
+                ", tablaBeneficiario='" + tablaBeneficiario + '\'' +
+                ", fecha='" + fecha + '\'' +
                 '}';
     }
 }

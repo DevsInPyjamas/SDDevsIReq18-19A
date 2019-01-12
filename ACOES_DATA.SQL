@@ -240,13 +240,13 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto,
                         beneficiario, tablaBeneficiario, fecha, proyecto)
 values ('Emisor', 'Concepto', +120, (select id from dbo.TipoGasto where nombre like 'material%'),
-        (select id from Socio where apellidos like 'Arenas'), 'Socio', '2019-01-10', 1),
+        (select id from Socio where apellidos like 'Arenas'), 'Colaborador', '2019-01-10', 1),
        ('Juan', 'Mochilas', -2500, (select id from dbo.TipoGasto where nombre like 'material%'),
         (select id from dbo.Empresa where nombre like 'ind%'), 'Empresa', '2009-01-10', 3),
        ('Juan Escarcena', 'Reforma', -10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
         (select id from dbo.Empresa where nombre like 'mefjus'), 'Empresa', '2009-01-10', 2),
        ('Juan García', 'Donacion', +10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
-        (select id from Socio where id = 15016), 'Socio', '2000-01-10', 3);
+        (select id from Socio where id = 15016), 'Colaborador', '2000-01-10', 3);
 
 -- Old Transaction version
 -- insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)

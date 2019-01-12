@@ -60,6 +60,7 @@ public class SearchEconomicMovement {
                 frame.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(new JFrame(), "Error: " + ex.getMessage());
+                ex.printStackTrace();
             }
         });
     }

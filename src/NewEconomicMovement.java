@@ -12,8 +12,8 @@ public class NewEconomicMovement {
     private JTextField conceptoField;
     private JTextField cantidadField;
     private JComboBox tipoGastoComboBox;
-    private JComboBox empresaComboBox;
-    private JComboBox socioComboBox;
+    private JComboBox beneficiarioComboBox;
+    private JComboBox tipoBeneficiarioComboBox;
     private JComboBox comboBoxProyecto;
     private Usuario loggedUser;
 
@@ -30,6 +30,9 @@ public class NewEconomicMovement {
         List<Object[]> queryTuples;
         DBManager dbManager = new DBManager();
         comboBoxProyecto.setVisible(true);
+        tipoBeneficiarioComboBox.addItem(null);
+        tipoBeneficiarioComboBox.addItem("Empresa");
+        tipoBeneficiarioComboBox.addItem("Colaborador");
         if(loggedUser.getRol().isSuperAdmin() || loggedUser.getRol().spanishBoy()) {
             comboBoxProyecto.setVisible(true);
             queryTuples = dbManager.select("select nombre from Proyecto;");
@@ -45,9 +48,9 @@ public class NewEconomicMovement {
             tipoGastoComboBox.addItem(tuple[0]);
         }
         queryTuples = dbManager.select("select nombre from Empresa;");
-        empresaComboBox.addItem(null);
+        beneficiarioComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
-            empresaComboBox.addItem(tuple[0]);
+            beneficiarioComboBox.addItem(tuple[0]);
         }
         if(loggedUser.getRol().spanishBoy()) {
             if (!loggedUser.getRol().isSuperAdmin() && !loggedUser.getRol().isSuperSpanishAdmin()) {
@@ -59,10 +62,10 @@ public class NewEconomicMovement {
         } else {
             queryTuples = dbManager.select("select * from Socio where nombre like 'Jesucristosuperestrellalol12345';");
         }
-        socioComboBox.addItem(null);
+        tipoBeneficiarioComboBox.addItem(null);
         for(Object[] tuple : queryTuples) {
             if(!(boolean) tuple[0]) {
-                socioComboBox.addItem(tuple[1]);
+                tipoBeneficiarioComboBox.addItem(tuple[1]);
             }
         }
         backButton.addActionListener((e) -> {
@@ -87,15 +90,9 @@ public class NewEconomicMovement {
                             this.comboBoxProyecto.getSelectedItem() + "';").get(0)[0];
                     t.setProyecto(new Proyecto(proyectoID));
                 }
-                if(socioComboBox.getSelectedItem() != null) {
-                    int socioID = (int) dbManager.select("select id from Socio where " +
-                            "CONCAT(nombre, ' ', apellidos) = '" + socioComboBox.getSelectedItem() + "';").get(0)[0];
-                    t.setSocio(new Socio(socioID));
-                }
-                if(empresaComboBox.getSelectedItem() != null) {
-                    int empresaID = (int) dbManager.select("select id from Empresa where nombre like '" + 
-                            empresaComboBox.getSelectedItem() + "';").get(0)[0];
-                    t.setEmpresa(new Empresa(empresaID));
+                if(tipoBeneficiarioComboBox.getSelectedItem() != null) {
+                    int beneficiarioID = (int) dbManager.select("exec DatosBeneficiario " + t.getId()).get(0)[0];
+                    t.setBeneficiario(beneficiarioID);
                 }
                 try {
                     t.save();
@@ -110,7 +107,7 @@ public class NewEconomicMovement {
     }
 
     private boolean everyMandatoryFieldIsFilled() {
-        return (empresaComboBox.getSelectedItem() != null || socioComboBox.getSelectedItem() != null) 
+        return (beneficiarioComboBox.getSelectedItem() != null || tipoBeneficiarioComboBox.getSelectedItem() != null)
                 && tipoGastoComboBox.getSelectedItem() != null && !emisorField.getText().isEmpty() &&
                 !cantidadField.getText().isEmpty();
     }

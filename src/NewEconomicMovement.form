@@ -93,7 +93,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Socio"/>
+              <text value="Tipo de Beneficiario"/>
             </properties>
           </component>
           <component id="989ae" class="javax.swing.JLabel">
@@ -101,16 +101,16 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Empresa"/>
+              <text value="Beneficiario"/>
             </properties>
           </component>
-          <component id="a1c88" class="javax.swing.JComboBox" binding="socioComboBox">
+          <component id="a1c88" class="javax.swing.JComboBox" binding="tipoBeneficiarioComboBox">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <component id="e9da0" class="javax.swing.JComboBox" binding="empresaComboBox">
+          <component id="e9da0" class="javax.swing.JComboBox" binding="beneficiarioComboBox">
             <constraints>
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
