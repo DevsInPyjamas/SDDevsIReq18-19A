@@ -33,7 +33,8 @@ public class ModifyUser {
 
     ModifyUser(Usuario loggedUser, String emailUser) {
         this.loggedUser = loggedUser;
-        displayButtons(false);
+        proyectoComboBox.setEnabled(false);
+        asociacionComboBox.setEnabled(false);
         emailField.setEditable(false);
         modificarUsuarioPanel.setSize(700, 600);
         JFrame frame = new JFrame("Informacion del usuario");
@@ -55,16 +56,12 @@ public class ModifyUser {
             }
         }
         Usuario modUser = new Usuario(emailUser);
+        displayButtons(false, modUser);
         emailField.setText(modUser.getEmail());
         nombreTextField.setText(modUser.getNombre());
         usuarioTextField.setText(modUser.getUsuario());
-        if (modUser.getRol().isSuperAdmin() || modUser.getRol().isSuperSpanishAdmin()) {
-            proyectoComboBox.setVisible(false);
-            asociacionComboBox.setVisible(false);
-        } else {
-            proyectoComboBox.setSelectedItem((modUser.getProyecto() != null) ? modUser.getProyecto().getNombre() : null);
-            asociacionComboBox.setSelectedItem((modUser.getAsociacion() != null) ? modUser.getAsociacion().getNombre() : null);
-        }
+        proyectoComboBox.setSelectedItem((modUser.getProyecto() != null) ? modUser.getProyecto().getNombre() : null);
+        asociacionComboBox.setSelectedItem((modUser.getAsociacion() != null) ? modUser.getAsociacion().getNombre() : null);
         setRadioButtonSelected(modUser);
         backButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
@@ -80,7 +77,7 @@ public class ModifyUser {
         modificarButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Modificar")) {
                 modifying = true;
-                displayButtons(true);
+                displayButtons(true, modUser);
             }
         });
         actualizarButton.addActionListener(e -> {
@@ -88,7 +85,7 @@ public class ModifyUser {
                 this.modifiyingUserDB(modUser);
                 modUser.save();
                 JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el usuario...");
-                displayButtons(false);
+                displayButtons(false, modUser);
                 emailField.setText(modUser.getEmail());
                 nombreTextField.setText(modUser.getNombre());
                 usuarioTextField.setText(modUser.getUsuario());
@@ -113,11 +110,13 @@ public class ModifyUser {
 
     }
 
-    private void displayButtons(boolean siONo) {
+    private void displayButtons(boolean siONo, Usuario modUser) {
         nombreTextField.setEditable(siONo);
         usuarioTextField.setEditable(siONo);
-        proyectoComboBox.setEnabled(siONo);
-        asociacionComboBox.setEnabled(siONo);
+        if (modUser.getRol().isSuperSpanishAdmin() || modUser.getRol().isSuperAdmin()) {
+            proyectoComboBox.setEnabled(siONo);
+            asociacionComboBox.setEnabled(siONo);
+        }
         actualizarButton.setVisible(siONo);
         coordinadorGeneralProyectosRadioButton.setEnabled(siONo);
         responsableEconomicoRadioButton.setEnabled(siONo);
