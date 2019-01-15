@@ -127,6 +127,7 @@ create table Empresa(
   id int not null identity(25000, 1),
   direccion varchar(50) not null,
   nif varchar(9) not null,
+  isDeleted bit not null default 0,
   constraint Pk_Empresa primary key clustered (id)
 );
 
@@ -140,6 +141,7 @@ create table Colaborador(
   id int not null identity(40000, 1),
   nombre varchar(50),
   pertenece_proyecto int not null,
+  isDeleted bit not null default 0,
   constraint pk_colaborador PRIMARY KEY clustered (id),
   constraint [FK_Colaborador_asociacion] foreign key([pertenece_proyecto]) references Proyecto
 );
