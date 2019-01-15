@@ -108,6 +108,7 @@ create table Transaccion(
   beneficiario int not null,
   tablaBeneficiario varchar(50) not null,
   fecha date not null,
+  whatKindOfShitIsThis bit default null,
   constraint Pk_Transaccion primary key clustered (id)
 );
 

@@ -238,15 +238,16 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
 
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto,
-                        beneficiario, tablaBeneficiario, fecha, proyecto, isValidated)
+                        beneficiario, tablaBeneficiario, fecha, proyecto, isValidated, whatKindOfShitIsThis)
 values ('Emisor', 'Concepto', +120, (select id from dbo.TipoGasto where nombre like 'material%'),
-        (select id from Socio where apellidos like 'Arenas'), 'Colaborador', '2019-01-10', 1, 1),
+        (select id from Jovenes where apellidos like 'menendez' and nombre like 'pepe'),
+        'Jovenes', '2019-01-10', 1, 1, 0),
        ('Juan', 'Mochilas', -2500, (select id from dbo.TipoGasto where nombre like 'material%'),
-        (select id from dbo.Empresa where nombre like 'ind%'), 'Empresa', '2009-01-10', 3, 1),
+        (select id from dbo.Empresa where nombre like 'ind%'), 'Empresa', '2009-01-10', 3, 1, null),
        ('Juan Escarcena', 'Reforma', -10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
-        (select id from dbo.Empresa where nombre like 'mefjus'), 'Empresa', '2009-01-10', 2, 1),
+        (select id from dbo.Empresa where nombre like 'mefjus'), 'Empresa', '2009-01-10', 2, 1, null),
        ('Juan García', 'Donacion', +10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
-        (select id from Socio where id = 15016), 'Colaborador', '2000-01-10', 3, 1);
+        (select id from Jovenes where id = 5002), 'Jovenes', '2000-01-10', 3, 1, 1);
 
 -- Old Transaction version
 -- insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
