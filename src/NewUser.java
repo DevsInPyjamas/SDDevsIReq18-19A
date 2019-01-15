@@ -8,15 +8,20 @@ public class NewUser {
     private JButton backButton;
     private JTextField emailField;
     private JTextField nameField;
-    private JTextField surnameField;
-    private JButton añadirButton;
+    private JTextField userField;
+    private JComboBox asociacionComboBox;
+    private JComboBox proyectoComboBox;
+    private JButton anadirButton;
     private JRadioButton coordinadorGeneralRadioButton;
-    private JRadioButton responsableEconómicoGeneralRadioButton;
+    private JRadioButton responsabeGeneralProyectoRadioButton;
     private JRadioButton coordinadorGeneralDeProyectosRadioButton;
-    private JRadioButton responsableEconómicoGeneralDeRadioButton;
-    private JRadioButton coordinadorDeProyectoRadioButton;
-    private JRadioButton responsableEconómicoDeProyectoRadioButton;
-    private JRadioButton usuarioNormalRadioButton;
+    private JRadioButton responsableEconomicoRadioButton;
+    private JRadioButton becasRadioButton;
+    private JRadioButton economicoRadioButton;
+    private JRadioButton usuarioRasoRadioButton;
+    private JRadioButton gestorEspanaRadioButton;
+    private JRadioButton coordinadorAsociacionEspanaRadioButton;
+    private JRadioButton coordinadorACOESEspanaRadioButton;
     private Usuario loggedUser;
 
     NewUser(Usuario loggedUser) {
