@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="nuevoUserPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="524" height="515"/>
+      <xy x="20" y="20" width="524" height="625"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -34,7 +34,7 @@
           <text value="Nuevo usuario"/>
         </properties>
       </component>
-      <grid id="6838" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="6838" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -63,13 +63,13 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Apellidos"/>
+              <text value="Usuario"/>
             </properties>
           </component>
-          <grid id="fc361" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="fc361" layout-manager="GridLayoutManager" row-count="10" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none" title="Permisos"/>
@@ -79,15 +79,15 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Coordinador General"/>
+                  <text value="Coordinador General Proyectos"/>
                 </properties>
               </component>
-              <component id="303df" class="javax.swing.JRadioButton" binding="responsableEconómicoGeneralRadioButton" default-binding="true">
+              <component id="303df" class="javax.swing.JRadioButton" binding="responsabeGeneralProyectoRadioButton">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Responsable Económico General"/>
+                  <text value="Responsable  General Proyectos"/>
                 </properties>
               </component>
               <component id="47d17" class="javax.swing.JRadioButton" binding="coordinadorGeneralDeProyectosRadioButton" default-binding="true">
@@ -95,39 +95,63 @@
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Coordinador General de Proyectos"/>
+                  <text value="Coordinador  Proyecto"/>
                 </properties>
               </component>
-              <component id="12e1f" class="javax.swing.JRadioButton" binding="responsableEconómicoGeneralDeRadioButton" default-binding="true">
+              <component id="73721" class="javax.swing.JRadioButton" binding="responsableEconomicoRadioButton">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Responsable Económico General de Proyectos"/>
+                  <text value="Responsable Económico"/>
                 </properties>
               </component>
-              <component id="abef0" class="javax.swing.JRadioButton" binding="coordinadorDeProyectoRadioButton" default-binding="true">
+              <component id="bb3e4" class="javax.swing.JRadioButton" binding="becasRadioButton">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Coordinador de Proyecto"/>
+                  <text value="Becas"/>
                 </properties>
               </component>
-              <component id="4b6dd" class="javax.swing.JRadioButton" binding="responsableEconómicoDeProyectoRadioButton" default-binding="true">
+              <component id="7a617" class="javax.swing.JRadioButton" binding="economicoRadioButton">
                 <constraints>
                   <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Responsable Económico de Proyecto"/>
+                  <text value="Económico"/>
                 </properties>
               </component>
-              <component id="9b449" class="javax.swing.JRadioButton" binding="usuarioNormalRadioButton" default-binding="true">
+              <component id="5e17e" class="javax.swing.JRadioButton" binding="usuarioRasoRadioButton">
                 <constraints>
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Usuario normal"/>
+                  <text value="Usuario raso"/>
+                </properties>
+              </component>
+              <component id="a54ee" class="javax.swing.JRadioButton" binding="gestorEspanaRadioButton">
+                <constraints>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Gestor España"/>
+                </properties>
+              </component>
+              <component id="47d47" class="javax.swing.JRadioButton" binding="coordinadorAsociaciónEspanaRadioButton">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Coordinador Asociación España"/>
+                </properties>
+              </component>
+              <component id="468e9" class="javax.swing.JRadioButton" binding="coordinadorACOESEspanaRadioButton">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Coordinador ACOES España"/>
                 </properties>
               </component>
             </children>
@@ -148,13 +172,41 @@
             </constraints>
             <properties/>
           </component>
-          <component id="60970" class="javax.swing.JTextField" binding="surnameField">
+          <component id="60970" class="javax.swing.JTextField" binding="userField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
             <properties/>
+          </component>
+          <component id="5e458" class="javax.swing.JComboBox" binding="asociacionComboBox">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="dd3a7" class="javax.swing.JComboBox" binding="proyectoComboBox">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="c0cbf" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Asociación"/>
+            </properties>
+          </component>
+          <component id="e2aba" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Proyecto"/>
+            </properties>
           </component>
         </children>
       </grid>
