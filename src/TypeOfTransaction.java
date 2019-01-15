@@ -12,10 +12,10 @@ public class TypeOfTransaction {
 
 
     public TypeOfTransaction(Usuario loggedUser) {
-        transactionTypePanel.setSize(700, 250);
+        transactionTypePanel.setSize(250, 250);
         JFrame frame = new JFrame("Nueva transacción");
         frame.setBounds(400, 400, 300, 200);
-        frame.setMinimumSize(new Dimension(700, 600));
+        frame.setMinimumSize(new Dimension(550, 250));
         frame.setContentPane(transactionTypePanel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
