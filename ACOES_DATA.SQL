@@ -247,7 +247,32 @@ values ('Emisor', 'Concepto', +120, (select id from dbo.TipoGasto where nombre l
        ('Juan Escarcena', 'Reforma', -10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
         (select id from dbo.Empresa where nombre like 'mefjus'), 'Empresa', '2009-01-10', 2, 1, null),
        ('Juan García', 'Donacion', +10000, (select id from dbo.TipoGasto where nombre like 'infra%'),
-        (select id from Jovenes where id = 5002), 'Jovenes', '2000-01-10', 3, 1, 1);
+        (select id from Jovenes where id = 5002), 'Jovenes', '2000-01-10', 3, 1, 1),
+         ('Daviv García', 'Donacion', +7000, (select id from dbo.TipoGasto where nombre like 'Comida'),
+         (select id from Jovenes where apellidos like 'Perez' and nombre like 'Macarena'), 'Jovenes', '2018-29-12', 3, 0, 1),
+         ('Don Flamingo', 'Reforma', -1500, (select id from dbo.TipoGasto where nombre like 'infra%'),
+         (select id from dbo.Empresa where nombre like 'UMA'), 'Empresa', '2019-01-11', 3, 0, null),
+         ('Joan de Sonrapinha', 'Risas y juguetes', -500, (select id from dbo.TipoGasto where nombre like 'material%'),
+         (select id from dbo.Empresa where nombre like 'Ebury'), 'Empresa', '2019', 3, 0, null),
+         ('Marc Marquez', 'Becas', +2500, (select id from dbo.TipoGasto where nombre like 'Beca'),
+         (select id from Jovenes where apellidos like 'Python' and nombre like 'Luffy'), 'Jovenes', '2019-01-01', 3, 1, 0),
+         ('Florentino Perez', 'Reforma', -2000, (select id from dbo.TipoGasto where nombre like 'infra%'),
+        (select id from dbo.Empresa where nombre like 'SEQUEL'), 'Empresa', '2017-01-10', 2, 1, null),
+        ('Supermercados Tu Pueblo', 'Comida', -500, (select id from dbo.TipoGasto where nombre like 'Comida'),
+        (select id from dbo.Empresa where nombre like 'INDRA'), 'Empresa', '2019-10-01', 2, 0, null),
+        ('Donacion Anonima', 'Donacion', +105000, (select id from dbo.TipoGasto where nombre like 'Beca%'),
+        (select id from Jovenes where id = 5007), 'Jovenes', '2018-01-10', 2, 1, 1),
+         ('Don Alejandro ', 'Lapices', +500, (select id from dbo.TipoGasto where nombre like 'material%'),
+        (select id from dbo.Empresa where nombre like 'SEQUEL'), 'Empresa', '2016-05-05', 1, 1, 1),
+        ('Mantecados el Patriarca', 'Comida', -500, (select id from dbo.TipoGasto where nombre like 'Comida'),
+        (select id from dbo.Empresa where nombre like 'INDRA'), 'Empresa', '2019-10-01', 1, 0, null),
+        ('Amancio Ortega', 'Donacion', +15000, (select id from dbo.TipoGasto where nombre like 'Beca%'),
+        (select id from Jovenes where id = 5003), 'Jovenes', '2018-01-10', 2, 1, 1),
+
+
+
+
+-- DONACION: 1, Gastos: null, Mensialidad: 0
 
 -- Old Transaction version
 -- insert into Transaccion(emisor, concepto, cantidad, tipoGasto, proyecto, id_empresa, socio_donante)
