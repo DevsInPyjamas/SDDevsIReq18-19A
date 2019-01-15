@@ -33,9 +33,7 @@ public class Usuario {
             this.idRol = (Integer) tuple[5];
             this.role = new Rol(idRol);
             this.idProyecto = (tuple[6] == null) ? -1 : (Integer) tuple[6];
-            this.proyecto = (idProyecto == -1) ? null : new Proyecto(idProyecto);
             this.idAsociacion = (tuple[7] == null) ? -1 : (Integer) tuple[7];
-            this.asociacion = (idAsociacion == -1) ? null : new Asociacion(idAsociacion);
         } else {
             throw new NoSuchElementException("No existe el usuario con el email: " + email);
         }
@@ -86,14 +84,21 @@ public class Usuario {
     }
 
     public Proyecto getProyecto() {
+        if(this.proyecto == null && idProyecto != null) {
+            proyecto = new Proyecto(idProyecto);
+        }
         return proyecto;
     }
 
     public void setProyecto(Proyecto proyecto) {
+        this.idProyecto = proyecto.getId();
         this.proyecto = proyecto;
     }
 
     public Asociacion getAsociacion() {
+        if(this.asociacion == null && idAsociacion != null) {
+            asociacion = new Asociacion(idAsociacion);
+        }
         return asociacion;
     }
 
