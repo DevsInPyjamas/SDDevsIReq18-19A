@@ -17,6 +17,7 @@ public class Transaccion {
     private int beneficiario;
     private String tablaBeneficiario;
     private String fecha;
+    private Boolean whatKindOfTransactionIs;
 
     public Transaccion() {
     }
@@ -36,7 +37,8 @@ public class Transaccion {
             this.beneficiario = (int) row[7];
             this.tablaBeneficiario = (String) row[8];
             this.fecha = row[9].toString();
-            this.idProyecto = (int) row[10];
+            this.idProyecto = (int) row[11];
+            this.whatKindOfTransactionIs = (Boolean) row[10];
         } else {
             throw new NoSuchElementException("No existe Transacción con la id: " + id);
         }
@@ -52,6 +54,14 @@ public class Transaccion {
 
     public String getConcepto() {
         return concepto;
+    }
+
+    public Boolean getWhatKindOfTransactionIs() {
+        return whatKindOfTransactionIs;
+    }
+
+    public void setWhatKindOfTransactionIs(Boolean whatKindOfTransactionIs) {
+        this.whatKindOfTransactionIs = whatKindOfTransactionIs;
     }
 
     public double getCantidad() {
@@ -132,6 +142,7 @@ public class Transaccion {
     public void save() {
         DBManager dbManager = new DBManager();
         if (this.id != 0) {
+            Integer e2 = (this.whatKindOfTransactionIs == null) ? null : (this.whatKindOfTransactionIs) ? 1 : 0;
             int isDeletedAsInt = (this.isDeleted) ? 1 : 0;
             int isValidatedAsInt = (this.isValidated) ?  1 : 0;
             dbManager.execute("update Transaccion set " +
@@ -144,18 +155,21 @@ public class Transaccion {
                     "isValidated = " + isValidatedAsInt + ", " +
                     "beneficiario = " + this.beneficiario + ", " +
                     "tablaBeneficiario = '" + this.tablaBeneficiario + "', " +
-                    "fecha= '" + this.fecha + "' " +
+                    "fecha= '" + this.fecha + "'," +
+                    "whatKindOfShitIsThis = "  + e2 + " " +
                     "where id = " + this.id + ";");
         }
         else {
+            int e = (this.isValidated) ? 1 : 0;
+            Integer e2 = (this.whatKindOfTransactionIs == null) ? null : (this.whatKindOfTransactionIs) ? 1 : 0;
             dbManager.execute("Insert into Transaccion(" +
                     "emisor, concepto, cantidad, isDeleted, proyecto, tipoGasto, isValidated, beneficiario, " +
-                    "tablaBeneficiario, fecha) values(" +
+                    "tablaBeneficiario, fecha, whatKindOfShitIsThis) values(" +
                     "'" + this.emisor + "', '" + this.concepto + "', " +
                     "" + this.cantidad + ", '" + this.isDeleted + "'," + this.idProyecto + "" +
-                    ",'" + this.tipoGasto.getId() + "', " + this.isValidated + ", " +
+                    ",'" + this.tipoGasto.getId() + "', " + e + ", " +
                     this.beneficiario + ", '" + this.tablaBeneficiario + "', '" + this.fecha
-                    + "');");
+                    + "', " + e2 + ");");
             this.id = Integer.parseInt(((BigDecimal) dbManager.select("select @@IDENTITY;").get(0)[0]).toBigInteger()
                     .toString());
         }
@@ -176,6 +190,7 @@ public class Transaccion {
                 ", beneficiario=" + beneficiario +
                 ", tablaBeneficiario='" + tablaBeneficiario + '\'' +
                 ", fecha='" + fecha + '\'' +
+                ", whatKindOfTransactionIs=" + whatKindOfTransactionIs +
                 '}';
     }
 }
