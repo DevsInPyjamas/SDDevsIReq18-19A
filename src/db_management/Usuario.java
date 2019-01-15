@@ -32,8 +32,8 @@ public class Usuario {
             this.isDeleted = (boolean) tuple[4];
             this.idRol = (Integer) tuple[5];
             this.role = new Rol(idRol);
-            this.idProyecto = (tuple[6] == null) ? -1 : (Integer) tuple[6];
-            this.idAsociacion = (tuple[7] == null) ? -1 : (Integer) tuple[7];
+            this.idProyecto = (Integer) tuple[6];
+            this.idAsociacion = (Integer) tuple[7];
         } else {
             throw new NoSuchElementException("No existe el usuario con el email: " + email);
         }
