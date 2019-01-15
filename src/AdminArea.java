@@ -68,6 +68,18 @@ public class AdminArea {
                 frame.dispose();
             }
         });
+        anadirNuevoUsuaroButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Añadir nuevo usuario")) {
+                new NewUser(loggedUser);
+                frame.dispose();
+            }
+        });
+        listaDeUsuariosButton.addActionListener(e -> {
+            if (e.getActionCommand().equals("Lista de usuarios")) {
+                new SearchUser(loggedUser);
+                frame.dispose();
+            }
+        });
     }
 
     private void displayButtons() {

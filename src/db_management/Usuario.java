@@ -1,55 +1,48 @@
 package db_management;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Usuario {
-    private static String BD_SERVER = "localhost";
-    private static String BD_NAME = "ACOES";
     private String usuario;
     private String password;
     private String nombre;
     private String email;
+    private boolean isDeleted;
+    private Integer idRol;
     private Rol role;
     private Integer idProyecto;
     private Proyecto proyecto;
     private Integer idAsociacion;
     private Asociacion asociacion;
 
-    public List<Usuario> selectAllUsers() throws Exception {
-        DBManager dbManager = new DBManager();
-        List<Object[]> query = dbManager.select("select email from Usuario");
-        List<Usuario> list = new ArrayList<>();
-        for (Object[] obj : query) {
-            list.add(new Usuario((String) obj[0]));
-        }
-        return list;
+    public Usuario() {
     }
 
     public Usuario(String email) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        DBManager dbManager = new DBManager();
 
-        Object[] tuples = db.select("SELECT * FROM Usuario WHERE email = '" + email + "';").get(0);
-        this.email = (String) tuples[0];
-        this.usuario = (String) tuples[1];
-        this.password = (String) tuples[2];
-        this.nombre = (String) tuples[3];
-        this.idProyecto = (Integer) tuples[5];
-        Object[] queryTuple = db.select("select rol_id from Usuario where email = '"  + this.email + "';").get(0);
-        role = new Rol((int) queryTuple[0]);
-        this.idAsociacion = (Integer) tuples[6];
+        List<Object[]> query = dbManager.select("select * from Usuario where email = '" + email + "';");
+        if (!query.isEmpty()) {
+            Object[] tuple = query.get(0);
+            this.email = (String) tuple[0];
+            this.usuario = (String) tuple[1];
+            this.password = (String) tuple[2];
+            this.nombre = (String) tuple[3];
+            this.isDeleted = (boolean) tuple[4];
+            this.idRol = (Integer) tuple[5];
+            this.role = new Rol(idRol);
+            this.idProyecto = (tuple[6] == null) ? -1 : (Integer) tuple[6];
+            this.proyecto = (idProyecto == -1) ? null : new Proyecto(idProyecto);
+            this.idAsociacion = (tuple[7] == null) ? -1 : (Integer) tuple[7];
+            this.asociacion = (idAsociacion == -1) ? null : new Asociacion(idAsociacion);
+        } else {
+            throw new NoSuchElementException("No existe el usuario con el email: " + email);
+        }
     }
 
-    public Usuario(String usuario, String password, String nombre, String email) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-
-        db.execute("INSERT INTO Usuario(email, usuario, password, nombre) VALUES('" + email +
-                "', '" + usuario + "', '" + password + "', '" + nombre + "');");
-        this.usuario = usuario;
-        this.password = password;
-        this.nombre = nombre;
-        this.email = email;
+    public String getEmail() {
+        return email;
     }
 
     public String getUsuario() {
@@ -57,8 +50,6 @@ public class Usuario {
     }
 
     public void setUsuario(String usuario) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Usuario SET usuario = '" + usuario + "' WHERE email = '" + this.email + "';");
         this.usuario = usuario;
     }
 
@@ -66,23 +57,7 @@ public class Usuario {
         return password;
     }
 
-    public Rol getRol() {
-        return role;
-    }
-
-    public Asociacion getAsociacion() {
-        asociacion = new Asociacion(this.idAsociacion);
-        return asociacion;
-    }
-
-    public void setAsociacion(Asociacion asociacion) {
-        this.asociacion = asociacion;
-        this.idAsociacion = asociacion.getId();
-    }
-
     public void setPassword(String password) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Usuario SET password = '" + password + "' WHERE email = '" + this.email + "';");
         this.password = password;
     }
 
@@ -91,43 +66,61 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Usuario SET nombre = '" + nombre + "' WHERE email = '" + this.email + "';");
         this.nombre = nombre;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setEmail(String email) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
-        db.execute("UPDATE Usuario SET email = '" + email + "' WHERE email = '" + this.email + "';");
-        this.email = email;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
-    public Rol getRole() {
+    public Rol getRol() {
         return role;
     }
 
-    public Proyecto getProyecto() {
-        if(this.idProyecto != null) {
-            proyecto = new Proyecto(this.idProyecto);
-        }
-        return proyecto;
-    }
-
-    public void setRole(Rol role) {
+    public void setRol(Rol role) {
         this.role = role;
     }
 
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
     public void setProyecto(Proyecto proyecto) {
-        this.idProyecto = proyecto.getId();
         this.proyecto = proyecto;
     }
 
-    public int perteneceAsociacion() {
-        return proyecto.getAsociacion().getId();
+    public Asociacion getAsociacion() {
+        return asociacion;
+    }
+
+    public void setAsociacion(Asociacion asociacion) {
+        this.asociacion = asociacion;
+    }
+
+    public void save() {
+        DBManager dbManager = new DBManager();
+        if (this.email != null) {
+            int isDeletedAsInt = (this.isDeleted) ? 1 : 0;
+            dbManager.execute("update Usuario set " +
+                    "usuario = '" + this.usuario + "', " +
+                    "password = '" + this.password + "', " +
+                    "nombre = '" + this.nombre + "', " +
+                    "isDeleted = " + isDeletedAsInt + "', " +
+                    "rol_id = " + this.role.getId() + "', " +
+                    "pertenece_proyecto = " + this.proyecto.getId() + "', " +
+                    "pertenece_asociacion = " + this.asociacion.getId() + "', " +
+                    "where email = '" + this.email + "';");
+        } else {
+            dbManager.execute("Insert into Usuario(email, usuario, password, nombre, isDeleted, rol_id, " +
+                    "pertenece_proyecto, pertenece_asociacion values(" +
+                    "'" + this.email + "', '" + this.usuario + "', '" + this.password + "', '" + this.nombre + "', " +
+                    this.isDeleted + ", " + this.role.getId() + ", " + this.proyecto.getId() + ", " +
+                    this.asociacion.getId() + ");");
+        }
     }
 
     @Override
@@ -137,9 +130,13 @@ public class Usuario {
                 ", password='" + password + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", email='" + email + '\'' +
+                ", isDeleted=" + isDeleted +
+                ", idRol=" + idRol +
                 ", role=" + role +
                 ", idProyecto=" + idProyecto +
                 ", proyecto=" + proyecto +
+                ", idAsociacion=" + idAsociacion +
+                ", asociacion=" + asociacion +
                 '}';
     }
 }

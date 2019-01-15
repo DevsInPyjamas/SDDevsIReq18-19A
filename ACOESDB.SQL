@@ -9,11 +9,11 @@ use [ACOES]
 go
 -- tables
 create table [dbo].[Usuario](
-  isDeleted bit not null default 0,
   email varchar(50) not null,
   usuario varchar(50) not null,
   password varchar(50) not null,
   nombre varchar(50) not null,
+  isDeleted bit not null default 0,
   CONSTRAINT PK_tLibro PRIMARY KEY CLUSTERED (email ASC)
 ) ON [Primary];
 
