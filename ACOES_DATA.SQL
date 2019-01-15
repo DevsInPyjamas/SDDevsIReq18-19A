@@ -236,6 +236,18 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15000, 5006, 150, '20-01-2005', '20-01-2001'),
       (15002, 5001, 150, '20-01-2018', '20-01-2011');
 
+insert into Colaborador(nombre, pertenece_proyecto)
+values('Enrique Lautaro',(select id from Proyectp where id like '1')),
+('Joaquin Sanchez',(select id from Proyectp where id like '1')),
+('Takashi Inui',(select id from Proyectp where id like '1')),
+('Marc Bartra',(select id from Proyectp where id like '2')),
+('Aissa Mandi',(select id from Proyectp where id like '2')),
+('Junior Firpo',(select id from Proyectp where id like '2')),
+('William Carvahlo',(select id from Proyectp where id like '3')),
+('Giovanni Lo Celso',(select id from Proyectp where id like '3')),
+('Sergio Canales',(select id from Proyectp where id like '3'));
+
+
 
 insert into Transaccion(emisor, concepto, cantidad, tipoGasto,
                         beneficiario, tablaBeneficiario, fecha, proyecto, isValidated, whatKindOfShitIsThis)
@@ -268,6 +280,7 @@ values ('Emisor', 'Concepto', +120, (select id from dbo.TipoGasto where nombre l
         (select id from dbo.Empresa where nombre like 'INDRA'), 'Empresa', '2019-10-01', 1, 0, null),
        ('Amancio Ortega', 'Donacion', +15000, (select id from dbo.TipoGasto where nombre like 'Beca%'),
         (select id from Jovenes where id = 5003), 'Jovenes', '2018-01-10', 2, 1, 1)
+
 
 
 
