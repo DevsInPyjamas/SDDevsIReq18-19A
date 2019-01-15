@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class Proyecto {
     private static String BD_SERVER = "localhost";
     private static String BD_NAME = "ACOES";
+    private String emailEconomico;
+    private String emailCoordinador;
     private int id;
     private String nombre;
     private String ubicacion;
@@ -24,8 +26,8 @@ public class Proyecto {
         this.ubicacion = (String) tuples[2];
         this.tipoProyecto = (String) tuples[3];
         this.isDeleted = (boolean) tuples[4];
-        coordinadorAsignado = new Usuario((String) tuples[5]);
-        responsableEconomico = new Usuario((String) tuples[6]);
+        emailCoordinador = (String) tuples[5];
+        emailEconomico = (String) tuples[6];
     }
 
     public Proyecto(String nombre, String ubicacion, Usuario coordinadorAsignado, Usuario responsableEconomico,
@@ -74,6 +76,9 @@ public class Proyecto {
     }
 
     public Usuario getCoordinadorAsignado() {
+        if(coordinadorAsignado == null) {
+            coordinadorAsignado = new Usuario(emailCoordinador);
+        }
         return coordinadorAsignado;
     }
 
@@ -82,9 +87,13 @@ public class Proyecto {
         db.execute("UPDATE Proyecto SET project_coordinator = '" + responsableEconomico.getNombre() +
                 "' WHERE id = '" + this.id + "';");
         this.coordinadorAsignado = coordinadorAsignado;
+        this.emailCoordinador = coordinadorAsignado.getEmail();
     }
 
     public Usuario getResponsableEconomico() {
+        if(responsableEconomico == null) {
+            responsableEconomico = new Usuario(emailEconomico);
+        }
         return responsableEconomico;
     }
 
@@ -93,7 +102,7 @@ public class Proyecto {
         db.execute("UPDATE Proyecto SET project_responsable = '" + responsableEconomico.getNombre() +
                 "' WHERE id = '" + this.id + "';");
         this.responsableEconomico = responsableEconomico;
-
+        this.emailEconomico = responsableEconomico.getEmail();
     }
 
     public String getTipoProyecto() {
