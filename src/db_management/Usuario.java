@@ -17,6 +17,7 @@ public class Usuario {
     private Asociacion asociacion;
 
     public Usuario() {
+        this.email = "";
     }
 
     public Usuario(String email) {
@@ -80,6 +81,7 @@ public class Usuario {
     }
 
     public void setRol(Rol role) {
+        this.idRol = role.getId();
         this.role = role;
     }
 
@@ -102,30 +104,39 @@ public class Usuario {
         return asociacion;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setAsociacion(Asociacion asociacion) {
         this.asociacion = asociacion;
     }
 
     public void save() {
         DBManager dbManager = new DBManager();
-        if (this.email != null) {
+        if (!existeUsuario()) {
             int isDeletedAsInt = (this.isDeleted) ? 1 : 0;
             dbManager.execute("update Usuario set " +
                     "usuario = '" + this.usuario + "', " +
                     "password = '" + this.password + "', " +
                     "nombre = '" + this.nombre + "', " +
                     "isDeleted = " + isDeletedAsInt + ", " +
-                    "rol_id = " + this.role.getId() + ", " +
-                    "pertenece_proyecto = " + this.proyecto.getId() + ", " +
-                    "pertenece_asociacion = " + this.asociacion.getId() + " " +
+                    "rol_id = " + this.idRol + ", " +
+                    "pertenece_proyecto = " + this.idProyecto + ", " +
+                    "pertenece_asociacion = " + this.idAsociacion + " " +
                     "where email = '" + this.email + "';");
         } else {
-            dbManager.execute("Insert into Usuario(email, usuario, password, nombre, isDeleted, rol_id, " +
-                    "pertenece_proyecto, pertenece_asociacion values(" +
+            dbManager.execute("Insert into Usuario(email, usuario, password, nombre, rol_id, " +
+                    "pertenece_proyecto, pertenece_asociacion) values(" +
                     "'" + this.email + "', '" + this.usuario + "', '" + this.password + "', '" + this.nombre + "', " +
-                    this.isDeleted + ", " + this.role.getId() + ", " + this.proyecto.getId() + ", " +
-                    this.asociacion.getId() + ");");
+                    this.idRol + ", " + this.idProyecto + ", " +
+                    this.idAsociacion + ");");
         }
+    }
+
+    private boolean existeUsuario() {
+        DBManager dbManager = new DBManager();
+        return dbManager.select("select * from usuario where email = '" + this.email + "';").isEmpty();
     }
 
     @Override
