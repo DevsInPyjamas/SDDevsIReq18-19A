@@ -9,142 +9,140 @@ use [ACOES]
 go
 -- tables
 create table [dbo].[Usuario](
-                              isDeleted bit not null default 0,
-                              email varchar(50) not null,
-                              usuario varchar(50) not null,
-                              password varchar(50) not null,
-                              nombre varchar(50) not null,
-                              CONSTRAINT PK_tLibro PRIMARY KEY CLUSTERED (email ASC)
+  email varchar(50) not null,
+  usuario varchar(50) not null,
+  password varchar(50) not null,
+  nombre varchar(50) not null,
+  isDeleted bit not null default 0,
+  CONSTRAINT PK_tLibro PRIMARY KEY CLUSTERED (email ASC)
 ) ON [Primary];
 
 
 create table [dbo].[Rol](
-                          nombre varchar(50) not null,
-                          id int not null
-                            constraint pk_rol primary key clustered ([id] ASC)
+  nombre varchar(50) not null,
+  id int not null
+  constraint pk_rol primary key clustered ([id] ASC)
 ) on [Primary]
 
 
 create table [dbo].[Jovenes](
-                              id int not null identity(5000,1),
-                              nombre varchar(50) not null,
-                              nombreMadre varchar(50),
-                              nombrePadre varchar(50),
-                              apellidos varchar(50),
-                              historial varchar(500),
-                              datosComunidad varchar(100),
-                              genero varchar(10),
-                              observaciones varchar(1000),
-                              fechaEntrada date not null,
-                              fechaBaja date,
-                              beca varchar(50),
-                              fechaNacimiento date not null,
-                              isDeleted bit not null default 0,
-                              notaMedia real not null,
-                              constraint pk_jovenes primary key clustered (id ASC)
+  id int not null identity(5000,1),
+  nombre varchar(50) not null,
+  nombreMadre varchar(50),
+  nombrePadre varchar(50),
+  apellidos varchar(50),
+  historial varchar(500),
+  datosComunidad varchar(100),
+  genero varchar(10),
+  observaciones varchar(1000),
+  fechaEntrada date not null,
+  fechaBaja date,
+  beca varchar(50),
+  fechaNacimiento date not null,
+  isDeleted bit not null default 0,
+  notaMedia real not null,
+  constraint pk_jovenes primary key clustered (id ASC)
 ) on [Primary];
 
 
 create table [dbo].[Proyecto](
-                               id int not null identity(1, 1),
-                               nombre varchar(50) not null,
-                               ubicacion varchar(50) not null,
-                               tipoProyecto varchar(50) not null,
-                               isDeleted bit not null default 0,
-                               constraint pk_Proyecto primary key clustered (id ASC)
+  id int not null identity(1, 1),
+  nombre varchar(50) not null,
+  ubicacion varchar(50) not null,
+  tipoProyecto varchar(50) not null,
+  isDeleted bit not null default 0,
+  constraint pk_Proyecto primary key clustered (id ASC)
 ) on [Primary];
 
 create table [dbo].[Accion](
-                             id_proyecto int not null,
-                             id_joven int not null,
-                             fecha_entrada date not null,
-                             fecha_salida date,
-                             constraint pk_Accion primary key clustered (id_proyecto, id_joven)
+  id_proyecto int not null,
+  id_joven int not null,
+  fecha_entrada date not null,
+  fecha_salida date,
+  constraint pk_Accion primary key clustered (id_proyecto, id_joven)
 ) on [Primary];
 
 create table [dbo].[RolJovenesRelation](
-                                         id_rol int not null,
-                                         id_jovenes int not null,
-                                         constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
+  id_rol int not null,
+  id_jovenes int not null,
+  constraint pk_RolJovenesRelation primary key clustered (id_rol, id_jovenes)
 ) on [Primary];
 
 create table TipoProyecto(
-                           nombre varchar(50) not null,
-                           constraint Pk_TipoProyecto primary key clustered (nombre)
+  nombre varchar(50) not null,
+  constraint Pk_TipoProyecto primary key clustered (nombre)
 );
 
 create table Asociacion(
-                         id int not null identity(20000,1),
-                         nombre varchar(50) not null,
-                         localizacion varchar(50),
-                         isDeleted bit not null default 0,
-                         constraint Pk_Asociacion primary key clustered (id)
+  id int not null identity(20000,1),
+  nombre varchar(50) not null,
+  localizacion varchar(50),
+  isDeleted bit not null default 0,
+  constraint Pk_Asociacion primary key clustered (id)
 );
 
 create table Socio(
-                    id int not null identity(15000,1),
-                    nombre varchar(50) not null,
-                    dni varchar(9) not null unique,
-                    telefono int,
-                    direccion varchar(50),
-                    codigo_postal int,
-                    provincia varchar(50),
-                    poblacion varchar(50),
-                    mensualidad money,
-                    isDeleted bit not null default 0,
-                    apellidos varchar(50) not null,
-                    fecha_nacimiento date not null,
-                    email varchar(50),
-                    constraint Pk_Socio primary key clustered (id)
+  id int not null identity(15000,1),
+  nombre varchar(50) not null,
+  dni varchar(9) not null unique,
+  telefono int,
+  direccion varchar(50),
+  codigo_postal int,
+  provincia varchar(50),
+  poblacion varchar(50),
+  mensualidad money,
+  isDeleted bit not null default 0,
+  apellidos varchar(50) not null,
+  fecha_nacimiento date not null,
+  email varchar(50),
+  constraint Pk_Socio primary key clustered (id)
 );
 
 create table Transaccion(
-                          id int not null identity(10000,1),
-                          emisor varchar(50) not null,
-                          concepto varchar(50),
-                          cantidad money not null,
-                          isDeleted bit not null default 0,
-                          tipoGasto int not null,
-                          isValidated bit not null default 0,
-                          beneficiario int not null,
-                          tablaBeneficiario varchar(50) not null,
-                          fecha date not null,
-                          whatKindOfShitIsThis bit default null,
-                          constraint Pk_Transaccion primary key clustered (id)
+  id int not null identity(10000,1),
+  emisor varchar(50) not null,
+  concepto varchar(50),
+  cantidad money not null,
+  isDeleted bit not null default 0,
+  tipoGasto int not null,
+  isValidated bit not null default 0,
+  beneficiario int not null,
+  tablaBeneficiario varchar(50) not null,
+  fecha date not null,
+  whatKindOfShitIsThis bit default null,
+  constraint Pk_Transaccion primary key clustered (id)
 );
 
 create table ApadrinarJoven(
-                             id int not null identity(30000, 1),
-                             apadrinador_id int not null,
-                             joven_id int not null,
-                             cuota money not null,
-                             fecha_inicio date not null,
-                             fecha_fin date,
-                             constraint pk_ApadrinarJoven primary key clustered (id)
+  id int not null identity(30000, 1),
+  apadrinador_id int not null,
+  joven_id int not null,
+  cuota money not null,
+  fecha_inicio date not null,
+  fecha_fin date,
+  constraint pk_ApadrinarJoven primary key clustered (id)
 );
 
 create table Empresa(
-                      nombre varchar(50) not null,
-                      id int not null identity(25000, 1),
-                      direccion varchar(50) not null,
-                      nif varchar(9) not null,
-                      isDeleted bit not null default 0,
-                      constraint Pk_Empresa primary key clustered (id)
+  nombre varchar(50) not null,
+  id int not null identity(25000, 1),
+  direccion varchar(50) not null,
+  nif varchar(9) not null,
+  constraint Pk_Empresa primary key clustered (id)
 );
 
 create table TipoGasto(
-                        id int not null identity(35000, 1),
-                        nombre varchar(50) not null,
-                        constraint Pk_TipoGasto primary key clustered (id)
+  id int not null identity(35000, 1),
+  nombre varchar(50) not null,
+  constraint Pk_TipoGasto primary key clustered (id)
 );
 
 create table Colaborador(
-                          id int not null identity(40000, 1),
-                          nombre varchar(50),
-                          pertenece_proyecto int not null,
-                          isDeleted bit not null default 0,
-                          constraint pk_colaborador PRIMARY KEY clustered (id),
-                          constraint [FK_Colaborador_asociacion] foreign key([pertenece_proyecto]) references Proyecto
+  id int not null identity(40000, 1),
+  nombre varchar(50),
+  pertenece_proyecto int not null,
+  constraint pk_colaborador PRIMARY KEY clustered (id),
+  constraint [FK_Colaborador_asociacion] foreign key([pertenece_proyecto]) references Proyecto
 );
 -- relations
 

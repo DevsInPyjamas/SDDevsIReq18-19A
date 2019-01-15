@@ -41,6 +41,7 @@ public class ACOESApp{
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(new JFrame(), "Los datos introducidos no son correctos");
+                        ex.printStackTrace();
                     }
                 }
         });
