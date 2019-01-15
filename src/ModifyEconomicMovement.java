@@ -42,7 +42,8 @@ public class ModifyEconomicMovement {
         tipoBeneficiarioComboBox.addItem(null);
         tipoBeneficiarioComboBox.addItem("Empresa");
         tipoBeneficiarioComboBox.addItem("Colaborador");
-        List<Object[]> queryTuples = null;
+        tipoBeneficiarioComboBox.addItem("Jovenes");
+        List<Object[]> queryTuples;
         tipoBeneficiarioComboBox.addItem(null);
         for(Object[] tuple : dbManager.select("select nombre from TipoGasto;")) {
             tipoGastoBox.addItem(tuple[0]);

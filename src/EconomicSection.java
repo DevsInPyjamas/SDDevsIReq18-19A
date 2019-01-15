@@ -25,7 +25,7 @@ public class EconomicSection {
         if(loggedUser.getRol().spanishBoy())
             historialButton.setVisible(false);
         newTransactionButton.addActionListener(e -> {
-            new NewEconomicMovement(loggedUser);
+            new TypeOfTransaction(loggedUser);
             frame.dispose();
         });
         atrasButton.addActionListener(e -> {

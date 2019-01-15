@@ -2,6 +2,8 @@ import db_management.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class NewEconomicMovement {
@@ -18,7 +20,7 @@ public class NewEconomicMovement {
     private Usuario loggedUser;
     private DBManager dbManager = new DBManager();
 
-    NewEconomicMovement(Usuario loggedUser) {
+    NewEconomicMovement(Usuario loggedUser, Boolean typeOfTransaction) {
         this.loggedUser = loggedUser;
         comboBoxProyecto.setVisible(false);
         nuevaTrancision.setSize(700, 250);
@@ -28,9 +30,9 @@ public class NewEconomicMovement {
         frame.setContentPane(nuevaTrancision);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        initializeFields(loggedUser);
+        initializeFields(loggedUser, typeOfTransaction);
         backButton.addActionListener((e) -> {
-            new EconomicSection(loggedUser);
+            new TypeOfTransaction(loggedUser);
             frame.dispose();
         });
         tipoBeneficiarioComboBox.addActionListener(e -> {
@@ -43,24 +45,7 @@ public class NewEconomicMovement {
             if (!everyMandatoryFieldIsFilled()) {
                 JOptionPane.showMessageDialog(new JFrame(), "Hay campos obligatorios en blanco");
             } else {
-                Transaccion t = new Transaccion();
-                t.setEmisor(emisorField.getText());
-                t.setConcepto(conceptoField.getText());
-                int tipoGastoID = (int) dbManager.select("select id from TipoGasto where nombre like '" +
-                        tipoGastoComboBox.getSelectedItem() + "';").get(0)[0];
-                t.setTipoGasto(new TipoGasto(tipoGastoID));
-                t.setCantidad(Double.valueOf(cantidadField.getText()));
-                if(!loggedUser.getRol().isSuperAdmin() && !loggedUser.getRol().spanishBoy()) {
-                    t.setProyecto(loggedUser.getProyecto());
-                } else {
-                    int proyectoID = (int) dbManager.select("select id from proyecto where nombre like '" +
-                            this.comboBoxProyecto.getSelectedItem() + "';").get(0)[0];
-                    t.setProyecto(new Proyecto(proyectoID));
-                }
-                if(tipoBeneficiarioComboBox.getSelectedItem() != null) {
-                    int beneficiarioID = (int) dbManager.select("exec DatosBeneficiario " + t.getId()).get(0)[0];
-                    t.setBeneficiario(beneficiarioID);
-                }
+                Transaccion t = buildTransaction(loggedUser, typeOfTransaction, (String) tipoBeneficiarioComboBox.getSelectedItem());
                 try {
                     t.save();
                     JOptionPane.showMessageDialog(new JFrame(), "Se han guardado los datos");
@@ -73,8 +58,38 @@ public class NewEconomicMovement {
         });
     }
 
+    private Transaccion buildTransaction(Usuario loggedUser, Boolean whatKindOfTransaction, String table) {
+        Transaccion t = new Transaccion();
+        t.setEmisor(emisorField.getText());
+        t.setConcepto(conceptoField.getText());
+        int tipoGastoID = (int) dbManager.select("select id from TipoGasto where nombre like '" +
+                tipoGastoComboBox.getSelectedItem() + "';").get(0)[0];
+        t.setTipoGasto(new TipoGasto(tipoGastoID));
+        t.setCantidad(Double.valueOf(cantidadField.getText()));
+        if(!loggedUser.getRol().isSuperAdmin() && !loggedUser.getRol().spanishBoy()) {
+            t.setProyecto(loggedUser.getProyecto());
+        } else {
+            int proyectoID = (int) dbManager.select("select id from proyecto where nombre like '" +
+                    this.comboBoxProyecto.getSelectedItem() + "';").get(0)[0];
+            t.setProyecto(new Proyecto(proyectoID));
+        }
+        if(tipoBeneficiarioComboBox.getSelectedItem() != null) {
+            String query = (table.equals("Jovenes")) ? "select id from Jovenes where concat(nombre, ' ', apellidos) like " +
+                    " '" + this.beneficiarioComboBox.getSelectedItem() + "';" : "select id from Colaborador where nombre like '" +
+                    this.beneficiarioComboBox.getSelectedItem() + "';";
+            Integer beneficiarioID  = (Integer) dbManager.select(query).get(0)[0]; //= (int) dbManager.select("exec DatosBeneficiario " + t.getId()).get(0)[0];
+            t.setBeneficiario(beneficiarioID);
+            t.setTablaBeneficiario(table);
+        }
+        t.setWhatKindOfTransactionIs(whatKindOfTransaction);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        t.setFecha(dtf.format(now));
+        return t;
+    }
+
     private void fillTheBeneficiario(Usuario loggedUser, String selectedItem) {
-        String query = buildQueryString(selectedItem);
+        String query = buildQueryString(loggedUser, selectedItem);
         List<Object[]> queryTuples2 = dbManager.select(query);
         beneficiarioComboBox.addItem(null);
         for(Object[] tuple : queryTuples2) {
@@ -82,16 +97,16 @@ public class NewEconomicMovement {
         }
     }
 
-    private String buildQueryString(String selectedItem) {
+    private String buildQueryString(Usuario loggedUser, String selectedItem) {
         String queryString = "", select = "";
         if (selectedItem.equals("Jovenes")) {
-            select = "select isDeleted, concat(nombre, ' ', apellidos) from " + selectedItem;
+            select = "select concat(nombre, ' ', apellidos) from " + selectedItem;
             if (!loggedUser.getRol().isSuperAdmin()) {
                 queryString += " inner join inner join Accion A on Jovenes.id = A.id_joven where a.id_proyecto = " +
                         loggedUser.getProyecto().getId();
             }
         } else if (selectedItem.equals("Colaborador") || selectedItem.equals("Empresa")) {
-            select  = "select isDeleted, nombre from " + selectedItem;
+            select  = "select nombre from " + selectedItem;
             if (!loggedUser.getRol().isSuperAdmin()) {
                 queryString += " where pertenece_proyecto = " + loggedUser.getProyecto().getId();
             }
@@ -100,11 +115,12 @@ public class NewEconomicMovement {
         return select + queryString;
     }
 
-    private void initializeFields(Usuario loggedUser) {
+    private void initializeFields(Usuario loggedUser, Boolean typeOfTransaction) {
         List<Object[]> queryTuples;
         comboBoxProyecto.setVisible(true);
         tipoBeneficiarioComboBox.addItem(null);
-        tipoBeneficiarioComboBox.addItem("Empresa");
+        if(typeOfTransaction == null)
+            tipoBeneficiarioComboBox.addItem("Empresa");
         tipoBeneficiarioComboBox.addItem("Colaborador");
         tipoBeneficiarioComboBox.addItem("Jovenes");
         if(loggedUser.getRol().isSuperAdmin() || loggedUser.getRol().spanishBoy()) {
