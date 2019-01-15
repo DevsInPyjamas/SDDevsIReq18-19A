@@ -58,8 +58,13 @@ public class ModifyUser {
         emailField.setText(modUser.getEmail());
         nombreTextField.setText(modUser.getNombre());
         usuarioTextField.setText(modUser.getUsuario());
-        proyectoComboBox.setSelectedItem((modUser.getProyecto() != null) ? modUser.getProyecto().getNombre() : null);
-        asociacionComboBox.setSelectedItem((modUser.getAsociacion() != null) ? modUser.getAsociacion().getNombre() : null);
+        if (modUser.getRol().isSuperAdmin() || modUser.getRol().isSuperSpanishAdmin()) {
+            proyectoComboBox.setVisible(false);
+            asociacionComboBox.setVisible(false);
+        } else {
+            proyectoComboBox.setSelectedItem((modUser.getProyecto() != null) ? modUser.getProyecto().getNombre() : null);
+            asociacionComboBox.setSelectedItem((modUser.getAsociacion() != null) ? modUser.getAsociacion().getNombre() : null);
+        }
         setRadioButtonSelected(modUser);
         backButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Atras")) {
@@ -81,6 +86,7 @@ public class ModifyUser {
         actualizarButton.addActionListener(e -> {
             if (e.getActionCommand().equals("Actualizar")) {
                 this.modifiyingUserDB(modUser);
+                modUser.save();
                 JOptionPane.showMessageDialog(new JFrame(), "Se ha modificado correctamente el usuario...");
                 displayButtons(false);
                 emailField.setText(modUser.getEmail());
@@ -153,19 +159,19 @@ public class ModifyUser {
         modUser.setNombre(nombreTextField.getText());
         modUser.setUsuario(usuarioTextField.getText());
         if (modificarRol() != -1) {
-            new Rol(modificarRol());
+            modUser.setRol(new Rol(modificarRol()));
         }
         if ((asociacionComboBox.getSelectedItem() != null)) {
-            new Asociacion(
-                    (int) dbManager.select("select id from Asociacion where nombre like '%" +
-                            asociacionComboBox.getSelectedItem() + "%';").get(0)[0]
-            );
+            modUser.setAsociacion(new Asociacion(
+                    (int) dbManager.select("select id from Asociacion where nombre = '" +
+                            asociacionComboBox.getSelectedItem() + "';").get(0)[0]
+            ));
         }
         if (proyectoComboBox.getSelectedItem() != null) {
-            new Proyecto(
-                    (int) dbManager.select("select id from Proyecto where nombre like '%" +
-                            proyectoComboBox.getSelectedItem() + "%'").get(0)[0]
-            );
+            modUser.setProyecto(new Proyecto(
+                    (int) dbManager.select("select id from Proyecto where nombre = '" +
+                            proyectoComboBox.getSelectedItem() + "'").get(0)[0]
+            ));
         }
     }
 

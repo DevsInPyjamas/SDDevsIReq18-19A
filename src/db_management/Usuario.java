@@ -114,10 +114,10 @@ public class Usuario {
                     "usuario = '" + this.usuario + "', " +
                     "password = '" + this.password + "', " +
                     "nombre = '" + this.nombre + "', " +
-                    "isDeleted = " + isDeletedAsInt + "', " +
-                    "rol_id = " + this.role.getId() + "', " +
-                    "pertenece_proyecto = " + this.proyecto.getId() + "', " +
-                    "pertenece_asociacion = " + this.asociacion.getId() + "', " +
+                    "isDeleted = " + isDeletedAsInt + ", " +
+                    "rol_id = " + this.role.getId() + ", " +
+                    "pertenece_proyecto = " + this.proyecto.getId() + ", " +
+                    "pertenece_asociacion = " + this.asociacion.getId() + " " +
                     "where email = '" + this.email + "';");
         } else {
             dbManager.execute("Insert into Usuario(email, usuario, password, nombre, isDeleted, rol_id, " +
