@@ -44,6 +44,10 @@ public class WelcomeForm {
             new EconomicSection(loggedUser);
             frame.dispose();
         });
+        modificarPerfilPropioButton.addActionListener(e -> {
+            new ModifyPersonalUser(loggedUser);
+            frame.dispose();
+        });
     }
 
     private void displayButtons(){
