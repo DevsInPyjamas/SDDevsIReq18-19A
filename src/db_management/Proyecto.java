@@ -34,7 +34,7 @@ public class Proyecto {
         db.execute("INSERT INTO Proyecto(nombre, ubicacion, tipoProyecto, project_coordinator," +
                 " project_responsable, general_project_coordinator, general_project_responsable) values('" +
                 nombre + "', '" + ubicacion + "', '" + tipoProyecto + "', '" + coordinadorAsignado.getEmail() + "', '"
-                + responsableEconomico.getEmail() + "', 'a@a.com' , 'b@b.com', '" + "');");
+                + responsableEconomico.getEmail() + "', 'a@a.com' , 'b@b.com');");
         //this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
