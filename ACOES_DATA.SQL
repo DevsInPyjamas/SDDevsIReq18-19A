@@ -237,15 +237,15 @@ values(15003, 5005, 15, '20-01-2016', '20-01-2015'),
       (15002, 5001, 150, '20-01-2018', '20-01-2011');
 
 insert into Colaborador(nombre, pertenece_proyecto)
-values('Enrique Lautaro',(select id from Proyectp where id like '1')),
-('Joaquin Sanchez',(select id from Proyectp where id like '1')),
-('Takashi Inui',(select id from Proyectp where id like '1')),
-('Marc Bartra',(select id from Proyectp where id like '2')),
-('Aissa Mandi',(select id from Proyectp where id like '2')),
-('Junior Firpo',(select id from Proyectp where id like '2')),
-('William Carvahlo',(select id from Proyectp where id like '3')),
-('Giovanni Lo Celso',(select id from Proyectp where id like '3')),
-('Sergio Canales',(select id from Proyectp where id like '3'));
+values('Enrique Lautaro',(select id from Proyecto where id like '1')),
+      ('Joaquin Sanchez',(select id from Proyecto where id like '1')),
+      ('Takashi Inui',(select id from Proyecto where id like '1')),
+      ('Marc Bartra',(select id from Proyecto where id like '2')),
+      ('Aissa Mandi',(select id from Proyecto where id like '2')),
+      ('Junior Firpo',(select id from Proyecto where id like '2')),
+      ('William Carvahlo',(select id from Proyecto where id like '3')),
+      ('Giovanni Lo Celso',(select id from Proyecto where id like '3')),
+      ('Sergio Canales',(select id from Proyecto where id like '3'));
 
 
 
