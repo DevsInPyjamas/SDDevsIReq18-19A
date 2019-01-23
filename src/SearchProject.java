@@ -48,7 +48,7 @@ public class SearchProject {
                         row[0] = tuple[1];
                         row[1] = tuple[2];
                         row[2] = tuple[3];
-                        row[3] = tuple[3];
+                        row[3] = tuple[4];
                         model.addRow(row);
                     }
                 }
