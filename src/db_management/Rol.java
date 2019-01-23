@@ -7,14 +7,14 @@ public class Rol {
     private String nombre;
 
     public Rol(int id) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        DBManager db = new DBManager();
         Object[] tuples = db.select("SELECT * FROM Rol WHERE id = '" + id + "';").get(0);
         this.nombre = (String) tuples[0];
         this.id = (int) tuples[1];
     }
 
     public Rol(int id, String nombre) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        DBManager db = new DBManager();
         db.execute("INSERT INTO Rol(id, nombre) values ('" + id + "', '" + nombre + "');");
         this.id = id;
         this.nombre = nombre;
@@ -25,7 +25,7 @@ public class Rol {
     }
 
     public void setId(int id) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        DBManager db = new DBManager();
         db.execute("UPDATE Rol SET id = '" + id + "' WHERE id = '" + this.id + "';");
         this.id = id;
     }
@@ -35,7 +35,7 @@ public class Rol {
     }
 
     public void setNombre(String nombre) {
-        DBManager db = new DBManager(BD_SERVER, BD_NAME);
+        DBManager db = new DBManager();
         db.execute("UPDATE Rol SET nombre = '" + nombre + "' WHERE id = '" + this.id + "';");
         this.nombre = nombre;
     }
